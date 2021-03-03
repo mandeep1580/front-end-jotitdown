@@ -1,6 +1,10 @@
 ## Jot It Down
 A simple react app to make notes, add images, save links and have to do lists.
 
+## ERD
+![](https://i.imgur.com/Zj0K1LP.png)
+
+
 ## Functional Requirements:
 - Add/Edit/Delete/View notes
 - Add/Edit/Delete/View images
