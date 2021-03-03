@@ -2,7 +2,7 @@
 A simple react app to make notes, add images, save links and have to do lists.
 
 ## ERD
-![](https://i.imgur.com/Zj0K1LP.png)
+![](https://i.imgur.com/xDnADqI.png)
 
 
 ## Functional Requirements:
