@@ -2,8 +2,8 @@
 A simple react app to make notes, add images, save links and have to do lists.
 
 ## ERD
-![](https://i.imgur.com/xDnADqI.png)
 
+<image src="ERD_Jot-It-Down.png" alt="ERD_Jot-It-Down">
 
 ## Functional Requirements:
 - Add/Edit/Delete/View notes
