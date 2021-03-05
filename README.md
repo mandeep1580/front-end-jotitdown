@@ -43,3 +43,6 @@ A simple react app to make notes, add images, save links and have to do lists.
 
 ### LISTS
 <image src="./prototype/lists.png" width="400">
+
+### COLOR PALLATE
+<image src=./prototype/Color_Pallete.jpg" width="400">
