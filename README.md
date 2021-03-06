@@ -23,26 +23,26 @@ A simple react app to make notes, add images, save links and have to do lists.
 
 ## PROTOTYPE
 
-### SIGN UP
+#### SIGN UP
 <image src="./prototype/signup.png" width="400">
 
-### LOG IN
+#### LOG IN
 <image src="./prototype/login.png" width="400">
 
-### LANDING PAGE
+#### LANDING PAGE
 <image src="./prototype/landing-page.png" width="400">
 
-### NOTES
+#### NOTES
 <image src="./prototype/notes.png" width="400">
 
-### IMAGES
+#### IMAGES
 <image src="./prototype/images.png" width="400">
 
-### LINKS
+#### LINKS
 <image src="./prototype/links.png" width="400">
 
-### LISTS
+#### LISTS
 <image src="./prototype/lists.png" width="400">
 
-### COLOR PALLETE
+#### COLOR PALLETE
 <image src="./prototype/Color_Pallete.jpg" width="400">
