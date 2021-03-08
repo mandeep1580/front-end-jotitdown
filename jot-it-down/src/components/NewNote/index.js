@@ -13,24 +13,9 @@ const useStyles = makeStyles((theme) => ({
     padding: 10,
     margin: "auto"
   },
-  header: {
-    textAlign: "center"
-  },
-  tabs: {
-    margin: "auto"
-  },
-  camera: {
-    textAlign: "left",
-    paddingBottom: 10
-  },
-postImage: {
-    display: "flex",
-    flexDirection: "column",
-    margin: 10
-  }
 }));
 
-export default function NewNote({postButtonClicked, closeClicked }) {
+export default function NewNote({type, postButtonClicked, closeClicked }) {
   const classes = useStyles();
 
   const [name, setName] = useState("");
@@ -60,7 +45,7 @@ export default function NewNote({postButtonClicked, closeClicked }) {
                 
                 defaultValue="" placeholder="Note Description" value={description}
                 onChange = {(e) => setDescription(e.target.value)} />
-                <Button color="primary" onClick={() => postButtonClicked({name: name, description: description, timeCreated: getCurrentDateTime()})}>Post</Button>
+                <Button color="primary" onClick={() => postButtonClicked({type: type, name: name, description: description, timeCreated: getCurrentDateTime()})}>Post</Button>
             </Container>
            
       </CardContent>
