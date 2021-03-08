@@ -11,11 +11,11 @@ const useStyles = makeStyles({
     }
   })
  
-export default function ViewCollection() {
+export default function ViewCollection({collection, addClicked}) {
     const classes = useStyles()
   return (
     <div >
-        <AddCircleIcon className={classes.add}></AddCircleIcon>
+        <AddCircleIcon className={classes.add} onClick={() => addClicked({collection: collection.type})}></AddCircleIcon>
     </div>
   )
 }
