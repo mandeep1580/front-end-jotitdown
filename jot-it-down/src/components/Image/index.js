@@ -23,8 +23,6 @@ export default function Image({image, onDelete, onClick}) {
       text:{
           color:"#B23850",
           fontSize:11,
-          padding:0,
-          margin:0
       },
       color:{
         color:"#B23850"
@@ -44,10 +42,6 @@ export default function Image({image, onDelete, onClick}) {
       imageOpacity:{
         opacity: opacity
       },
-      height:{
-          height: 1,
-          padding:10
-      }
     });
 
 
