@@ -19,6 +19,7 @@ export default function Image({image, onDelete, onClick}) {
     const useStyles = makeStyles({
       root: {
         maxWidth: 145,
+        margin:20
       },
       text:{
           color:"#B23850",
