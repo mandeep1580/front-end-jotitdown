@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, IconButton, CardContent, Card } from '@material-ui/core'
+import { TextField, IconButton, CardContent } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import Linkk from '../Linkk'
 
@@ -54,13 +54,12 @@ export default function LinkView({onSubmit, links, onDelete}) {
     type="submit" 
     ><AddIcon className={classes.icon} /></IconButton></div>
     </form>
-    <Card>
+    {!!links?
       <CardContent className={classes.linkss}>   
       {links.map(link => (
       <Linkk key={link.linkId} link={link} onDelete={onDelete}></Linkk>
       ))}
-      </CardContent>
-      </Card>
+      </CardContent>:""}
       </>
       )
     }
