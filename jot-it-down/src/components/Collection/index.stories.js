@@ -14,5 +14,8 @@ const events = actions({
 
 // 4
 export const Default = () => (
-  <Collection name="Com" {...events}></Collection>
+  <div>
+  <Collection name="Collection note card 1 " {...events}></Collection>
+  <Collection name="Collection note card 1 " {...events}></Collection>
+  </div>
 );

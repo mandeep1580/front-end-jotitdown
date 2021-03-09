@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import {
-  Card, CardContent, CardHeader, Container, TextField, Button, TextareaAutosize
+  Card, CardContent, CardHeader, Container, TextField, Button, TextareaAutosize, FormControl, Input, Typography
 } from "@material-ui/core";
 import Modal from '@material-ui/core/Modal';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -42,12 +42,61 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto"
   },
   header: {
-    textAlign: "center"
+    textAlign: "left",
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontWeight: "bold",
+    marginBottom: "20px",
+marginLeft: "12px"
+  },
+  modalInput:{
+    border: "1px solid #ddd",
+    height: "40px",
+    paddingLeft: "10px",
+    color: "#999",
+    fontSize: "14px",
+    marginBottom: "15px",
+    outline: "none",
+    '&::after': {
+      transition: "none",
+      border: "none"
+    },
+    '&::before': {
+      transition: "none",
+      border: "none"
+
+    },
+    
+  },
+  modalDescription:{
+    border: "1px solid #ddd",
+    paddingLeft: "10px",
+    color: "#999",
+    fontSize: "14px",
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    outline: "none",
   },
 postImage: {
     display: "flex",
     flexDirection: "column",
-    margin: 10
+    margin: 10,
+    '&:hover': {
+      "& $modalInput": {
+        boder: 0
+        
+      }
+    }
+    
+  },
+  button:{
+    marginTop: "15px",
+    color: "#eee",
+    background: "#B23850",
+    textTransform: "capitalize",
+    fontWeight: "bold",
+    '&:hover': {
+      color: "#fff",background: "#B23850",
+    }
+
   }
 }));
 
@@ -72,62 +121,70 @@ let body;
   const handleSubmit =(e) => {
     e.preventDefault();
   }
-  {type === "Notes" ? 
-   body = (
-    <div style={modalStyle} className={classes.paper}>
-    <Card className={classes.root} onClose={() => closeClicked({message: ""})}>
-      <CardHeader
-        className={classes.header}
-        title={"Add Note"}
-      />
-        <CardContent>
-            <Container component="form" maxWidth="sm" className={classes.note} onSubmit={handleSubmit}>
-             <TextField
-                id="note-name"
-                label="Note Name"
-                defaultValue=""
-                value={name}
-                variant ="filled"
-                onChange = {(e) => setName(e.target.value)}
-            />
-            <TextareaAutosize aria-label="minimum height" rowsMin={3} id="note-description"
-                
-                defaultValue="" placeholder="Note Description" value={description}
-                onChange = {(e) => setDescription(e.target.value)} />
-                <Button color="primary" onClick={() => postButtonClicked({name: name, description: description, timeCreated: getCurrentDateTime()})}>Add</Button>
-            </Container>
-           
-      </CardContent>
-    </Card>
-    </div>
-  ) :
+  // {type === "Notes" ? 
+
+
   body = (
-    <div style={modalStyle} className={classes.paper}>
-      <Card className={classes.root} onClose={() => closeClicked({message: ""})}>
-      <CardHeader
-        className={classes.header}
-        title={"Add New Collection"}
-      />
-        <CardContent>
-            <Container component="form" maxWidth="sm" className={classes.postImage} onSubmit={handleSubmit}>
-             <TextField
-                id="collection-name"
-                label="Collection Name"
-                defaultValue=""
-                variant="filled"
-                value={name}
-                onChange = {(e) => setName(e.target.value)}
-            />
-                <Button color="primary" onClick={() => postButtonClicked({type: type, name: name, timestamp: currentTime})}>Post</Button>
-            </Container>
+        <div style={modalStyle} className={classes.paper}>
+          <div className={classes.root} onClose={() => closeClicked({message: ""})}>
+          
+    
+            <Typography className={classes.header}
+            >Add New Note</Typography>
+    
+    <FormControl component="form" maxWidth="sm" className={classes.postImage} onSubmit={handleSubmit}>
+      
+      <Input id="collection-name"
+      className= {classes.modalInput}
+                    defaultValue=""
+                    value={name}
+                    placeholder ="Enter collection name"
+                    onChange = {(e) => setName(e.target.value)} />
+                    
+                    <TextareaAutosize className={classes.modalDescription} aria-label="minimum height" rowsMin={3} id="note-description"
+                
+               placeholder="Note Description" value={description}
+                onChange = {(e) => setDescription(e.target.value)} />
+
+
+      <Button color="primary" className={classes.button} onClick={() => postButtonClicked({type: type, name: name, timestamp: currentTime})}>Post</Button>
+    </FormControl>
+    
+    
+        </div>
+        </div>
+
            
-      </CardContent>
-    </Card>
-    </div>
+               
+  // ) :
+  // body = (
+//     <div style={modalStyle} className={classes.paper}>
+//       <div className={classes.root} onClose={() => closeClicked({message: ""})}>
+      
+
+//         <Typography className={classes.header}
+//         >Add New Collection</Typography>
+
+// <FormControl component="form" maxWidth="sm" className={classes.postImage} onSubmit={handleSubmit}>
+  
+//   <Input id="collection-name"
+//   className= {classes.modalInput}
+//                 label="Collection Name"
+//                 defaultValue=""
+//                 variant="filled"
+//                 value={name}
+//                 placeholder ="Enter collection name"
+//                 onChange = {(e) => setName(e.target.value)} />
+//   <Button color="primary" className={classes.button} onClick={() => postButtonClicked({type: type, name: name, timestamp: currentTime})}>Post</Button>
+// </FormControl>
+
+
+//     </div>
+//     </div>
     
 
   )
-  }
+  
 
   return (
     <div>

@@ -8,7 +8,7 @@ export default {
   component: NewCollection,
 }
 
-const events = actions({ type: "Images", postButtonClicked: 'Post Button Clicked' })
+const events = actions({ type: "Notes", postButtonClicked: 'Post Button Clicked' })
 
 
 export const Default = () => (
