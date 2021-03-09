@@ -3,9 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Card, Link, IconButton} from '@material-ui/core';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { FormHelperText } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
@@ -27,14 +25,14 @@ const useStyles = makeStyles({
     width: 151,
   },
   cover: {
-    width: 100,
+    width: 40,
   },
   color:{
     color:"#B23850"
   }
 });
 
-export default function Linkk({link}) {
+export default function Linkk({link, onDelete}) {
   const classes = useStyles();
 
   return (
@@ -50,7 +48,7 @@ export default function Linkk({link}) {
         </CardContent>
         <CardActions className={classes.cover}>
         <IconButton aria-label="delete">
-              <DeleteIcon className={classes.color}/>
+              <DeleteIcon className={classes.color} onClick={() => onDelete({linkId: link.linkId})}/>
             </IconButton>
       </CardActions>
      

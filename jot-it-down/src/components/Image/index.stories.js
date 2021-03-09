@@ -15,7 +15,7 @@ export default {
   component: Image,
 }
 
-const events = actions({cardClicked: 'card clicked'})
+const events = actions({onDelete: 'delete clicked', onClick: 'image clicked'})
 
 export const Default = () => (
   <Image image={fakeData}{...events}></Image>

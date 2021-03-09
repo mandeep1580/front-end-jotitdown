@@ -15,7 +15,7 @@ export default {
   component: Linkk,
 }
 
-const events = actions({onClick: 'card clicked'})
+const events = actions({onDelete: 'delete clicked'})
 
 export const Default = () => (
   <Linkk link={fakeData}{...events}></Linkk>
