@@ -57,6 +57,7 @@ color: "#B23850",
 
 export default function Collection({
   name,
+  timeStamp,
   editClicked,
   deleteClicked,
 }) {
@@ -69,7 +70,8 @@ export default function Collection({
             {name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" className={classes.cardTime}>
-            {getCurrentDateTime()}
+            {/* {getCurrentDateTime()} */}
+            {timeStamp}
           </Typography>
         </CardContent>
       </CardActionArea>
