@@ -16,7 +16,8 @@ const useStyles = makeStyles({
     minWidth: 450,
     minHeight: 50,
     color:"#B23850",
-    borderBottom: "1px"
+    borderBottom: "1px", 
+    margin: 20
   },
   title: {
     fontSize: 14,
@@ -49,9 +50,9 @@ export default function Listt({list, onDelete, onChange, onEdit, checked}) {
   return (
       <>
       
-      <Typography className={classes.title} color="textSecondary" align="right">
+      {/* <Typography className={classes.title} color="textSecondary" align="right">
          {list.timeStamp}
-        </Typography> 
+        </Typography>  */}
     <Card className={classes.root}>
     <Checkbox
         checked={checked}

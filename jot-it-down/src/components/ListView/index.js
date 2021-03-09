@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, IconButton } from '@material-ui/core'
+import { TextField, IconButton, Card, CardContent } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
+import Listt from '../Listt'
 
 const useStyles = makeStyles((theme) => ({
   form: {
     display: "flex",
+    margin:30
   },
   textField: {
     flexGrow: 2,
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function ListForm({onSubmit}) {
+export default function ListView({onSubmit, post, onDelete, onChange, onEdit, checked}) {
   const classes = useStyles()
   const [item, setItem] = useState("")
 
@@ -33,6 +35,7 @@ export default function ListForm({onSubmit}) {
   }
 
   return (
+    <>
       <form onSubmit={submit} className={classes.form}>
         <TextField className={classes.textField} 
         value={item} 
@@ -47,5 +50,19 @@ export default function ListForm({onSubmit}) {
         type="submit" 
         ><AddIcon className={classes.icon} /></IconButton></div>
       </form>
+      <Card>
+         <CardContent className={classes.links}>   
+      {post.map(link => (
+      <Listt 
+      key={link.linkId} 
+      list={link} 
+      onDelete={onDelete}
+       onChange ={onChange} 
+       onEdit = {onEdit}
+        checked= {checked}></Listt>
+      ))}
+      </CardContent>
+      </Card>
+      </>
   )
 }
