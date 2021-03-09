@@ -1,53 +1,59 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { TextField, IconButton } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add';
+import React from "react";
+import { makeStyles } from '@material-ui/core/styles'
+import {  Card, CardContent} from '@material-ui/core'
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    display: "flex",
-  },
-  textField: {
-    flexGrow: 2,
-    backgroundColor:"#E7E3D4",
-    color:"#B23850", 
-  },
-  buttonWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
-  },
-  icon:{
-    color:"#B23850"
+
+import LinkForm from '../LinkForm'
+import Linkk from '../Linkk'
+
+const useStyles = makeStyles({
+    root: {
+        maxWidth: 1200,
+        height: 400,
+        display: "flex",
+      },
+      container: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+      },
+      linkForm: {
+        margin:20
+      },
+    
+      links: {
+        width: "100%",
+        overflowY: "scroll"
+      }
+})
+
+export default function PostDetails({post,submitComment, deleteLink}) {
+
+
+const classes = useStyles()
+
+  const onComment = data => {
+    submitComment({timeStamp: data.timeStamp, link: data.link})
   }
-}))
 
-export default function LinkView({onSubmit}) {
-  const classes = useStyles()
-  const [link, setLink] = useState("")
-
-  const currentTime = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(Date.now())
-
-  const submit = event => {
-    event.preventDefault()
-    onSubmit({link: link, timeStamp: currentTime })
-    setLink("")
+  const onDelete = data =>{
+      deleteLink({linkId: data.linkId})
   }
 
-  return (
-      <form onSubmit={submit} className={classes.form}>
-        <TextField className={classes.textField} 
-        value={link} 
-        multiline 
-        onChange={e => setLink(e.target.value)} 
-        label="Add Link"
-        rowsMax={4}
-        variant="outlined"
-        color = "secondary"
-        ></TextField>
-        <div className={classes.buttonWrapper}><IconButton 
-        type="submit" 
-        ><AddIcon className={classes.icon} /></IconButton></div>
-      </form>
-  )
-}
+return (
+<Card className={`${classes.root}`}>
+<div className={classes.container}>
+    <div className={classes.linkForm}>
+                <LinkForm  onSubmit={onComment}></LinkForm>
+                </div>
+      <CardContent className={classes.links}>   
+      {post.map(link => (
+      <Linkk key={link.linkId} link={link} onDelete={onDelete}></Linkk>
+      ))}
+      </CardContent>
+      </div>
+     
+            
+                </Card>
+                )
+              }
