@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Card, CardActionArea, CardContent, CardMedia, IconButton, Typography, CardHeader} from '@material-ui/core';
+import {Card, CardActionArea, CardMedia, IconButton, Typography, CardHeader} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 export default function Image({image, onDelete, onClick}) {

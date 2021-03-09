@@ -4,7 +4,7 @@ import { TextField, IconButton, CardContent, Card } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import Linkk from '../Linkk'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   form: {
     display: "flex",
     margin: 20
@@ -31,32 +31,30 @@ const useStyles = makeStyles((theme) => ({
 export default function LinkView({onSubmit, links, onDelete}) {
   const classes = useStyles()
   const [link, setLink] = useState("")
-
   const currentTime = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(Date.now())
-
   const submit = event => {
     event.preventDefault()
     onSubmit({link: link, timeStamp: currentTime })
     setLink("")
   }
-
+  
   return (
-    <>
-      <form onSubmit={submit} className={classes.form}>
-        <TextField className={classes.textField} 
-        value={link} 
-        multiline 
-        onChange={e => setLink(e.target.value)} 
-        label="Add Link"
-        rowsMax={4}
-        variant="outlined"
-        color = "secondary"
-        ></TextField>
-        <div className={classes.buttonWrapper}><IconButton 
-        type="submit" 
-        ><AddIcon className={classes.icon} /></IconButton></div>
-      </form>
-      <Card>
+  <>
+  <form onSubmit={submit} className={classes.form}>
+    <TextField className={classes.textField} 
+    value={link} 
+    multiline 
+    onChange={e => setLink(e.target.value)} 
+    label="Add Link"
+    rowsMax={4}
+    variant="outlined"
+    color = "secondary"
+    ></TextField>
+    <div className={classes.buttonWrapper}><IconButton 
+    type="submit" 
+    ><AddIcon className={classes.icon} /></IconButton></div>
+    </form>
+    <Card>
       <CardContent className={classes.linkss}>   
       {links.map(link => (
       <Linkk key={link.linkId} link={link} onDelete={onDelete}></Linkk>
@@ -64,5 +62,5 @@ export default function LinkView({onSubmit, links, onDelete}) {
       </CardContent>
       </Card>
       </>
-  )
-}
+      )
+    }

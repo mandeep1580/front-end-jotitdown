@@ -1,9 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Card, Link, IconButton} from '@material-ui/core';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import {Card, Link, IconButton, CardActions, CardContent, Typography} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
@@ -33,26 +30,22 @@ const useStyles = makeStyles({
 });
 
 export default function Linkk({link, onDelete}) {
-  const classes = useStyles();
-
-  return (
-      <>
-      <Typography className={classes.title} color="textSecondary" align="right">
-         {link.timeStamp}
-        </Typography> 
+  const classes = useStyles();return (<>
+  <Typography className={classes.title} color="textSecondary" align="right">
+    {link.timeStamp}
+    </Typography> 
     <Card className={classes.root}>
       <CardContent className={classes.link}>
       <Link href={link.linkUrl} color="inherit">
       {link.linkUrl}
-  </Link>
-        </CardContent>
-        <CardActions className={classes.cover}>
+      </Link>
+      </CardContent>
+      <CardActions className={classes.cover}>
         <IconButton aria-label="delete">
-              <DeleteIcon className={classes.color} onClick={() => onDelete({linkId: link.linkId})}/>
-            </IconButton>
-      </CardActions>
-     
-    </Card>
-    </>
-  );
-}
+          <DeleteIcon className={classes.color} onClick={() => onDelete({linkId: link.linkId})}/>
+          </IconButton>
+          </CardActions>
+          </Card>
+          </>
+          );
+        }

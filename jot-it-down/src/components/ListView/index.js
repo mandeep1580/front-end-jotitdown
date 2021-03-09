@@ -24,45 +24,43 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function ListView({onSubmit, post, onDelete, onChange, onEdit, checked}) {
+export default function ListView({onSubmit, lists, onDelete, onChange, onEdit, checked}) {
   const classes = useStyles()
   const [item, setItem] = useState("")
-
   const submit = event => {
     event.preventDefault()
     onSubmit({todoItem: item })
     setItem("")
   }
-
   return (
-    <>
-      <form onSubmit={submit} className={classes.form}>
-        <TextField className={classes.textField} 
-        value={item} 
-        multiline 
-        onChange={e => setItem(e.target.value)} 
-        label="Add new task"
-        rowsMax={4}
-        variant="outlined"
-        color = "secondary"
-        ></TextField>
-        <div className={classes.buttonWrapper}><IconButton 
-        type="submit" 
-        ><AddIcon className={classes.icon} /></IconButton></div>
-      </form>
-      <Card>
-         <CardContent className={classes.links}>   
-      {post.map(link => (
+  <>
+  <form onSubmit={submit} className={classes.form}>
+    <TextField className={classes.textField} 
+    value={item} 
+    multiline 
+    onChange={e => setItem(e.target.value)} 
+    label="Add new task"
+    rowsMax={4}
+    variant="outlined"
+    color = "secondary"
+    ></TextField>
+    <div className={classes.buttonWrapper}><IconButton 
+    type="submit" 
+    ><AddIcon className={classes.icon} /></IconButton></div>
+    </form>
+    <Card>
+      <CardContent className={classes.links}>   
+      {lists.map(list => (
       <Listt 
-      key={link.linkId} 
-      list={link} 
+      key={list.toDoId} 
+      list={list} 
       onDelete={onDelete}
-       onChange ={onChange} 
-       onEdit = {onEdit}
-        checked= {checked}></Listt>
+      onChange ={onChange} 
+      onEdit = {onEdit}
+      checked= {checked}></Listt>
       ))}
       </CardContent>
       </Card>
       </>
-  )
-}
+      )
+    }

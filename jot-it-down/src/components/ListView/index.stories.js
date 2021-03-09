@@ -3,7 +3,7 @@ import { actions } from '@storybook/addon-actions'
 import ListView from './index'
 
 
-const link = [{
+const list = [{
   toDoId: "list1",
   toDoItem: "milk",
   toDoCollectionId: "listCollection1",
@@ -27,6 +27,6 @@ const events = actions({ onSubmit: 'submit',onDelete: 'delete clicked', onEdit: 
 
 export const Default = () => (
   <ListView
-  {...events} post={link}
+  {...events} lists={list}
   ></ListView>
 )

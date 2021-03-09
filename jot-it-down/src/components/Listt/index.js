@@ -1,13 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Card, IconButton} from '@material-ui/core';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import {Card, IconButton, CardActions, CardContent, Typography, Checkbox} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Checkbox from '@material-ui/core/Checkbox';
 import EditIcon from '@material-ui/icons/Edit';
-
 
 const useStyles = makeStyles({
   root: {
@@ -44,34 +39,29 @@ const useStyles = makeStyles({
 export default function Listt({list, onDelete, onChange, onEdit, checked}) {
   const classes = useStyles();
   const handleChange = () =>{
-   onChange({toDoId: list.toDoId})
+    onChange({toDoId: list.toDoId})
   }
-
+  
   return (
-      <>
-      
-      {/* <Typography className={classes.title} color="textSecondary" align="right">
-         {list.timeStamp}
-        </Typography>  */}
-    <Card className={classes.root}>
+  <>
+  <Card className={classes.root}>
     <Checkbox
-        checked={checked}
-        onChange={handleChange}
-        inputProps={{ 'aria-label': 'primary checkbox' }}
-      />
-      <CardContent className={classes.container}>
+    checked={checked}
+    onChange={handleChange}
+    inputProps={{ 'aria-label': 'primary checkbox' }}
+    />
+    <CardContent className={classes.container}>
       <Typography className={classes.list} color="textSecondary">
-         {list.toDoItem}
+        {list.toDoItem}
         </Typography> 
         </CardContent>
         <CardActions className={classes.cover}>
-        <IconButton aria-label="delete">
-        <EditIcon className={classes.color} onClick={() => onEdit({toDoId: list.toDoId})}/>
-              <DeleteIcon className={classes.color} onClick={() => onDelete({toDoId: list.toDoId})}/>
+          <IconButton aria-label="delete">
+            <EditIcon className={classes.color} onClick={() => onEdit({toDoId: list.toDoId})}/>
+            <DeleteIcon className={classes.color} onClick={() => onDelete({toDoId: list.toDoId})}/>
             </IconButton>
-      </CardActions>
-     
-    </Card>
-    </>
-  );
-}
+            </CardActions>
+            </Card>
+            </>
+            );
+          }
