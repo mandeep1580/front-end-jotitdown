@@ -14,5 +14,5 @@ const events = actions({
 
 // 4
 export const Default = () => (
-  <Collection  {...events}></Collection>
+  <Collection name="Com" {...events}></Collection>
 );

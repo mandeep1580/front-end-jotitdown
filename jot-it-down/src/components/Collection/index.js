@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import getCurrentDateTime from '../../util/getCurrentDateTime'
 
 const useStyles = makeStyles({
   root: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles({
 });
 
 export default function Collection({
+  name,
   editClicked,
   deleteClicked,
 }) {
@@ -39,10 +41,10 @@ export default function Collection({
       <CardActionArea className={classes.card}>
         <CardContent >
           <Typography gutterBottom variant="h6" component="h3">
-            {/* {collection.name} */}name
+            {name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {/* {collection.timestamp} */}time
+            {getCurrentDateTime()}
           </Typography>
         </CardContent>
       </CardActionArea>

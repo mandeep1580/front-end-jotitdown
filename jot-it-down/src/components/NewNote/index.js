@@ -13,9 +13,24 @@ const useStyles = makeStyles((theme) => ({
     padding: 10,
     margin: "auto"
   },
+  header: {
+    textAlign: "center"
+  },
+  tabs: {
+    margin: "auto"
+  },
+  camera: {
+    textAlign: "left",
+    paddingBottom: 10
+  },
+note: {
+    display: "flex",
+    flexDirection: "column",
+    margin: 10
+  }
 }));
 
-export default function NewNote({type, postButtonClicked, closeClicked }) {
+export default function NewNote({postButtonClicked, closeClicked }) {
   const classes = useStyles();
 
   const [name, setName] = useState("");
@@ -30,22 +45,23 @@ export default function NewNote({type, postButtonClicked, closeClicked }) {
     <Card className={classes.root} onClose={() => closeClicked({message: ""})}>
       <CardHeader
         className={classes.header}
-        title={"Add New Collection"}
+        title={"Add Note"}
       />
         <CardContent>
-            <Container component="form" maxWidth="sm" className={classes.postImage} onSubmit={handleSubmit}>
+            <Container component="form" maxWidth="sm" className={classes.note} onSubmit={handleSubmit}>
              <TextField
                 id="note-name"
                 label="Note Name"
                 defaultValue=""
                 value={name}
+                variant ="filled"
                 onChange = {(e) => setName(e.target.value)}
             />
             <TextareaAutosize aria-label="minimum height" rowsMin={3} id="note-description"
                 
                 defaultValue="" placeholder="Note Description" value={description}
                 onChange = {(e) => setDescription(e.target.value)} />
-                <Button color="primary" onClick={() => postButtonClicked({type: type, name: name, description: description, timeCreated: getCurrentDateTime()})}>Post</Button>
+                <Button color="primary" onClick={() => postButtonClicked({name: name, description: description, timeCreated: getCurrentDateTime()})}>Add</Button>
             </Container>
            
       </CardContent>
