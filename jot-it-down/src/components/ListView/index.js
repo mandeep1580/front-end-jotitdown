@@ -48,7 +48,7 @@ export default function ListView({onSubmit, lists, onDelete, onChange, onEdit, c
     type="submit" 
     ><AddIcon className={classes.icon} /></IconButton></div>
     </form>
-    <Card>
+    {!!lists?
       <CardContent className={classes.links}>   
       {lists.map(list => (
       <Listt 
@@ -59,8 +59,7 @@ export default function ListView({onSubmit, lists, onDelete, onChange, onEdit, c
       onEdit = {onEdit}
       checked= {checked}></Listt>
       ))}
-      </CardContent>
-      </Card>
+      </CardContent>:""}
       </>
       )
     }
