@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, Card, CardContent } from '@material-ui/core'
+import { IconButton, CardContent } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import Image from '../Image'
 
@@ -42,19 +42,20 @@ export default function ImageView({onSubmit, onDelete, images, onClick}) {
     type="submit">
       <AddIcon className={classes.icon} /></IconButton></div>
       </form>
-      <Card>
-        <CardContent className={classes.images}>   
+      {!!images? 
+        <CardContent className={classes.images}>
+             
         {images.map(image => (
         <Image 
         key={image.imageId} 
         image={image} 
         onDelete={onDelete}
         onClick = {onClick}>
-
+        
         </Image>
         ))}
         </CardContent>
-        </Card>
+        :""}
         </>
         )
       }
