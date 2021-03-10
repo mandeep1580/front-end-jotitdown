@@ -9,15 +9,10 @@ export default {
   component: Header,
 }
 
-const events = actions({ titleClicked: "title clicked", signOut: 'sign out', newPost: "new post", profile: "profile", onSearch: "search", login: "login"})
-
-export const LoggedIn = () => (
-  <Header 
-  title="Jot It Down"
-  {...events}
-  user={true}
-  ></Header>
-)
+const events = actions({ 
+  titleClicked: "title clicked", 
+  logOutClicked: 'log out', 
+  })
 
 export const LoggedOut = () => (
   <Header 
