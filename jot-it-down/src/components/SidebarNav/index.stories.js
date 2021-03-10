@@ -9,6 +9,7 @@ export default {
   component: SidebarNav,
 }
 
+
 const events = actions({ onSubmit: 'submit', loginClick: "login" })
 
 export const SideBar = () => (

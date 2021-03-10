@@ -65,7 +65,7 @@ export default function LogIn({onSubmit, signUpClick}) {
             variant="contained"
             style={{backgroundColor: "#B23850", color: "white"}}
             className={classes.submit}
-            onClick={()=> onSubmit()}>
+            onClick={(e)=> onSubmit()}>
             Log In
           </Button>
 
