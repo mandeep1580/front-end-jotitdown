@@ -11,7 +11,7 @@ export default {
 
 const events = actions({ onSubmit: 'submit', signUpClick: "signup"})
 
-export const Default = () => (
+export const LogIn = () => (
   <Login 
   {...events}
   ></Login>
