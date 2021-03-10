@@ -99,11 +99,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NewCollection({
-  notes,
+  data,
   type,
   postButtonClicked,
   closeClicked,
-  deleteClicked, editClicked
+  deleteClicked,
+  editClicked,
 }) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
@@ -125,7 +126,6 @@ export default function NewCollection({
     e.preventDefault();
   };
 
- 
   {
     type === "Notes"
       ? (body = (
@@ -160,18 +160,22 @@ export default function NewCollection({
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
-              <Button
+                <Button
                   color="primary"
                   className={classes.button}
-                  onClick={{handleClose}, () =>
-                    postButtonClicked({
-                    type: type,
-                    name: name,
-                    description: description,
-                    timestamp: currentTime
-                    })
+                  onClick={
+                    ({ handleClose },
+                    () =>
+                      postButtonClicked({
+                        type: type,
+                        name: name,
+                        description: description,
+                        timestamp: currentTime,
+                      }))
                   }
-                >Add new note</Button>
+                >
+                  Add new note
+                </Button>
               </FormControl>
             </div>
           </div>
@@ -205,13 +209,14 @@ export default function NewCollection({
                 <Button
                   color="primary"
                   className={classes.button}
-                  onClick={{handleClose}, () =>
-                    postButtonClicked({
-                      type: type,
-                      name: name,
-                      timestamp: currentTime,
-                      
-                    })
+                  onClick={
+                    ({ handleClose },
+                    () =>
+                      postButtonClicked({
+                        type: type,
+                        name: name,
+                        timestamp: currentTime,
+                      }))
                   }
                 >
                   Add collection
@@ -230,13 +235,22 @@ export default function NewCollection({
           onClick={handleOpen}
         ></AddCircleIcon>
       </div>
-      {!notes? "" :notes.map( note => <Collection name={note.name} description={note.description} timeStamp={currentTime} editClicked={editClicked} deleteClicked={deleteClicked}></Collection>)}
-    
+      {!data
+        ? ""
+        : data.map((note) => (
+            <Collection
+              name={note.name}
+              description={note.description}
+              timeStamp={currentTime}
+              editClicked={editClicked}
+              deleteClicked={deleteClicked}
+            ></Collection>
+          ))}
+
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="collection-name"
-        // aria-describedby="simple-modal-description"
       >
         {body}
       </Modal>
