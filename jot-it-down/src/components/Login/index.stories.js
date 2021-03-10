@@ -9,7 +9,7 @@ export default {
   component: Login,
 }
 
-const events = actions({ onSubmit: 'submit' })
+const events = actions({ onSubmit: 'submit', signUpClick: "signup"})
 
 export const Default = () => (
   <Login 

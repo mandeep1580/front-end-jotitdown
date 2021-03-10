@@ -29,7 +29,7 @@ export default function ButtonAppBar({titleClicked, logOutClicked}) {
           <Typography variant="h6" className={classes.title} onClick={()=> titleClicked()}>
             Jot It Down
           </Typography>
-          <Button onClick={()=> logOutClicked()}color="inherit">Log Out</Button>
+          <Button onClick={()=> logOutClicked()} color="inherit">Log Out</Button>
         </Toolbar>
       </AppBar>
     </div>

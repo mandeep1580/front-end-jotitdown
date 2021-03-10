@@ -16,7 +16,6 @@ const events = actions({
 
 export const LoggedOut = () => (
   <Header 
-  title="Jot It Down"
   {...events}
   ></Header>
 )
