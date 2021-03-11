@@ -55,6 +55,7 @@ const useStyles = makeStyles({
 });
 
 export default function Collection({
+  onClick,
   name,
   timeStamp,
   editClicked,
@@ -63,7 +64,7 @@ export default function Collection({
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <CardActionArea className={classes.card}>
+      <CardActionArea className={classes.card} onClick={() => onClick()}>
         <CardContent>
           <Typography
             gutterBottom
