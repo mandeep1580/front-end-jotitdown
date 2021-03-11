@@ -12,6 +12,8 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 import getCurrentDateTime from "../../util/getCurrentDateTime";
 import Collection from "../Collection";
+import {insertNote} from '../../network'
+
 
 function getModalStyle() {
   const top = 50;
@@ -115,6 +117,10 @@ export default function NewCollection({
   const [description, setDescription] = useState("");
   let body;
 
+  const addNote = async () => {
+      const res = await insertNote(name, description)
+  }
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -163,16 +169,7 @@ export default function NewCollection({
                 <Button
                   color="primary"
                   className={classes.button}
-                  onClick={
-                    ({ handleClose },
-                    () =>
-                      postButtonClicked({
-                        type: type,
-                        name: name,
-                        description: description,
-                        timestamp: currentTime,
-                      }))
-                  }
+                  onClick={addNote}
                 >
                   Add new note
                 </Button>
@@ -208,15 +205,7 @@ export default function NewCollection({
                 <Button
                   color="primary"
                   className={classes.button}
-                  onClick={
-                    ({ handleClose },
-                    () =>
-                      postButtonClicked({
-                        type: type,
-                        name: name,
-                        timestamp: currentTime,
-                      }))
-                  }
+                  onClick={{msg:  "hello"}}
                 >
                   Add collection
                 </Button>
@@ -241,7 +230,7 @@ export default function NewCollection({
               onClick={onClick}
               name={note.name}
               description={note.description}
-              timeStamp={currentTime}
+              timeStamp={note.createdTime}
               editClicked={editClicked}
               deleteClicked={deleteClicked}
             ></Collection>
