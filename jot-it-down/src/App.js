@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
+import React from 'react';
+import CollectionPage from "./layouts/CollectionPage";
 
-function App() {
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+    <CollectionPage />
+
+    // <Router>
+    //   <HeaderNavigation></HeaderNavigation>
+    //   <main style={{marginTop: 100}}></main>
+    //   <Switch>
+    //     <Route path="/login">
+    //     <LoginPage></LoginPage>
+    //     </Route>
+    //     <Route path="/profile">
+    //       <p>profile</p>
+    //     </Route>
+    //     <Route path="/newPost">
+    //       <CreatePostPage></CreatePostPage>
+    //     </Route>
+    //     <Route path="/posts/:postId">
+    //       <PostDetailsPage></PostDetailsPage>
+    //     </Route>
+    //     <Route path="/">
+    //       <PostsPage></PostsPage>
+    //     </Route>
+    //   </Switch>
+    // </Router>
+  )
+}

@@ -99,11 +99,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NewCollection({
+  // key,
   onClick,
   data,
   type,
   postButtonClicked,
-  closeClicked,
   deleteClicked,
   editClicked,
 }) {
@@ -133,7 +133,6 @@ export default function NewCollection({
           <div style={modalStyle} className={classes.paper}>
             <div
               className={classes.root}
-              onClose={() => closeClicked({ message: "" })}
             >
               <Typography className={classes.header}>Add New Note</Typography>
 
@@ -185,7 +184,6 @@ export default function NewCollection({
           <div style={modalStyle} className={classes.paper}>
             <div
               className={classes.root}
-              onClose={() => closeClicked({ message: "" })}
             >
               <Typography className={classes.header}>
                 Add New Collection
