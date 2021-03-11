@@ -28,6 +28,7 @@ export default {
 };
 
 const events = actions({
+  onClick: "cardClicked",
   editClicked: "Edit Clicked",
   deleteClicked: "Delete Clicked",
 });

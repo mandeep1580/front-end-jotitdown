@@ -99,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NewCollection({
+  onClick,
   data,
   type,
   postButtonClicked,
@@ -239,6 +240,7 @@ export default function NewCollection({
         ? ""
         : data.map((note) => (
             <Collection
+              onClick={onClick}
               name={note.name}
               description={note.description}
               timeStamp={currentTime}
