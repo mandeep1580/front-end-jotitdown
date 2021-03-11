@@ -6,12 +6,16 @@
 // } from "react-router-dom";
 import React from 'react';
 import CollectionPage from "./layouts/CollectionPage";
+import DetailsPage from './layouts/DetailsPage';
 
 
 export default function App() {
   return (
+    <div>
+      <CollectionPage />
+<DetailsPage />
+    </div>
 
-    <CollectionPage />
 
     // <Router>
     //   <HeaderNavigation></HeaderNavigation>

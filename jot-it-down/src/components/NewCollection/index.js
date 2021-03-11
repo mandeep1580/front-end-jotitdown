@@ -10,7 +10,6 @@ import {
 import Modal from "@material-ui/core/Modal";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
-import getCurrentDateTime from "../../util/getCurrentDateTime";
 import Collection from "../Collection";
 import {insertNote} from '../../network'
 
@@ -102,23 +101,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewCollection({
   // key,
-  onClick,
+ 
   data,
   type,
-  postButtonClicked,
-  deleteClicked,
   editClicked,
 }) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState("");
-  const currentTime = getCurrentDateTime();
   const [description, setDescription] = useState("");
   let body;
 
+  // const cardClicked = () => {
+  //   <NoteDescription name={name} description={description} />
+  // }
+
   const addNote = async () => {
-      const res = await insertNote(name, description)
+      await insertNote(name, description)
+      handleClose()
   }
 
   const handleOpen = () => {
@@ -227,12 +228,9 @@ export default function NewCollection({
         ? ""
         : data.map((note) => (
             <Collection
-              onClick={onClick}
-              name={note.name}
-              description={note.description}
-              timeStamp={note.createdTime}
+              key = {note.noteId}
+              data = {note}
               editClicked={editClicked}
-              deleteClicked={deleteClicked}
             ></Collection>
           ))}
 

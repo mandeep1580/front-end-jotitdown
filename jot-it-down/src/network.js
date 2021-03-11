@@ -12,6 +12,17 @@ export async function getAllNotes() {
    }
 }
 
+export async function getOneNote(noteId) {
+    console.log(noteId)
+    try {
+      const result = await axios.get(`${API_INVOKE_URL}/notes/${noteId}`)
+      return result.data[0]
+    } catch (error) {
+      console.log(error)
+    }
+}
+  
+
 export async function insertNote(name, description) {
     const note = {
         name: name,
@@ -23,5 +34,16 @@ export async function insertNote(name, description) {
     } catch (error) {
       console.log(error)
     }
-  }
+}
+  
+export async function deleteNote(noteId) {
+    try {
+      const result = await axios.delete(`${API_INVOKE_URL}/notes/${noteId}`)
+      return result.data
+    } catch (error) {
+      console.log(error)
+    }
+}
+
+
   

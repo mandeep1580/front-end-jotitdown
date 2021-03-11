@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -9,6 +9,8 @@ import {
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import {deleteNote, getOneNote} from '../../network'
+import NoteDescription from "../NoteDescription";
 
 const useStyles = makeStyles({
   root: {
@@ -55,16 +57,32 @@ const useStyles = makeStyles({
 });
 
 export default function Collection({
-  onClick,
-  name,
-  timeStamp,
+  data,
   editClicked,
-  deleteClicked,
 }) {
   const classes = useStyles();
+
+  const [selectedId, setSelectedId] = useState(data.noteId)
+  const [item,setItem] = useState()
+
+  const cardClicked = async () => {
+    setSelectedId(data.noteId)
+    // console.log(selectedId)
+    // const res = JSON.parse(await getOneNote(selectedId))
+    const res = await getOneNote(data.noteId)
+    setItem(res)
+    console.log(item)
+  }
+
+  const onDelete = async () => {
+    setSelectedId(data.noteId)
+    console.log(selectedId)
+    await deleteNote(data.noteId)
+  }
+
   return (
-    <Card className={classes.root}>
-      <CardActionArea className={classes.card} onClick={() => onClick()}>
+    <Card className={classes.root} >
+      <CardActionArea className={classes.card} onClick={cardClicked} >
         <CardContent>
           <Typography
             gutterBottom
@@ -72,7 +90,7 @@ export default function Collection({
             component="h3"
             className={classes.cardTitle}
           >
-            {name}
+            {data.name}
           </Typography>
           <Typography
             variant="body2"
@@ -80,7 +98,7 @@ export default function Collection({
             component="p"
             className={classes.cardTime}
           >
-            {timeStamp}
+            {data.createdTime}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -91,7 +109,7 @@ export default function Collection({
         ></EditIcon>
         <DeleteIcon
           className={classes.buttonIcon}
-          onClick={() => deleteClicked()}
+          onClick={onDelete}
         ></DeleteIcon>
       </CardActions>
     </Card>
