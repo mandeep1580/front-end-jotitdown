@@ -10,8 +10,9 @@ import {
 import Modal from "@material-ui/core/Modal";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
-import getCurrentDateTime from "../../util/getCurrentDateTime";
 import Collection from "../Collection";
+import {insertNote} from '../../network'
+
 
 function getModalStyle() {
   const top = 50;
@@ -99,21 +100,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NewCollection({
-  onClick,
+  // key,
+ 
   data,
   type,
-  postButtonClicked,
-  closeClicked,
-  deleteClicked,
   editClicked,
 }) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState("");
-  const currentTime = getCurrentDateTime();
   const [description, setDescription] = useState("");
   let body;
+
+  // const cardClicked = () => {
+  //   <NoteDescription name={name} description={description} />
+  // }
+
+  const addNote = async () => {
+      await insertNote(name, description)
+      handleClose()
+  }
 
   const handleOpen = () => {
     setOpen(true);
@@ -133,7 +140,6 @@ export default function NewCollection({
           <div style={modalStyle} className={classes.paper}>
             <div
               className={classes.root}
-              onClose={() => closeClicked({ message: "" })}
             >
               <Typography className={classes.header}>Add New Note</Typography>
 
@@ -164,16 +170,7 @@ export default function NewCollection({
                 <Button
                   color="primary"
                   className={classes.button}
-                  onClick={
-                    ({ handleClose },
-                    () =>
-                      postButtonClicked({
-                        type: type,
-                        name: name,
-                        description: description,
-                        timestamp: currentTime,
-                      }))
-                  }
+                  onClick={addNote}
                 >
                   Add new note
                 </Button>
@@ -185,7 +182,6 @@ export default function NewCollection({
           <div style={modalStyle} className={classes.paper}>
             <div
               className={classes.root}
-              onClose={() => closeClicked({ message: "" })}
             >
               <Typography className={classes.header}>
                 Add New Collection
@@ -210,15 +206,7 @@ export default function NewCollection({
                 <Button
                   color="primary"
                   className={classes.button}
-                  onClick={
-                    ({ handleClose },
-                    () =>
-                      postButtonClicked({
-                        type: type,
-                        name: name,
-                        timestamp: currentTime,
-                      }))
-                  }
+                  onClick={{msg:  "hello"}}
                 >
                   Add collection
                 </Button>
@@ -240,12 +228,10 @@ export default function NewCollection({
         ? ""
         : data.map((note) => (
             <Collection
-              onClick={onClick}
-              name={note.name}
-              description={note.description}
-              timeStamp={currentTime}
+              key = {note.noteId}
+              type = "Notes"
+              data = {note}
               editClicked={editClicked}
-              deleteClicked={deleteClicked}
             ></Collection>
           ))}
 
