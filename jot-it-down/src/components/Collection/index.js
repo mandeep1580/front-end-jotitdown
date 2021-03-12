@@ -149,6 +149,7 @@ export default function Collection({
   type,
   data,
   editClicked,
+  cardClicked
 }) {
   const classes = useStyles();
   const [selectedId, setSelectedId] = useState(data.noteId)
@@ -158,11 +159,11 @@ export default function Collection({
   const [name, setName] = useState(item.name);
   const [description, setDescription] = useState(item.description);
   let body;
-  const cardClicked = async () => {
-    setSelectedId(data.noteId)
-    const res = await getOneNote(selectedId)
-    setItem(res)
-  }
+  // const cardClicked = async () => {
+  //   setSelectedId(data.noteId)
+  //   const res = await getOneNote(selectedId)
+  //   setItem(res)
+  // }
 
   const onDelete = async () => {
     setSelectedId(data.noteId)
@@ -280,7 +281,7 @@ export default function Collection({
   return (
     <div>
     <Card className={classes.root} >
-      <CardActionArea className={classes.card} onClick={cardClicked} >
+      <CardActionArea className={classes.card} onClick={() => cardClicked({collectionId: data.id, type: data.collectionType})} >
         <CardContent>
           <Typography
             gutterBottom

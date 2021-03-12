@@ -29,17 +29,13 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function LandingPage({notes}) {
+export default function LandingPage({collections, details, onClickNotes, onClickImages, onClickLinks, onClickToDos, onCollectionClicked}) {
   const classes = useStyles();
-  let selectedAppHeading = notes; //To be rendered from databases
+  let selectedAppHeading = collections; //To be rendered from databases
   let selectedType = [];
-  const onClickNotes = () => (selectedAppHeading= notes )
-//   const onClickImages = () => (selectedCollection= images )
-//   const onClickLinks = () => (selectedCollection= links )
-//   const onClickTasks = () => (selectedCollection= tasks )
 
-let selectedCollection = notes[0]; //To be rendered from databases
-const onCollectionClicked = () => (selectedCollection)
+// let selectedCollection = collections[0]; //To be rendered from databases
+// const onCollectionClicked = () => (selectedCollection)
 
 
 return (
@@ -47,16 +43,16 @@ return (
        
       <Grid item xs={2}>
         <div className={classes.sidebar}>
-            <AppHeadings name="Notes" onClick={onClickNotes} ></AppHeadings>
-            <AppHeadings name= "Images"></AppHeadings>
-            <AppHeadings name= "Links"></AppHeadings>
-            <AppHeadings name= "To Do's"></AppHeadings>
+        <AppHeadings name="Notes" onClick={onClickNotes} ></AppHeadings>
+            <AppHeadings name= "Images" onClick={onClickImages}></AppHeadings>
+            <AppHeadings name= "Links" onClick={onClickLinks}></AppHeadings>
+            <AppHeadings name= "To Do's" onClick={onClickToDos}></AppHeadings>
         </div>
       </Grid>
       <Grid item xs={3}>
         <div className={classes.main}>
         <NewCollection
-            onClick= {onCollectionClicked()} 
+            cardClicked= {onCollectionClicked} 
             data= {selectedAppHeading} >
         </NewCollection>
         </div>
@@ -64,8 +60,8 @@ return (
       <Grid item xs={7}>
         <div className={classes.main}>
             <NoteDescription 
-            name={selectedCollection.name}
-            description={selectedCollection.description}>
+            name={details.name}
+            description={details.description}>
             </NoteDescription>
 
         </div>

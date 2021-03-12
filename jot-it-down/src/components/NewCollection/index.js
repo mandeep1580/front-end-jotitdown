@@ -105,6 +105,7 @@ export default function NewCollection({
   data,
   type,
   editClicked,
+  cardClicked
 }) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
@@ -232,6 +233,7 @@ export default function NewCollection({
               type = "Notes"
               data = {note}
               editClicked={editClicked}
+              cardClicked={cardClicked}
             ></Collection>
           ))}
 
