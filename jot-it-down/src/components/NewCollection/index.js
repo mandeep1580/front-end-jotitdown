@@ -229,6 +229,7 @@ export default function NewCollection({
         : data.map((note) => (
             <Collection
               key = {note.noteId}
+              type = "Notes"
               data = {note}
               editClicked={editClicked}
             ></Collection>

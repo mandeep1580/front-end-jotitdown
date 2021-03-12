@@ -35,7 +35,20 @@ export async function insertNote(name, description) {
       console.log(error)
     }
 }
-  
+
+export async function updateNote(noteId, name, description) {
+    const note = {
+        name: name,
+        description: description
+    }
+    try {
+      const result = await axios.put(`${API_INVOKE_URL}/notes/${noteId}`,{note})
+      return result.data
+    } catch (error) {
+      console.log(error)
+    }
+}
+
 export async function deleteNote(noteId) {
     try {
       const result = await axios.delete(`${API_INVOKE_URL}/notes/${noteId}`)
