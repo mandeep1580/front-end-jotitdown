@@ -1,12 +1,12 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import {getAllImageAlbums, getAllNotes, getAllToDosCollections, getAllLinkCollections} from '../../network'
+import {getAllImageAlbums, getAllNotes, getAllToDosCollections, getAllLinkCollections, getOneNote} from '../../network'
 import LandingPage from '../../components/LandingPage'
 
 export default function HomePage() {
  
-  const [collection, setCollection] = useState([])
-
+  const [collections, setCollections] = useState([])
+  const [details, setDetails] = useState([])
 //   useEffect(()=> {
 //     (async () => {
 //       const res = JSON.parse(await getAllNotes())
@@ -17,33 +17,43 @@ export default function HomePage() {
 
   const onClickNotes = async() =>{
     const res = JSON.parse(await getAllNotes())
-    setCollection(res)
+    setCollections(res)
   }
 
   const onClickImages = async() =>{
     const res = JSON.parse(await getAllImageAlbums())
-    setCollection(res)
+    setCollections(res)
   }
 
   const onClickLinks = async() =>{
     const res = JSON.parse(await getAllLinkCollections())
-    setCollection(res)
+    setCollections(res)
   }
 
   const onClickToDos = async() =>{
     const res = JSON.parse(await getAllToDosCollections() )
-    setCollection(res)
+    setCollections(res)
+  }
+
+  const onCollectionClicked = async(data) =>{
+    if (data.type === "Notes"){
+      const result = JSON.parse(await await getOneNote({noteId:data.collectionId}))
+      setDetails(result)
+    }
+   
   }
   
 
   
     return (
         <LandingPage 
-        notes = {collection}
+        collections = {collections}
+        details = {details}
         onClickNotes = {onClickNotes}
         onClickImages = {onClickImages}
         onClickLinks = {onClickLinks}
         onClickToDos = {onClickToDos}
+        onCollectionClicked = {onCollectionClicked}
         />
         
     )

@@ -29,17 +29,13 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function LandingPage({notes,onClickNotes, onClickImages, onClickLinks, onClickToDos}) {
+export default function LandingPage({collections, details, onClickNotes, onClickImages, onClickLinks, onClickToDos, onCollectionClicked}) {
   const classes = useStyles();
-  let selectedAppHeading = notes; //To be rendered from databases
+  let selectedAppHeading = collections; //To be rendered from databases
   let selectedType = [];
-  // const onClickNotes = () => (selectedAppHeading= notes )
-//   const onClickImages = () => (selectedCollection= images )
-//   const onClickLinks = () => (selectedCollection= links )
-//   const onClickTasks = () => (selectedCollection= tasks )
 
-let selectedCollection = notes[0]; //To be rendered from databases
-const onCollectionClicked = () => (selectedCollection)
+// let selectedCollection = collections[0]; //To be rendered from databases
+// const onCollectionClicked = () => (selectedCollection)
 
 
 return (
@@ -56,17 +52,17 @@ return (
       <Grid item xs={3}>
         <div className={classes.main}>
         <NewCollection
-            onClick= {onCollectionClicked()} 
+            cardClicked= {onCollectionClicked} 
             data= {selectedAppHeading} >
         </NewCollection>
         </div>
       </Grid>
       <Grid item xs={7}>
         <div className={classes.main}>
-            {/* <NoteDescription 
-            name={selectedCollection.name}
-            description={selectedCollection.description}>
-            </NoteDescription> */}
+            <NoteDescription 
+            name={details.name}
+            description={details.description}>
+            </NoteDescription>
 
         </div>
       </Grid>
