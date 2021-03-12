@@ -61,7 +61,7 @@ export default function Image({image, onDelete, onClick}) {
         onClick={() => onClick({imageId: image.imageId})}
         />
           <Typography align="center" className={classes.text} variant="body3" component="p">
-            {image.timeStamp}
+            {image.createdTime}
             </Typography>
             </CardActionArea>
             </Card>

@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import AppHeadings from "../AppHeadings";
 import NewCollection from "../NewCollection"
 import NoteDescription from "../NoteDescription"
+import ImageView from "../../components/ImageView"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,13 +30,46 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function LandingPage({collections, details, onClickNotes, onClickImages, onClickLinks, onClickToDos, onCollectionClicked}) {
+export default function LandingPage({collections, 
+  details, 
+  selectedType, 
+  onClickNotes, 
+  onClickImages, 
+  onClickLinks, 
+  onClickToDos, 
+  onCollectionClicked,
+  onImageSubmit,
+  onImageDelete,
+  onImageClick
+}) {
+
+  let body 
   const classes = useStyles();
   let selectedAppHeading = collections; //To be rendered from databases
-  let selectedType = [];
 
 // let selectedCollection = collections[0]; //To be rendered from databases
 // const onCollectionClicked = () => (selectedCollection)
+
+  if(selectedType == "Notes"){
+    body =
+    <NoteDescription 
+    name={details.name}
+    description={details.description}>
+    </NoteDescription>
+  }
+  else if(selectedType == "Images"){
+   body= <ImageView 
+    onSubmit = {onImageSubmit}
+     onDelete = {onImageDelete}
+    images = {details} 
+    onClick = {onImageClick}/>
+  }
+  else {
+    body = ""
+  }
+
+
+
 
 
 return (
@@ -59,10 +93,35 @@ return (
       </Grid>
       <Grid item xs={7}>
         <div className={classes.main}>
+        {body}
+
+{/* {
+        (selectedType == "Notes")?
+          <NoteDescription 
+          name={details.name}
+          description={details.description}>
+          </NoteDescription>
+        :
+          <ImageView 
+          onSubmit = {onImageSubmit}
+           onDelete = {onImageDelete}
+          images = {details} 
+          onClick = {onImageClick}/>
+        
+      }
+
+
+       */}
+
+          {/* {if (selectedType === "Notes"){
             <NoteDescription 
             name={details.name}
             description={details.description}>
             </NoteDescription>
+          }
+          else{}
+        } */}
+
 
         </div>
       </Grid>

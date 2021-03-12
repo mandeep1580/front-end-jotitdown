@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_INVOKE_URL = ''
+const API_INVOKE_URL = 'https://wnb4w19in5.execute-api.us-east-1.amazonaws.com/prod'
 
 
 export async function getAllNotes() {
@@ -40,10 +40,7 @@ export async function getAllToDosCollections() {
 }
 
 
-
-
-export async function getOneNote(noteId) {
-    console.log(noteId)
+export async function getOneNote({noteId}) {
     try {
       const result = await axios.get(`${API_INVOKE_URL}/notes/${noteId}`)
       return result.data[0]
@@ -52,6 +49,17 @@ export async function getOneNote(noteId) {
     }
 }
   
+
+export async function getAllImages({albumId}) {
+  try {
+    const result = await axios.get(`${API_INVOKE_URL}/images/${albumId}`)
+    console.log(result.data)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 export async function insertNote(name, description) {
     const note = {
