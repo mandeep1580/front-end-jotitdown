@@ -27,9 +27,7 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
   add: {
-    position: "absolute",
-    top: 10,
-    right: 10,
+    color: "#b23850"
   },
   paper: {
     position: "absolute",
@@ -97,13 +95,22 @@ const useStyles = makeStyles((theme) => ({
       background: "#B23850",
     },
   },
+  collectionwrap:{
+    width: "100%",
+    position: "relative",
+    paddingTop: "20px"
+  },
+  collectionaddIcon:{
+    position: "absolute",
+    top: 0,
+    right: 0
+  }
 }));
 
 export default function NewCollection({
   // key,
  
   data,
-  type,
   editClicked,
   cardClicked
 }) {
@@ -113,6 +120,7 @@ export default function NewCollection({
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   let body;
+
 
   // const cardClicked = () => {
   //   <NoteDescription name={name} description={description} />
@@ -136,7 +144,7 @@ export default function NewCollection({
   };
 
   {
-    type === "Notes"
+    data.type === "Notes"
       ? (body = (
           <div style={modalStyle} className={classes.paper}>
             <div
@@ -218,19 +226,19 @@ export default function NewCollection({
   }
 
   return (
-    <div>
-      <div>
+    <div className={classes.collectionwrap}>
+      <div className={classes.collectionaddIcon}>
         <AddCircleIcon
           className={classes.add}
           onClick={handleOpen}
-        ></AddCircleIcon>
+        ></AddCircleIcon> 
       </div>
       {!data
         ? ""
         : data.map((note) => (
             <Collection
               key = {note.noteId}
-              type = "Notes"
+              type = {data.type}
               data = {note}
               editClicked={editClicked}
               cardClicked={cardClicked}

@@ -14,7 +14,9 @@ import {
 import Modal from "@material-ui/core/Modal";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {deleteNote, getOneNote, updateNote} from '../../network'
+import {deleteNote,
+  //  getOneNote, 
+   updateNote} from '../../network'
 import NoteDescription from "../NoteDescription";
 
 function getModalStyle() {
@@ -30,7 +32,7 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: "100%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
@@ -50,9 +52,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  button: {
-    padding: 0,
-  },
+ 
   buttonIcon: {
     fontSize: "20px",
     padding: "2px",
@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  root: {
+  modalRoot: {
     maxWidth: 600,
     padding: 10,
     margin: "auto",
@@ -193,7 +193,7 @@ export default function Collection({
         ? (body = (
             <div style={modalStyle} className={classes.paper}>
               <div
-                className={classes.root}
+                className={classes.modalRoot}
               >
                 <Typography className={classes.header}>Edit Note</Typography>
   
@@ -235,7 +235,7 @@ export default function Collection({
         : (body = (
             <div style={modalStyle} className={classes.paper}>
               <div
-                className={classes.root}
+                className={classes.modalRoot}
               >
                 <Typography className={classes.header}>
                   Edit collection
@@ -315,7 +315,7 @@ export default function Collection({
       </CardActions>
     </Card>
 
-    <NoteDescription name={item.name} description={item.description} />
+    {/* <NoteDescription name={item.name} description={item.description} /> */}
     <Modal
         open={open}
         onClose={handleClose}

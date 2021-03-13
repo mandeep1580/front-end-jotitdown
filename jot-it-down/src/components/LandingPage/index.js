@@ -25,8 +25,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     height: "100vh",
     display: "flex",
-    borderLeft: "2px solid grey"
+    borderLeft: "2px solid grey",
+    padding: "5px 10px"
   },
+  
   
 }));
 
@@ -77,10 +79,12 @@ return (
       </Grid>
       <Grid item xs={3}>
         <div className={classes.main}>
-        <NewCollection
+          {/* <div className={classes.middlePanel}> */}
+          <NewCollection 
             cardClicked= {onCollectionClicked} 
             data= {collections} >
         </NewCollection>
+          {/* </div> */}
         </div>
       </Grid>
       <Grid item xs={7}>
