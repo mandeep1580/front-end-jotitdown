@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import AppHeadings from "../AppHeadings";
 import NewCollection from "../NewCollection"
 import NoteDescription from "../NoteDescription"
+import ImageView from "../../components/ImageView"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,18 +30,43 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function LandingPage({collections, details, onClickNotes, onClickImages, onClickLinks, onClickToDos, onCollectionClicked}) {
-  const classes = useStyles();
-  let selectedAppHeading = collections; //To be rendered from databases
-  let selectedType = [];
+export default function LandingPage({collections, 
+  details, 
+  selectedType, 
+  onClickNotes, 
+  onClickImages, 
+  onClickLinks, 
+  onClickToDos, 
+  onCollectionClicked,
+  onImageSubmit,
+  onImageDelete,
+  onImageClick
+}) {
 
-// let selectedCollection = collections[0]; //To be rendered from databases
-// const onCollectionClicked = () => (selectedCollection)
+  let body 
+  const classes = useStyles();
+
+  if(selectedType == "Notes"){
+    body =
+    <NoteDescription 
+    name={details.name}
+    description={details.description}>
+    </NoteDescription>
+  }
+  else if(selectedType == "Images"){
+   body= <ImageView 
+    onSubmit = {onImageSubmit}
+     onDelete = {onImageDelete}
+    images = {details} 
+    onClick = {onImageClick}/>
+  }
+  else {
+    body = ""
+  }
 
 
 return (
-    <Grid container className={classes.root}>
-       
+    <Grid container className={classes.root}> 
       <Grid item xs={2}>
         <div className={classes.sidebar}>
         <AppHeadings name="Notes" onClick={onClickNotes} ></AppHeadings>
@@ -53,17 +79,13 @@ return (
         <div className={classes.main}>
         <NewCollection
             cardClicked= {onCollectionClicked} 
-            data= {selectedAppHeading} >
+            data= {collections} >
         </NewCollection>
         </div>
       </Grid>
       <Grid item xs={7}>
         <div className={classes.main}>
-            <NoteDescription 
-            name={details.name}
-            description={details.description}>
-            </NoteDescription>
-
+        {body}
         </div>
       </Grid>
     </Grid>
