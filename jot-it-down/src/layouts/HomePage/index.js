@@ -47,7 +47,6 @@ export default function HomePage() {
       console.log(result)
       setDetails(result)
       setSelectedType(data.type)
-      console.log(details)
     }
   }
 

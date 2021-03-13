@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_INVOKE_URL = 'https://wnb4w19in5.execute-api.us-east-1.amazonaws.com/prod'
+const API_INVOKE_URL = ''
 
 
 export async function getAllNotes() {

@@ -45,10 +45,6 @@ export default function LandingPage({collections,
 
   let body 
   const classes = useStyles();
-  let selectedAppHeading = collections; //To be rendered from databases
-
-// let selectedCollection = collections[0]; //To be rendered from databases
-// const onCollectionClicked = () => (selectedCollection)
 
   if(selectedType == "Notes"){
     body =
@@ -69,12 +65,8 @@ export default function LandingPage({collections,
   }
 
 
-
-
-
 return (
-    <Grid container className={classes.root}>
-       
+    <Grid container className={classes.root}> 
       <Grid item xs={2}>
         <div className={classes.sidebar}>
         <AppHeadings name="Notes" onClick={onClickNotes} ></AppHeadings>
@@ -87,42 +79,13 @@ return (
         <div className={classes.main}>
         <NewCollection
             cardClicked= {onCollectionClicked} 
-            data= {selectedAppHeading} >
+            data= {collections} >
         </NewCollection>
         </div>
       </Grid>
       <Grid item xs={7}>
         <div className={classes.main}>
         {body}
-
-{/* {
-        (selectedType == "Notes")?
-          <NoteDescription 
-          name={details.name}
-          description={details.description}>
-          </NoteDescription>
-        :
-          <ImageView 
-          onSubmit = {onImageSubmit}
-           onDelete = {onImageDelete}
-          images = {details} 
-          onClick = {onImageClick}/>
-        
-      }
-
-
-       */}
-
-          {/* {if (selectedType === "Notes"){
-            <NoteDescription 
-            name={details.name}
-            description={details.description}>
-            </NoteDescription>
-          }
-          else{}
-        } */}
-
-
         </div>
       </Grid>
     </Grid>
