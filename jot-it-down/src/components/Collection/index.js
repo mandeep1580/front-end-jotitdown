@@ -15,9 +15,8 @@ import Modal from "@material-ui/core/Modal";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {deleteNote,
-  //  getOneNote, 
-   updateNote} from '../../network'
-import NoteDescription from "../NoteDescription";
+   getOneNote, 
+   updateNote,getAllImages} from '../../network'
 
 function getModalStyle() {
   const top = 50;
@@ -149,11 +148,12 @@ export default function Collection({
   type,
   data,
   editClicked,
-  cardClicked
+  cardClicked,
+  collectionClick,
 }) {
   const classes = useStyles();
   const [selectedId, setSelectedId] = useState(data.noteId)
-  const [item,setItem] = useState({name:"",description:""})
+  const [item,setItem] = useState({})
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState(item.name);
@@ -165,10 +165,38 @@ export default function Collection({
   //   setItem(res)
   // }
 
+  const onCollectionClicked = async() =>{
+    const id = data.id
+    if (type == "Notes"){
+      const result = await getOneNote(id)
+      // console.log(type, result)
+      collectionClick(type, result)
+    }
+
+    else if(type == "Images"){
+      const result = await getAllImages(id)
+      console.log(type, result)
+      collectionClick(type, result)
+    }
+  }
+
   const onDelete = async () => {
-    setSelectedId(data.noteId)
-    console.log(selectedId)
-    await deleteNote(data.noteId)
+    
+    const id = data.id
+    if (type == "Notes"){
+      // const result = 
+      await deleteNote(id)
+      // console.log(type, result)
+      // collectionClick(type, result)
+    }
+
+    else if(type == "Images"){
+      const result = await getAllImages(id)
+      console.log(type, result)
+      collectionClick(type, result)
+    }
+
+    
   }
 
   const onUpdate = async () => {
@@ -272,16 +300,12 @@ export default function Collection({
 
 
 
-
-
-
-
-
-
   return (
     <div>
     <Card className={classes.root} >
-      <CardActionArea className={classes.card} onClick={() => cardClicked({collectionId: data.id, type: data.collectionType})} >
+      <CardActionArea className={classes.card} 
+      onClick={onCollectionClicked} 
+      >
         <CardContent>
           <Typography
             gutterBottom

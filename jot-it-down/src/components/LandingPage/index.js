@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import AppHeadings from "../AppHeadings";
 import NewCollection from "../NewCollection"
 import NoteDescription from "../NoteDescription"
 import ImageView from "../../components/ImageView"
+import {getAllImageAlbums, getAllNotes, getAllToDosCollections, getAllLinkCollections} from '../../network'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,14 +33,7 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function LandingPage({collections, 
-  details, 
-  selectedType, 
-  onClickNotes, 
-  onClickImages, 
-  onClickLinks, 
-  onClickToDos, 
-  onCollectionClicked,
+export default function LandingPage({
   onImageSubmit,
   onImageDelete,
   onImageClick
@@ -47,24 +41,62 @@ export default function LandingPage({collections,
 
   let body 
   const classes = useStyles();
+  const [type,setType] = useState("")
+  const [data, setData] = useState([])
+  const [selectedType, setSelectedType] = useState("")
+  const [selectedData, setSelectedData] = useState([])
+  
+  const clickCollection = (t,d) => {
+    // console.log(t,d)
+    setSelectedType(t)
+    setSelectedData(d)
+    console.log(selectedType, selectedData)
+  }
 
   if(selectedType == "Notes"){
     body =
     <NoteDescription 
-    name={details.name}
-    description={details.description}>
+    name={selectedData.name}
+    description={selectedData.description}>
     </NoteDescription>
   }
   else if(selectedType == "Images"){
    body= <ImageView 
     onSubmit = {onImageSubmit}
      onDelete = {onImageDelete}
-    images = {details} 
+    images = {selectedData} 
     onClick = {onImageClick}/>
   }
   else {
     body = ""
   }
+
+  const onClickNotes = async() =>{
+    const res = JSON.parse(await getAllNotes())
+    setType("Notes")
+    setData(res)
+  }
+
+  const onClickImages = async() =>{
+    const res = JSON.parse(await getAllImageAlbums())
+    setType("Images")
+    setData(res)
+  }
+
+  const onClickLinks = async() =>{
+    const res = JSON.parse(await getAllLinkCollections())
+    setType("Links")
+    setData(res)
+  }
+
+  const onClickToDos = async() =>{
+    const res = JSON.parse(await getAllToDosCollections() )
+    setType("Todo")
+    setData(res)
+  }
+
+
+  
 
 
 return (
@@ -81,8 +113,11 @@ return (
         <div className={classes.main}>
           {/* <div className={classes.middlePanel}> */}
           <NewCollection 
-            cardClicked= {onCollectionClicked} 
-            data= {collections} >
+          type= {type}
+          // collectionClick = {collectionClicked}
+          clickCollection = {clickCollection}
+            // cardClicked= {cardClicked} 
+            data= {data} >
         </NewCollection>
           {/* </div> */}
         </div>

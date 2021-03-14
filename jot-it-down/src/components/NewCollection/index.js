@@ -109,23 +109,32 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewCollection({
   // key,
- 
+ type,
   data,
   editClicked,
-  cardClicked
+  cardClicked, 
+  clickCollection
+  // collectionClick
 }) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [cType, setCType] = useState("")
+  const [cData, setCData] = useState({})
+  
+  const collectionClick = (type, recdata) => {
+    
+    // console.log(type,recdata)
+    setCType(type)
+    setCData(recdata)
+    console.log(cType , cData)
+  }
+  clickCollection(cType, cData)
+
+
   let body;
-
-
-  // const cardClicked = () => {
-  //   <NoteDescription name={name} description={description} />
-  // }
-
   const addNote = async () => {
       await insertNote(name, description)
       handleClose()
@@ -144,7 +153,7 @@ export default function NewCollection({
   };
 
   {
-    data.type === "Notes"
+    type == "Notes"
       ? (body = (
           <div style={modalStyle} className={classes.paper}>
             <div
@@ -238,10 +247,11 @@ export default function NewCollection({
         : data.map((note) => (
             <Collection
               key = {note.noteId}
-              type = {data.type}
+              type = {type}
               data = {note}
               editClicked={editClicked}
-              cardClicked={cardClicked}
+              // cardClicked={onCardClicked}
+              collectionClick={collectionClick}
             ></Collection>
           ))}
 
