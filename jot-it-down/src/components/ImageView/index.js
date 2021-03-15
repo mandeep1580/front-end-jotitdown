@@ -3,16 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Image from '../Image'
 import {
-  Card,
-  CardActionArea,
-  CardActions,
   CardContent,
-  Typography,
-  Button,
-  TextareaAutosize,
-  FormControl,
-  Input,
+  Input
 } from "@material-ui/core";
+import {insertImage} from '../../network'
 
 const useStyles = makeStyles(() => ({
   form: {
@@ -50,23 +44,39 @@ const useStyles = makeStyles(() => ({
  
 }))
 
-export default function ImageView({onSubmit, onDelete, images, onClick}) {
+export default function ImageView({onSubmit, onDelete, images, onClick, selectedId}) {
   const classes = useStyles()
-  const [image, setImage] = useState("")
-  const submit = event => {
-    event.preventDefault()
-    onSubmit({imageUrl: image })
-    setImage("")
+  const [imageUrl, setImageUrl] = useState("")
+  // const submit = event => {
+  //   event.preventDefault()
+  //   onSubmit({imageUrl: image })
+  //   setImage("")
+  // }
+
+
+  const imageInsert = async () => {
+    // event.preventDefault();
+    await insertImage(imageUrl,selectedId)
   }
-  
+
   return (
   
-  <div onSubmit={submit} className={classes.collectionwrap}>
+  <div  className={classes.collectionwrap}>
    <div className={classes.collectionaddIcon}>
         <AddCircleIcon
           className={classes.add}
+          onClick ={imageInsert}
         ></AddCircleIcon> 
+        {/* <Button onClick ={imageInsert }>Add image </Button> */}
       </div>
+      <Input
+                  id="image"
+                  // className={}
+                  defaultValue=""
+                  value={imageUrl}
+                  placeholder="Enter Image Url"
+                  onChange={(e) => setImageUrl(e.target.value)}
+                />
     
       {!!images? 
         <CardContent className={classes.images}>
@@ -76,8 +86,8 @@ export default function ImageView({onSubmit, onDelete, images, onClick}) {
         key={image.imageId} 
         image={image} 
         onDelete={onDelete}
-        onClick = {onClick}>
-        
+        onClick = {onClick}
+        selectedId ={selectedId}>
         </Image>
         ))}
         </CardContent>

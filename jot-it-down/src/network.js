@@ -86,6 +86,21 @@ export async function updateNote(noteId, name, description) {
     }
 }
 
+
+
+export async function updateAlbum(albumId, name) {
+  console.log()
+  const album = {
+      name: name,
+  }
+  try {
+    const result = await axios.put(`${API_INVOKE_URL}/albums/${albumId}`,{album})
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function deleteNote(noteId) {
     try {
       const result = await axios.delete(`${API_INVOKE_URL}/notes/${noteId}`)
@@ -94,7 +109,6 @@ export async function deleteNote(noteId) {
       console.log(error)
     }
 }
-
 
 export async function insertAlbum(name) {
   const album = {
@@ -112,6 +126,31 @@ export async function insertAlbum(name) {
 export async function deleteAlbum(albumId) {
   try {
     const result = await axios.delete(`${API_INVOKE_URL}/albums/${albumId}`)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function insertImage(url,albumId) {
+  const image = {
+      imageUrl: url,
+  }
+
+  try {
+    const result = await axios.post(`${API_INVOKE_URL}/albums/${albumId}`,{image})
+    console.log(result.data)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export async function deleteImage(imageId,albumId) {
+  try {
+    const result = await axios.delete(`${API_INVOKE_URL}/albums/${albumId}?imageId=${imageId}`)
+    console.log(result)
     return result.data
   } catch (error) {
     console.log(error)

@@ -43,27 +43,30 @@ export default function LandingPage({
   const classes = useStyles();
   const [type,setType] = useState("")
   const [data, setData] = useState([])
+  const [selectedId, setSelectedId] = useState(0)
   const [selectedType, setSelectedType] = useState("")
   const [selectedData, setSelectedData] = useState([])
   
-  const clickCollection = (receivedType,receivedData) => {
+  const clickCollection = (receivedType,receivedData,receivedId) => {
+    setSelectedId(receivedId)
     setSelectedType(receivedType)
     setSelectedData(receivedData)
   }
 
-  if(selectedType == "Notes"){
+  if(selectedType === "Notes"){
     body =
     <NoteDescription 
     name={selectedData.name}
     description={selectedData.description}>
     </NoteDescription>
   }
-  else if(selectedType == "Images"){
+  else if(selectedType === "Images"){
    body= <ImageView 
     onSubmit = {onImageSubmit}
      onDelete = {onImageDelete}
     images = {selectedData} 
-    onClick = {onImageClick}/>
+    onClick = {onImageClick}
+    selectedId = {selectedId}/>
   }
   else {
     body = ""
@@ -109,6 +112,7 @@ return (
           type= {type}
           selectedData= {selectedData}
           selectedType = {selectedType}
+          selectedId = {selectedId}
           clickCollection = {clickCollection}
           data= {data} >
         </NewCollection>

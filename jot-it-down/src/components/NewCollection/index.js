@@ -114,6 +114,7 @@ export default function NewCollection({
   editClicked,
   selectedData,
   selectedType ,
+  selectedId,
   clickCollection ,
 }) {
   const classes = useStyles();
@@ -129,7 +130,7 @@ export default function NewCollection({
   }
 
   const addCollection = async () => {
-    if (type == "Images"){
+    if (type === "Images"){
       await insertAlbum(name)
     }
     //  else if (type === "Links"){
@@ -155,7 +156,7 @@ export default function NewCollection({
   };
 
   {
-    type == "Notes"
+    type === "Notes"
       ? (body = (
           <div style={modalStyle} className={classes.paper}>
             <div
@@ -254,7 +255,7 @@ export default function NewCollection({
               editClicked={editClicked}
               // cardClicked={onCardClicked}
               // collectionClick={collectionClick}
-
+              selectedId ={selectedId}
               selectedData= {selectedData}
           selectedType = {selectedType}
           clickCollection = {clickCollection}

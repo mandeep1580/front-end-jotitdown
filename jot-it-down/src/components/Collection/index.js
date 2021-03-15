@@ -16,7 +16,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {deleteNote,deleteAlbum,
    getOneNote, 
-   updateNote,getAllImages} from '../../network'
+   updateNote,getAllImages, updateAlbum} from '../../network'
 
 function getModalStyle() {
   const top = 50;
@@ -150,13 +150,13 @@ export default function Collection({
   editClicked,
   cardClicked,
   collectionClick,
-
+  selectedId,
   selectedData,
   selectedType ,
   clickCollection ,
 }) {
   const classes = useStyles();
-  const [selectedId, setSelectedId] = useState(data.noteId)
+  // const [selectedId, setSelectedId] = useState(data.noteId)
   const [item,setItem] = useState({})
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -171,26 +171,28 @@ export default function Collection({
 
   const onCollectionClicked = async() =>{
     const id = data.id
-    if (type == "Notes"){
+    if (type === "Notes"){
       const result = await getOneNote(id)
       selectedType = type
       selectedData = result
-      clickCollection(selectedType, selectedData)
+      selectedId = id
+      clickCollection(selectedType, selectedData,selectedId)
     }
 
-    else if(type == "Images"){
+    else if(type === "Images"){
       const result = await getAllImages(id)
       selectedType = type
       selectedData = result
-      clickCollection(type, result)
+      selectedId = id
+      clickCollection(selectedType, selectedData,selectedId)
     }
   }
 
   const onDelete = async () => {
     const id = data.id
-    if (type == "Notes"){
+    if (type === "Notes"){
       await deleteNote(id)
-    }else if(type == "Images"){
+    }else if(type === "Images"){
       await deleteAlbum(id)
     }
 
@@ -198,7 +200,12 @@ export default function Collection({
   }
 
   const onUpdate = async () => {
-    await updateNote(data.noteId,name, description)
+    const id = data.id
+    if (type === "Notes"){
+    await updateNote(id,name, description)
+    } else if (type === "Images"){
+      await updateAlbum(id,name)
+      }
     handleClose()
   }
 
@@ -286,7 +293,7 @@ export default function Collection({
                   <Button
                     color="primary"
                     className={classes.button}
-                    onClick={{msg:  "hello"}}
+                    onClick={onUpdate}
                   >
                     Edit collection
                   </Button>
