@@ -14,7 +14,7 @@ import {
 import Modal from "@material-ui/core/Modal";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {deleteNote,
+import {deleteNote,deleteAlbum,
    getOneNote, 
    updateNote,getAllImages} from '../../network'
 
@@ -150,6 +150,10 @@ export default function Collection({
   editClicked,
   cardClicked,
   collectionClick,
+
+  selectedData,
+  selectedType ,
+  clickCollection ,
 }) {
   const classes = useStyles();
   const [selectedId, setSelectedId] = useState(data.noteId)
@@ -169,31 +173,25 @@ export default function Collection({
     const id = data.id
     if (type == "Notes"){
       const result = await getOneNote(id)
-      // console.log(type, result)
-      collectionClick(type, result)
+      selectedType = type
+      selectedData = result
+      clickCollection(selectedType, selectedData)
     }
 
     else if(type == "Images"){
       const result = await getAllImages(id)
-      console.log(type, result)
-      collectionClick(type, result)
+      selectedType = type
+      selectedData = result
+      clickCollection(type, result)
     }
   }
 
   const onDelete = async () => {
-    
     const id = data.id
     if (type == "Notes"){
-      // const result = 
       await deleteNote(id)
-      // console.log(type, result)
-      // collectionClick(type, result)
-    }
-
-    else if(type == "Images"){
-      const result = await getAllImages(id)
-      console.log(type, result)
-      collectionClick(type, result)
+    }else if(type == "Images"){
+      await deleteAlbum(id)
     }
 
     

@@ -11,7 +11,7 @@ import Modal from "@material-ui/core/Modal";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 import Collection from "../Collection";
-import {insertNote} from '../../network'
+import {insertNote,insertAlbum} from '../../network'
 
 
 function getModalStyle() {
@@ -112,34 +112,36 @@ export default function NewCollection({
  type,
   data,
   editClicked,
-  cardClicked, 
-  clickCollection
-  // collectionClick
+  selectedData,
+  selectedType ,
+  clickCollection ,
 }) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [cType, setCType] = useState("")
-  const [cData, setCData] = useState({})
-  
-  const collectionClick = (type, recdata) => {
-    
-    // console.log(type,recdata)
-    setCType(type)
-    setCData(recdata)
-    console.log(cType , cData)
-  }
-  clickCollection(cType, cData)
-
-
+ 
   let body;
   const addNote = async () => {
       await insertNote(name, description)
       handleClose()
   }
 
+  const addCollection = async () => {
+    if (type == "Images"){
+      await insertAlbum(name)
+    }
+    //  else if (type === "Links"){
+    //   await insertNote(name, description)
+      
+    // } else if (type === "Lists"){
+    //   await insertNote(name, description)
+      
+    // }
+    handleClose()
+
+ }
   const handleOpen = () => {
     setOpen(true);
   };
@@ -224,7 +226,7 @@ export default function NewCollection({
                 <Button
                   color="primary"
                   className={classes.button}
-                  onClick={{msg:  "hello"}}
+                  onClick={addCollection}
                 >
                   Add collection
                 </Button>
@@ -251,7 +253,11 @@ export default function NewCollection({
               data = {note}
               editClicked={editClicked}
               // cardClicked={onCardClicked}
-              collectionClick={collectionClick}
+              // collectionClick={collectionClick}
+
+              selectedData= {selectedData}
+          selectedType = {selectedType}
+          clickCollection = {clickCollection}
             ></Collection>
           ))}
 

@@ -46,11 +46,9 @@ export default function LandingPage({
   const [selectedType, setSelectedType] = useState("")
   const [selectedData, setSelectedData] = useState([])
   
-  const clickCollection = (t,d) => {
-    // console.log(t,d)
-    setSelectedType(t)
-    setSelectedData(d)
-    console.log(selectedType, selectedData)
+  const clickCollection = (receivedType,receivedData) => {
+    setSelectedType(receivedType)
+    setSelectedData(receivedData)
   }
 
   if(selectedType == "Notes"){
@@ -95,10 +93,6 @@ export default function LandingPage({
     setData(res)
   }
 
-
-  
-
-
 return (
     <Grid container className={classes.root}> 
       <Grid item xs={2}>
@@ -111,13 +105,12 @@ return (
       </Grid>
       <Grid item xs={3}>
         <div className={classes.main}>
-          {/* <div className={classes.middlePanel}> */}
           <NewCollection 
           type= {type}
-          // collectionClick = {collectionClicked}
+          selectedData= {selectedData}
+          selectedType = {selectedType}
           clickCollection = {clickCollection}
-            // cardClicked= {cardClicked} 
-            data= {data} >
+          data= {data} >
         </NewCollection>
           {/* </div> */}
         </div>

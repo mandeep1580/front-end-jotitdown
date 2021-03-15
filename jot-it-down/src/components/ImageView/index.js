@@ -1,27 +1,51 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, CardContent } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add';
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Image from '../Image'
+import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  Typography,
+  Button,
+  TextareaAutosize,
+  FormControl,
+  Input,
+} from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   form: {
     display: "flex",
     margin:30,
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    position: "relative"
   },
-  buttonWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
-  },
+  // buttonWrapper: {
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   justifyContent: "center"
+  // },
   icon:{
-    color:"#B23850"
+    color:"#B23850",
+    position: "absolute",
+    top: "10px",
+    right: "10px"
   },
   images:{
     display: "flex",
     flexWrap: " wrap",
     flexDirection: "row",
+  },
+  collectionaddIcon:{
+    position: "absolute",
+    top: 0,
+    right: 0
+  },
+  collectionwrap:{
+    width: "100%",
+    position: "relative",
+    paddingTop: "20px"
   },
  
 }))
@@ -36,12 +60,14 @@ export default function ImageView({onSubmit, onDelete, images, onClick}) {
   }
   
   return (
-  <>
-  <form onSubmit={submit} className={classes.form}>
-    <div className={classes.buttonWrapper}><IconButton 
-    type="submit">
-      <AddIcon className={classes.icon} /></IconButton></div>
-      </form>
+  
+  <div onSubmit={submit} className={classes.collectionwrap}>
+   <div className={classes.collectionaddIcon}>
+        <AddCircleIcon
+          className={classes.add}
+        ></AddCircleIcon> 
+      </div>
+    
       {!!images? 
         <CardContent className={classes.images}>
              
@@ -56,6 +82,7 @@ export default function ImageView({onSubmit, onDelete, images, onClick}) {
         ))}
         </CardContent>
         :""}
-        </>
+        </div>
+      
         )
       }

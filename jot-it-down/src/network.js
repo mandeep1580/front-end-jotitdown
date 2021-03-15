@@ -96,4 +96,24 @@ export async function deleteNote(noteId) {
 }
 
 
-  
+export async function insertAlbum(name) {
+  const album = {
+      name: name,
+  }
+  try {
+    const result = await axios.post(`${API_INVOKE_URL}/albums`,{album})
+    console.log(result.data)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function deleteAlbum(albumId) {
+  try {
+    const result = await axios.delete(`${API_INVOKE_URL}/albums/${albumId}`)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
