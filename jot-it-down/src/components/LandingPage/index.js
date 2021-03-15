@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import AppHeadings from "../AppHeadings";
 import NewCollection from "../NewCollection"
 import NoteDescription from "../NoteDescription"
 import ImageView from "../../components/ImageView"
+import {getAllImageAlbums, getAllNotes, getAllToDosCollections, getAllLinkCollections} from '../../network'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,19 +26,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     height: "100vh",
     display: "flex",
-    borderLeft: "2px solid grey"
+    borderLeft: "2px solid grey",
+    padding: "5px 10px"
   },
+  
   
 }));
 
-export default function LandingPage({collections, 
-  details, 
-  selectedType, 
-  onClickNotes, 
-  onClickImages, 
-  onClickLinks, 
-  onClickToDos, 
-  onCollectionClicked,
+export default function LandingPage({
   onImageSubmit,
   onImageDelete,
   onImageClick
@@ -45,25 +41,60 @@ export default function LandingPage({collections,
 
   let body 
   const classes = useStyles();
+  const [type,setType] = useState("")
+  const [data, setData] = useState([])
+  const [selectedId, setSelectedId] = useState(0)
+  const [selectedType, setSelectedType] = useState("")
+  const [selectedData, setSelectedData] = useState([])
+  
+  const clickCollection = (receivedType,receivedData,receivedId) => {
+    setSelectedId(receivedId)
+    setSelectedType(receivedType)
+    setSelectedData(receivedData)
+  }
 
-  if(selectedType == "Notes"){
+  if(selectedType === "Notes"){
     body =
     <NoteDescription 
-    name={details.name}
-    description={details.description}>
+    name={selectedData.name}
+    description={selectedData.description}>
     </NoteDescription>
   }
-  else if(selectedType == "Images"){
+  else if(selectedType === "Images"){
    body= <ImageView 
     onSubmit = {onImageSubmit}
      onDelete = {onImageDelete}
-    images = {details} 
-    onClick = {onImageClick}/>
+    images = {selectedData} 
+    onClick = {onImageClick}
+    selectedId = {selectedId}/>
   }
   else {
     body = ""
   }
 
+  const onClickNotes = async() =>{
+    const res = JSON.parse(await getAllNotes())
+    setType("Notes")
+    setData(res)
+  }
+
+  const onClickImages = async() =>{
+    const res = JSON.parse(await getAllImageAlbums())
+    setType("Images")
+    setData(res)
+  }
+
+  const onClickLinks = async() =>{
+    const res = JSON.parse(await getAllLinkCollections())
+    setType("Links")
+    setData(res)
+  }
+
+  const onClickToDos = async() =>{
+    const res = JSON.parse(await getAllToDosCollections() )
+    setType("Todo")
+    setData(res)
+  }
 
 return (
     <Grid container className={classes.root}> 
@@ -77,10 +108,15 @@ return (
       </Grid>
       <Grid item xs={3}>
         <div className={classes.main}>
-        <NewCollection
-            cardClicked= {onCollectionClicked} 
-            data= {collections} >
+          <NewCollection 
+          type= {type}
+          selectedData= {selectedData}
+          selectedType = {selectedType}
+          selectedId = {selectedId}
+          clickCollection = {clickCollection}
+          data= {data} >
         </NewCollection>
+          {/* </div> */}
         </div>
       </Grid>
       <Grid item xs={7}>

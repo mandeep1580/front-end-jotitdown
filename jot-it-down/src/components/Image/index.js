@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Card, CardActionArea, CardMedia, IconButton, Typography, CardHeader} from '@material-ui/core';
+import {deleteImage} from '../../network'
 import CloseIcon from '@material-ui/icons/Close';
 
-export default function Image({image, onDelete, onClick}) {
+export default function Image({image, onDelete, onClick,selectedId}) {
   const [show, setShow] = useState("none")
   const [opacity, setOpacity] = useState("1")
   const useStyles = makeStyles({
@@ -41,6 +42,11 @@ export default function Image({image, onDelete, onClick}) {
     setShow("none")
     setOpacity("1")
   }
+
+  const imageDelete = async () => {
+    
+      await deleteImage(image.imageId,selectedId)
+  }
   
   return (
   <Card className={classes.root}  onMouseEnter={onMouseOver} onMouseLeave={onMouseOut}>
@@ -49,7 +55,7 @@ export default function Image({image, onDelete, onClick}) {
       className={classes.header}
       action={
       <IconButton aria-label="delete">
-        <CloseIcon className={classes.color} onClick={() => onDelete({imageId: image.imageId})}/>
+        <CloseIcon className={classes.color} onClick={imageDelete}/>
         </IconButton>
         }
         />

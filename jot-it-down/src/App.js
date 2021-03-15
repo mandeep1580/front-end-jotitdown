@@ -6,7 +6,7 @@
 // } from "react-router-dom";
 import React from 'react';
 import HomePage from './layouts/HomePage';
-import ImagePage from './layouts/ImagePage';
+// import ImagePage from './layouts/ImagePage';
 
 
 export default function App() {

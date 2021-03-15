@@ -11,7 +11,7 @@ import Modal from "@material-ui/core/Modal";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 import Collection from "../Collection";
-import {insertNote} from '../../network'
+import {insertNote,insertAlbum} from '../../network'
 
 
 function getModalStyle() {
@@ -27,9 +27,7 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
   add: {
-    position: "absolute",
-    top: 10,
-    right: 10,
+    color: "#b23850"
   },
   paper: {
     position: "absolute",
@@ -97,32 +95,54 @@ const useStyles = makeStyles((theme) => ({
       background: "#B23850",
     },
   },
+  collectionwrap:{
+    width: "100%",
+    position: "relative",
+    paddingTop: "20px"
+  },
+  collectionaddIcon:{
+    position: "absolute",
+    top: 0,
+    right: 0
+  }
 }));
 
 export default function NewCollection({
   // key,
- 
+ type,
   data,
-  type,
   editClicked,
-  cardClicked
+  selectedData,
+  selectedType ,
+  selectedId,
+  clickCollection ,
 }) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+ 
   let body;
-
-  // const cardClicked = () => {
-  //   <NoteDescription name={name} description={description} />
-  // }
-
   const addNote = async () => {
       await insertNote(name, description)
       handleClose()
   }
 
+  const addCollection = async () => {
+    if (type === "Images"){
+      await insertAlbum(name)
+    }
+    //  else if (type === "Links"){
+    //   await insertNote(name, description)
+      
+    // } else if (type === "Lists"){
+    //   await insertNote(name, description)
+      
+    // }
+    handleClose()
+
+ }
   const handleOpen = () => {
     setOpen(true);
   };
@@ -207,7 +227,7 @@ export default function NewCollection({
                 <Button
                   color="primary"
                   className={classes.button}
-                  onClick={{msg:  "hello"}}
+                  onClick={addCollection}
                 >
                   Add collection
                 </Button>
@@ -218,22 +238,27 @@ export default function NewCollection({
   }
 
   return (
-    <div>
-      <div>
+    <div className={classes.collectionwrap}>
+      <div className={classes.collectionaddIcon}>
         <AddCircleIcon
           className={classes.add}
           onClick={handleOpen}
-        ></AddCircleIcon>
+        ></AddCircleIcon> 
       </div>
       {!data
         ? ""
         : data.map((note) => (
             <Collection
               key = {note.noteId}
-              type = "Notes"
+              type = {type}
               data = {note}
               editClicked={editClicked}
-              cardClicked={cardClicked}
+              // cardClicked={onCardClicked}
+              // collectionClick={collectionClick}
+              selectedId ={selectedId}
+              selectedData= {selectedData}
+          selectedType = {selectedType}
+          clickCollection = {clickCollection}
             ></Collection>
           ))}
 

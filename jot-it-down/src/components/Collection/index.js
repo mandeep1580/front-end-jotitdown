@@ -14,8 +14,9 @@ import {
 import Modal from "@material-ui/core/Modal";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {deleteNote, getOneNote, updateNote} from '../../network'
-import NoteDescription from "../NoteDescription";
+import {deleteNote,deleteAlbum,
+   getOneNote, 
+   updateNote,getAllImages, updateAlbum} from '../../network'
 
 function getModalStyle() {
   const top = 50;
@@ -30,7 +31,7 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: "100%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
@@ -50,9 +51,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  button: {
-    padding: 0,
-  },
+ 
   buttonIcon: {
     fontSize: "20px",
     padding: "2px",
@@ -83,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  root: {
+  modalRoot: {
     maxWidth: 600,
     padding: 10,
     margin: "auto",
@@ -149,11 +148,16 @@ export default function Collection({
   type,
   data,
   editClicked,
-  cardClicked
+  cardClicked,
+  collectionClick,
+  selectedId,
+  selectedData,
+  selectedType ,
+  clickCollection ,
 }) {
   const classes = useStyles();
-  const [selectedId, setSelectedId] = useState(data.noteId)
-  const [item,setItem] = useState({name:"",description:""})
+  // const [selectedId, setSelectedId] = useState(data.noteId)
+  const [item,setItem] = useState({})
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState(item.name);
@@ -165,14 +169,43 @@ export default function Collection({
   //   setItem(res)
   // }
 
+  const onCollectionClicked = async() =>{
+    const id = data.id
+    if (type === "Notes"){
+      const result = await getOneNote(id)
+      selectedType = type
+      selectedData = result
+      selectedId = id
+      clickCollection(selectedType, selectedData,selectedId)
+    }
+
+    else if(type === "Images"){
+      const result = await getAllImages(id)
+      selectedType = type
+      selectedData = result
+      selectedId = id
+      clickCollection(selectedType, selectedData,selectedId)
+    }
+  }
+
   const onDelete = async () => {
-    setSelectedId(data.noteId)
-    console.log(selectedId)
-    await deleteNote(data.noteId)
+    const id = data.id
+    if (type === "Notes"){
+      await deleteNote(id)
+    }else if(type === "Images"){
+      await deleteAlbum(id)
+    }
+
+    
   }
 
   const onUpdate = async () => {
-    await updateNote(data.noteId,name, description)
+    const id = data.id
+    if (type === "Notes"){
+    await updateNote(id,name, description)
+    } else if (type === "Images"){
+      await updateAlbum(id,name)
+      }
     handleClose()
   }
 
@@ -193,7 +226,7 @@ export default function Collection({
         ? (body = (
             <div style={modalStyle} className={classes.paper}>
               <div
-                className={classes.root}
+                className={classes.modalRoot}
               >
                 <Typography className={classes.header}>Edit Note</Typography>
   
@@ -235,7 +268,7 @@ export default function Collection({
         : (body = (
             <div style={modalStyle} className={classes.paper}>
               <div
-                className={classes.root}
+                className={classes.modalRoot}
               >
                 <Typography className={classes.header}>
                   Edit collection
@@ -260,7 +293,7 @@ export default function Collection({
                   <Button
                     color="primary"
                     className={classes.button}
-                    onClick={{msg:  "hello"}}
+                    onClick={onUpdate}
                   >
                     Edit collection
                   </Button>
@@ -272,16 +305,12 @@ export default function Collection({
 
 
 
-
-
-
-
-
-
   return (
     <div>
     <Card className={classes.root} >
-      <CardActionArea className={classes.card} onClick={() => cardClicked({collectionId: data.id, type: data.collectionType})} >
+      <CardActionArea className={classes.card} 
+      onClick={onCollectionClicked} 
+      >
         <CardContent>
           <Typography
             gutterBottom
@@ -315,7 +344,7 @@ export default function Collection({
       </CardActions>
     </Card>
 
-    <NoteDescription name={item.name} description={item.description} />
+    {/* <NoteDescription name={item.name} description={item.description} /> */}
     <Modal
         open={open}
         onClose={handleClose}

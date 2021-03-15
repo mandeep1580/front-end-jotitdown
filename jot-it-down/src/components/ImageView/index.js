@@ -1,47 +1,83 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, CardContent } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add';
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Image from '../Image'
+import {
+  CardContent,
+  Input
+} from "@material-ui/core";
+import {insertImage} from '../../network'
 
 const useStyles = makeStyles(() => ({
   form: {
     display: "flex",
     margin:30,
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    position: "relative"
   },
-  buttonWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
-  },
+  // buttonWrapper: {
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   justifyContent: "center"
+  // },
   icon:{
-    color:"#B23850"
+    color:"#B23850",
+    position: "absolute",
+    top: "10px",
+    right: "10px"
   },
   images:{
     display: "flex",
     flexWrap: " wrap",
     flexDirection: "row",
   },
+  collectionaddIcon:{
+    position: "absolute",
+    top: 0,
+    right: 0
+  },
+  collectionwrap:{
+    width: "100%",
+    position: "relative",
+    paddingTop: "20px"
+  },
  
 }))
 
-export default function ImageView({onSubmit, onDelete, images, onClick}) {
+export default function ImageView({onSubmit, onDelete, images, onClick, selectedId}) {
   const classes = useStyles()
-  const [image, setImage] = useState("")
-  const submit = event => {
-    event.preventDefault()
-    onSubmit({imageUrl: image })
-    setImage("")
+  const [imageUrl, setImageUrl] = useState("")
+  // const submit = event => {
+  //   event.preventDefault()
+  //   onSubmit({imageUrl: image })
+  //   setImage("")
+  // }
+
+
+  const imageInsert = async () => {
+    // event.preventDefault();
+    await insertImage(imageUrl,selectedId)
   }
-  
+
   return (
-  <>
-  <form onSubmit={submit} className={classes.form}>
-    <div className={classes.buttonWrapper}><IconButton 
-    type="submit">
-      <AddIcon className={classes.icon} /></IconButton></div>
-      </form>
+  
+  <div  className={classes.collectionwrap}>
+   <div className={classes.collectionaddIcon}>
+        <AddCircleIcon
+          className={classes.add}
+          onClick ={imageInsert}
+        ></AddCircleIcon> 
+        {/* <Button onClick ={imageInsert }>Add image </Button> */}
+      </div>
+      <Input
+                  id="image"
+                  // className={}
+                  defaultValue=""
+                  value={imageUrl}
+                  placeholder="Enter Image Url"
+                  onChange={(e) => setImageUrl(e.target.value)}
+                />
+    
       {!!images? 
         <CardContent className={classes.images}>
              
@@ -50,12 +86,13 @@ export default function ImageView({onSubmit, onDelete, images, onClick}) {
         key={image.imageId} 
         image={image} 
         onDelete={onDelete}
-        onClick = {onClick}>
-        
+        onClick = {onClick}
+        selectedId ={selectedId}>
         </Image>
         ))}
         </CardContent>
         :""}
-        </>
+        </div>
+      
         )
       }
