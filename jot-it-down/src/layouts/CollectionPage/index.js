@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom"
 import LandingPage from '../../components/LandingPage'
-import {getAllNotes, deleteNote, updateNote, updateAlbum, updateToDoCollection,deleteAlbum, deleteToDoCollection, getAllImageAlbums, getAllLinkCollections, getAllToDosCollections} from '../../network'
+import {getAllNotes, insertNote, insertAlbum, insertToDoCollection, deleteNote, updateNote, updateAlbum, updateToDoCollection,deleteAlbum, deleteToDoCollection, getAllImageAlbums, getAllLinkCollections, getAllToDosCollections} from '../../network'
 import { useHistory } from "react-router-dom"
 
 export default function CollectionPage() {
@@ -107,6 +107,22 @@ export default function CollectionPage() {
       await updateToDoCollection(data.collectionId,data.name)
       }
   }
+
+
+  const addNote = async (data) => {
+    await insertNote(data.name, data.description)
+  }
+
+  const addCollection = async(data) => {
+    console.log(data)
+    if (collection === "images"){
+      await insertAlbum(data.name)
+    }
+     else if (collection === "todos"){
+      await insertToDoCollection(data.name)
+     }
+  }
+
     return (
       <LandingPage 
       type= {type}
@@ -118,6 +134,9 @@ onClickToDos = {onClickToDos}
 onCollectionClicked = {onCollectionClicked}
 onCollectionDelete = {onCollectionDelete}
 onEditCollection = {onEditCollection}
+addCollection = { addCollection}
+addNote = {addNote}
+
      
               />
     )

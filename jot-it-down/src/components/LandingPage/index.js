@@ -40,6 +40,8 @@ export default function LandingPage({
   selectedType, 
   type,
   data,
+  addNote,
+  addCollection,
   onEditCollection,
   onCollectionDelete,
   onCollectionClicked,
@@ -127,12 +129,11 @@ return (
         <div className={classes.main}>
           <NewCollection 
           type= {type}
-          // selectedData= {selectedData}
-          // selectedType = {selectedType}
-          // selectedId = {selectedId}
+          addNote ={addNote}
           onCollectionClicked = {onCollectionClicked}
           onCollectionDelete = {onCollectionDelete}
           onEditCollection = {onEditCollection}
+          addCollection = { addCollection}
           data= {data} >
         </NewCollection>
           {/* </div> */}

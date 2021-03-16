@@ -157,12 +157,12 @@ export async function getAllToDosCollections() {
 
 export async function insertToDoCollection(todoName) {
   console.log(todoName)
-  const toDoCollection = {
+  const ToDoCollection = {
     name: todoName
 }
-  console.log(toDoCollection.name)
+  console.log(ToDoCollection.name)
   try {
-    const result = await axios.post(`${API_INVOKE_URL}/todos`,{toDoCollection})
+    const result = await axios.post(`${API_INVOKE_URL}/todos`,{ToDoCollection})
     console.log(result.data)
     return result.data
   } catch (error) {

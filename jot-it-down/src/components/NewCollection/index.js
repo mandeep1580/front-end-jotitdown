@@ -114,11 +114,9 @@ export default function NewCollection({
   onEditCollection,
   onCollectionDelete,
   onCollectionClicked,
-  editClicked,
-  selectedData,
-  selectedType ,
-  selectedId,
-  clickCollection ,
+  addCollection,
+  addNote
+
 }) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
@@ -127,26 +125,6 @@ export default function NewCollection({
   const [description, setDescription] = useState("");
  
   let body;
-  const addNote = async () => {
-      await insertNote(name, description)
-      handleClose()
-  }
-
-  const addCollection = async () => {
-    // console.log(type, name)
-    if (type === "images"){
-      await insertAlbum(name)
-    }
-     else if (type === "todos"){
-      await insertToDoCollection(name)
-     }
-    //  else if (type === "Lists"){
-    //   await insertNote(name, description)
-      
-    // }
-    handleClose()
-
- }
   const handleOpen = () => {
     setOpen(true);
   };
@@ -195,7 +173,7 @@ export default function NewCollection({
                 <Button
                   color="primary"
                   className={classes.button}
-                  onClick={addNote}
+                  onClick={()=>{addNote({name: name, description: description }); handleClose();}}
                 >
                   Add new note
                 </Button>
@@ -231,7 +209,7 @@ export default function NewCollection({
                 <Button
                   color="primary"
                   className={classes.button}
-                  onClick={addCollection}
+                  onClick={()=>{addCollection({ name: name }); handleClose();}}
                 >
                   Add collection
                 </Button>
@@ -257,14 +235,8 @@ export default function NewCollection({
               type = {type}
               data = {note}
               onEditCollection ={onEditCollection}
-              editClicked={editClicked}
               onCollectionDelete= {onCollectionDelete}
-              // cardClicked={onCardClicked}
               onCollectionClicked={onCollectionClicked}
-              selectedId ={selectedId}
-              selectedData= {selectedData}
-          selectedType = {selectedType}
-          clickCollection = {clickCollection}
             ></Collection>
           ))}
 
