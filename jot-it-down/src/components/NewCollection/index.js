@@ -111,6 +111,7 @@ export default function NewCollection({
   // key,
  type,
   data,
+  onCollectionDelete,
   onCollectionClicked,
   editClicked,
   selectedData,
@@ -255,6 +256,7 @@ export default function NewCollection({
               type = {type}
               data = {note}
               editClicked={editClicked}
+              onCollectionDelete= {onCollectionDelete}
               // cardClicked={onCardClicked}
               onCollectionClicked={onCollectionClicked}
               selectedId ={selectedId}

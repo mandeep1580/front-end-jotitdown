@@ -145,6 +145,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Collection({
+  onCollectionDelete,
   onCollectionClicked,
   type,
   data,
@@ -202,19 +203,19 @@ export default function Collection({
 
   // }
 
-  const onDelete = async () => {
-    const id = data.id
-    if (type === "notes"){
-      await deleteNote(id)
-    }else if(type === "images"){
-      await deleteAlbum(id)
-    }else if(type==="todos"){
-      console.log(id)
-      await deleteToDoCollection(id)
-    }
+  // const onDelete = async () => {
+  //   const id = data.id
+  //   if (type === "notes"){
+  //     await deleteNote(id)
+  //   }else if(type === "images"){
+  //     await deleteAlbum(id)
+  //   }else if(type==="todos"){
+  //     console.log(id)
+  //     await deleteToDoCollection(id)
+  //   }
 
     
-  }
+  // }
 
   const onUpdate = async () => {
     const id = data.id
@@ -357,7 +358,7 @@ export default function Collection({
       
         <DeleteIcon
           className={classes.buttonIcon}
-          onClick={onDelete}
+          onClick={()=>onCollectionDelete({collectionId: data.id, type: data.collectionType})}
           ></DeleteIcon>
       </CardActions>
     </Card>

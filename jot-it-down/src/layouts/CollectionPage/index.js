@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom"
 import LandingPage from '../../components/LandingPage'
-import {getAllNotes, getAllImageAlbums, getAllLinkCollections, getAllToDosCollections} from '../../network'
+import {getAllNotes, deleteNote, deleteAlbum, deleteToDoCollection, getAllImageAlbums, getAllLinkCollections, getAllToDosCollections} from '../../network'
 import { useHistory } from "react-router-dom"
 
 export default function CollectionPage() {
@@ -86,6 +86,16 @@ export default function CollectionPage() {
     }
   }
 
+  const onCollectionDelete = async (data) =>{
+    if (data.type === "notes"){
+      await deleteNote(data.collectionId)
+    }else if(data.type === "images"){
+      await deleteAlbum(data.collectionId)
+    }else if(data.type==="todos"){
+      await deleteToDoCollection(data.collectionId)
+    }
+
+  }
     return (
       <LandingPage 
       type= {type}
@@ -95,6 +105,7 @@ onClickImages ={onClickImages}
 onClickLinks = {onClickLinks}
 onClickToDos = {onClickToDos} 
 onCollectionClicked = {onCollectionClicked}
+onCollectionDelete = {onCollectionDelete}
      
               />
     )
