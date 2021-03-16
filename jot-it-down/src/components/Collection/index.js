@@ -14,9 +14,7 @@ import {
 import Modal from "@material-ui/core/Modal";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {deleteNote,deleteAlbum,
-   getOneNote, 
-   updateNote,getAllImages, updateAlbum, getAllToDos,deleteToDoCollection,updateToDoCollection} from '../../network'
+
 
 function getModalStyle() {
   const top = 50;
@@ -149,127 +147,55 @@ export default function Collection({
   onCollectionDelete,
   onCollectionClicked,
   type,
-  data,
-  editClicked,
-  cardClicked,
-  collectionClick,
-  selectedId,
-  selectedData,
-  selectedType ,
-  clickCollection ,
+  data
 }) {
   const classes = useStyles();
-  // const [selectedId, setSelectedId] = useState(data.noteId)
   const [item,setItem] = useState({})
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState(item.name);
   const [description, setDescription] = useState(item.description);
   let body;
-  // const cardClicked = async () => {
-  //   setSelectedId(data.noteId)
-  //   const res = await getOneNote(selectedId)
-  //   setItem(res)
-  // }
-
-  // const onCollectionClicked = async() =>{
-  //   const id = data.id
-
-    // if (type === "Notes"){
-    //   const result = await getOneNote(id)
-    //   selectedType = type
-    //   selectedData = result
-    //   selectedId = id
-    //   clickCollection(selectedType, selectedData,selectedId)
-    // }
-
-    // else if(type === "Images"){
-    //   const result = await getAllImages(id)
-    //   selectedType = type
-    //   selectedData = result
-    //   selectedId = id
-    //   clickCollection(selectedType, selectedData,selectedId)
-    // }
-
-  //   else if(type === "ToDos"){
-  //     const result = await getAllToDos(id)
-  //     console.log(result)
-  //     selectedType = type
-  //     selectedData = result
-  //     selectedId = id
-  //     console.log(selectedData,selectedId,selectedType)
-  //     clickCollection(selectedType, selectedData,selectedId)
-  //   }
-
-
-  // }
-
-  // const onDelete = async () => {
-  //   const id = data.id
-  //   if (type === "notes"){
-  //     await deleteNote(id)
-  //   }else if(type === "images"){
-  //     await deleteAlbum(id)
-  //   }else if(type==="todos"){
-  //     console.log(id)
-  //     await deleteToDoCollection(id)
-  //   }
-
-    
-  // }
-
-  // const onUpdate = async () => {
-  //   const id = data.id
-  //   if (type === "notes"){
-  //   await updateNote(id,name, description)
-  //   } else if (type === "images"){
-  //   await updateAlbum(id,name)
-  //   }else if (type === "todos"){
-  //   await updateToDoCollection(id,name)
-  //   }
-
-  //   handleClose()
-  // }
-
-    const handleOpen = () => {
-      setOpen(true);
-    };
   
-    const handleClose = () => {
-      setOpen(false);
-    };
+  const handleOpen = () => {
+    setOpen(true);
+  };
   
-    const handleSubmit = (e) => {
-      e.preventDefault();
-    };
+  const handleClose = () => {
+    setOpen(false);
+  };
   
-    {
-      type === "notes"
-        ? (body = (
-            <div style={modalStyle} className={classes.paper}>
-              <div
-                className={classes.modalRoot}
-              >
-                <Typography className={classes.header}>Edit Note</Typography>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   
-                <FormControl
-                  component="form"
-                  maxWidth="sm"
-                  className={classes.postImage}
-                  onSubmit={handleSubmit}
-                >
-                  <Input
-                    id="collection-name"
-                    className={classes.modalInput}
-                    defaultValue=""
-                    value={item.name}
-                    placeholder="Enter collection name"
-                    onChange={(e) => setName(e.target.value)}
-                  />
-  
-                  <TextareaAutosize
-                    className={classes.modalDescription}
-                    aria-label="minimum height"
+  {
+    type === "notes"
+    ? (body = (
+    <div style={modalStyle} className={classes.paper}>
+      <div
+      className={classes.modalRoot}
+      >
+        
+        <Typography className={classes.header}>Edit Note</Typography>
+        <FormControl
+        component="form"
+        maxWidth="sm"
+        className={classes.postImage}
+        onSubmit={handleSubmit}
+        >
+          <Input
+          id="collection-name"
+          className={classes.modalInput}
+          defaultValue=""
+          value={item.name}
+          placeholder="Enter collection name"
+          onChange={(e) => setName(e.target.value)}
+          />
+          
+          <TextareaAutosize
+          className={classes.modalDescription}
+          aria-label="minimum height"
                     rowsMin={3}
                     id="note-description"
                     placeholder="Note Description"
@@ -279,7 +205,7 @@ export default function Collection({
                   <Button
                     color="primary"
                     className={classes.button}
-                    onClick={()=>onEditCollection({collectionId: data.id, type: data.collectionType, name: name, description: description })}
+                    onClick={()=>{onEditCollection({collectionId: data.id, type: data.collectionType, name: name, description: description }); handleClose();}}
                   >
                     Edit note
                   </Button>
@@ -315,7 +241,7 @@ export default function Collection({
                   <Button
                     color="primary"
                     className={classes.button}
-                    onClick={()=>onEditCollection({collectionId: data.id, type: data.collectionType, name: name})}
+                    onClick={()=>{onEditCollection({collectionId: data.id, type: data.collectionType, name: name}); handleClose();}}
                   >
                     Edit collection
                   </Button>
