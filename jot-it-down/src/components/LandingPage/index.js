@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LandingPage({
+  onImageInsert,
   details, 
   selectedType, 
   type,
@@ -85,10 +86,10 @@ export default function LandingPage({
   }
   else if(selectedType === "images"){
    body= <ImageView 
-    onSubmit = {onImageSubmit}
     onImageDelete = {onImageDelete}
     images = {details} 
     onClick = {onImageClick}
+    onImageInsert = { onImageInsert}
     />
   }
   else if(selectedType === "links"){

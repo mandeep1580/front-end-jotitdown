@@ -6,7 +6,6 @@ import {
   CardContent,
   Input
 } from "@material-ui/core";
-import {insertImage} from '../../network'
 
 const useStyles = makeStyles(() => ({
   form: {
@@ -39,7 +38,7 @@ const useStyles = makeStyles(() => ({
  
 }))
 
-export default function ImageView({onSubmit, onImageDelete, images, onClick, selectedId}) {
+export default function ImageView({ onImageDelete, images, onClick,  onImageInsert}) {
   const classes = useStyles()
   const [imageUrl, setImageUrl] = useState("")
   // const submit = event => {
@@ -49,18 +48,13 @@ export default function ImageView({onSubmit, onImageDelete, images, onClick, sel
   // }
 
 
-  const imageInsert = async () => {
-    // event.preventDefault();
-    await insertImage(imageUrl,selectedId)
-  }
-
   return (
   
   <div  className={classes.collectionwrap}>
    <div className={classes.collectionaddIcon}>
         <AddCircleIcon
           className={classes.add}
-          onClick ={imageInsert}
+          onClick ={() => onImageInsert({imageUrl: imageUrl })}
         ></AddCircleIcon> 
         {/* <Button onClick ={imageInsert }>Add image </Button> */}
       </div>
