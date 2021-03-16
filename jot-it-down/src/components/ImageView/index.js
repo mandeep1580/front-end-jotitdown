@@ -15,11 +15,6 @@ const useStyles = makeStyles(() => ({
     justifyContent: "flex-end",
     position: "relative"
   },
-  // buttonWrapper: {
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   justifyContent: "center"
-  // },
   icon:{
     color:"#B23850",
     position: "absolute",
@@ -44,7 +39,7 @@ const useStyles = makeStyles(() => ({
  
 }))
 
-export default function ImageView({onSubmit, onDelete, images, onClick, selectedId}) {
+export default function ImageView({onSubmit, onImageDelete, images, onClick, selectedId}) {
   const classes = useStyles()
   const [imageUrl, setImageUrl] = useState("")
   // const submit = event => {
@@ -85,9 +80,8 @@ export default function ImageView({onSubmit, onDelete, images, onClick, selected
         <Image 
         key={image.imageId} 
         image={image} 
-        onDelete={onDelete}
-        onClick = {onClick}
-        selectedId ={selectedId}>
+        onImageDelete={onImageDelete}
+        onClick = {onClick}>
         </Image>
         ))}
         </CardContent>

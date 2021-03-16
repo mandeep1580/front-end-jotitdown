@@ -86,10 +86,9 @@ export default function LandingPage({
   else if(selectedType === "images"){
    body= <ImageView 
     onSubmit = {onImageSubmit}
-     onDelete = {onImageDelete}
+    onImageDelete = {onImageDelete}
     images = {details} 
     onClick = {onImageClick}
-    // selectedId = {selectedId}
     />
   }
   else if(selectedType === "links"){
