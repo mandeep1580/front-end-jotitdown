@@ -145,6 +145,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Collection({
+  onEditCollection,
   onCollectionDelete,
   onCollectionClicked,
   type,
@@ -217,18 +218,18 @@ export default function Collection({
     
   // }
 
-  const onUpdate = async () => {
-    const id = data.id
-    if (type === "notes"){
-    await updateNote(id,name, description)
-    } else if (type === "images"){
-    await updateAlbum(id,name)
-    }else if (type === "todos"){
-    await updateToDoCollection(id,name)
-    }
+  // const onUpdate = async () => {
+  //   const id = data.id
+  //   if (type === "notes"){
+  //   await updateNote(id,name, description)
+  //   } else if (type === "images"){
+  //   await updateAlbum(id,name)
+  //   }else if (type === "todos"){
+  //   await updateToDoCollection(id,name)
+  //   }
 
-    handleClose()
-  }
+  //   handleClose()
+  // }
 
     const handleOpen = () => {
       setOpen(true);
@@ -278,7 +279,7 @@ export default function Collection({
                   <Button
                     color="primary"
                     className={classes.button}
-                    onClick={onUpdate}
+                    onClick={()=>onEditCollection({collectionId: data.id, type: data.collectionType, name: name, description: description })}
                   >
                     Edit note
                   </Button>
@@ -314,7 +315,7 @@ export default function Collection({
                   <Button
                     color="primary"
                     className={classes.button}
-                    onClick={onUpdate}
+                    onClick={()=>onEditCollection({collectionId: data.id, type: data.collectionType, name: name})}
                   >
                     Edit collection
                   </Button>

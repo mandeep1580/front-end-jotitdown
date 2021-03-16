@@ -40,6 +40,7 @@ export default function LandingPage({
   selectedType, 
   type,
   data,
+  onEditCollection,
   onCollectionDelete,
   onCollectionClicked,
   onClickNotes,
@@ -131,6 +132,7 @@ return (
           // selectedId = {selectedId}
           onCollectionClicked = {onCollectionClicked}
           onCollectionDelete = {onCollectionDelete}
+          onEditCollection = {onEditCollection}
           data= {data} >
         </NewCollection>
           {/* </div> */}
