@@ -6,6 +6,8 @@ import NewCollection from "../NewCollection"
 import NoteDescription from "../NoteDescription"
 import ImageView from "../../components/ImageView"
 import {getAllImageAlbums, getAllNotes, getAllToDosCollections, getAllLinkCollections} from '../../network'
+import Listt from "../Listt";
+import ListView from "../ListView";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +38,11 @@ const useStyles = makeStyles((theme) => ({
 export default function LandingPage({
   onImageSubmit,
   onImageDelete,
-  onImageClick
+  onImageClick,
+  onDelete,
+    onChange ,
+    onEdit ,
+    checked,
 }) {
 
   let body 
@@ -48,11 +54,14 @@ export default function LandingPage({
   const [selectedData, setSelectedData] = useState([])
   
   const clickCollection = (receivedType,receivedData,receivedId) => {
+    console.log(receivedData)
     setSelectedId(receivedId)
     setSelectedType(receivedType)
     setSelectedData(receivedData)
   }
-
+console.log(selectedType)
+console.log(selectedId)
+console.log(selectedData)
   if(selectedType === "Notes"){
     body =
     <NoteDescription 
@@ -68,9 +77,23 @@ export default function LandingPage({
     onClick = {onImageClick}
     selectedId = {selectedId}/>
   }
+  else if(selectedType === "ToDos"){
+    console.log(selectedData)
+    body=   <ListView onSubmit
+     lists = {selectedData}
+     onDelete = {onDelete}
+     onChange = {onChange}
+     onEdit = {onEdit}
+     checked ={checked} />
+   }
   else {
     body = ""
   }
+
+
+
+
+
 
   const onClickNotes = async() =>{
     const res = JSON.parse(await getAllNotes())
@@ -92,7 +115,7 @@ export default function LandingPage({
 
   const onClickToDos = async() =>{
     const res = JSON.parse(await getAllToDosCollections() )
-    setType("Todo")
+    setType("ToDos")
     setData(res)
   }
 
@@ -103,7 +126,7 @@ return (
         <AppHeadings name="Notes" onClick={onClickNotes} ></AppHeadings>
             <AppHeadings name= "Images" onClick={onClickImages}></AppHeadings>
             <AppHeadings name= "Links" onClick={onClickLinks}></AppHeadings>
-            <AppHeadings name= "To Do's" onClick={onClickToDos}></AppHeadings>
+            <AppHeadings name= "ToDos" onClick={onClickToDos}></AppHeadings>
         </div>
       </Grid>
       <Grid item xs={3}>

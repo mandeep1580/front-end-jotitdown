@@ -21,6 +21,21 @@ const onImageDelete = () => {
 const onImageClick = () =>{
   return "Image Clicked"
 }
+const onEdit = () => {
+  return "Image Added"
+}
+ 
+
+const onChange = () => {
+  return "Image Deleted"
+}
+
+const onDelete = () =>{
+  return "Image Clicked"
+}
+
+
+
     return (
         <div>
 
@@ -33,6 +48,10 @@ const onImageClick = () =>{
         onImageSubmit = {onImageSubmit}
         onImageDelete = {onImageDelete}
         onImageClick = {onImageClick}
+        onDelete={onDelete}
+    onChange ={onChange} 
+    onEdit = {onEdit}
+    checked= {true}
         />
         </div>
     )
