@@ -145,6 +145,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Collection({
+  onCollectionClicked,
   type,
   data,
   editClicked,
@@ -169,45 +170,45 @@ export default function Collection({
   //   setItem(res)
   // }
 
-  const onCollectionClicked = async() =>{
-    const id = data.id
+  // const onCollectionClicked = async() =>{
+  //   const id = data.id
 
-    if (type === "Notes"){
-      const result = await getOneNote(id)
-      selectedType = type
-      selectedData = result
-      selectedId = id
-      clickCollection(selectedType, selectedData,selectedId)
-    }
+    // if (type === "Notes"){
+    //   const result = await getOneNote(id)
+    //   selectedType = type
+    //   selectedData = result
+    //   selectedId = id
+    //   clickCollection(selectedType, selectedData,selectedId)
+    // }
 
-    else if(type === "Images"){
-      const result = await getAllImages(id)
-      selectedType = type
-      selectedData = result
-      selectedId = id
-      clickCollection(selectedType, selectedData,selectedId)
-    }
+    // else if(type === "Images"){
+    //   const result = await getAllImages(id)
+    //   selectedType = type
+    //   selectedData = result
+    //   selectedId = id
+    //   clickCollection(selectedType, selectedData,selectedId)
+    // }
 
-    else if(type === "ToDos"){
-      const result = await getAllToDos(id)
-      console.log(result)
-      selectedType = type
-      selectedData = result
-      selectedId = id
-      console.log(selectedData,selectedId,selectedType)
-      clickCollection(selectedType, selectedData,selectedId)
-    }
+  //   else if(type === "ToDos"){
+  //     const result = await getAllToDos(id)
+  //     console.log(result)
+  //     selectedType = type
+  //     selectedData = result
+  //     selectedId = id
+  //     console.log(selectedData,selectedId,selectedType)
+  //     clickCollection(selectedType, selectedData,selectedId)
+  //   }
 
 
-  }
+  // }
 
   const onDelete = async () => {
     const id = data.id
-    if (type === "Notes"){
+    if (type === "notes"){
       await deleteNote(id)
-    }else if(type === "Images"){
+    }else if(type === "images"){
       await deleteAlbum(id)
-    }else if(type==="ToDos"){
+    }else if(type==="todos"){
       console.log(id)
       await deleteToDoCollection(id)
     }
@@ -217,11 +218,11 @@ export default function Collection({
 
   const onUpdate = async () => {
     const id = data.id
-    if (type === "Notes"){
+    if (type === "notes"){
     await updateNote(id,name, description)
-    } else if (type === "Images"){
+    } else if (type === "images"){
     await updateAlbum(id,name)
-    }else if (type === "ToDos"){
+    }else if (type === "todos"){
     await updateToDoCollection(id,name)
     }
 
@@ -241,7 +242,7 @@ export default function Collection({
     };
   
     {
-      type === "Notes"
+      type === "notes"
         ? (body = (
             <div style={modalStyle} className={classes.paper}>
               <div
@@ -327,9 +328,7 @@ export default function Collection({
   return (
     <div>
     <Card className={classes.root} >
-      <CardActionArea className={classes.card} 
-      onClick={onCollectionClicked} 
-      >
+      <CardActionArea className={classes.card} onClick={()=>onCollectionClicked({collectionId: data.id, type: data.collectionType})} >
         <CardContent>
           <Typography
             gutterBottom

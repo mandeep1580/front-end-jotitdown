@@ -111,6 +111,7 @@ export default function NewCollection({
   // key,
  type,
   data,
+  onCollectionClicked,
   editClicked,
   selectedData,
   selectedType ,
@@ -131,10 +132,10 @@ export default function NewCollection({
 
   const addCollection = async () => {
     // console.log(type, name)
-    if (type === "Images"){
+    if (type === "images"){
       await insertAlbum(name)
     }
-     else if (type === "ToDos"){
+     else if (type === "todos"){
       await insertToDoCollection(name)
      }
     //  else if (type === "Lists"){
@@ -157,7 +158,7 @@ export default function NewCollection({
   };
 
   {
-    type === "Notes"
+    type === "notes"
       ? (body = (
           <div style={modalStyle} className={classes.paper}>
             <div
@@ -255,7 +256,7 @@ export default function NewCollection({
               data = {note}
               editClicked={editClicked}
               // cardClicked={onCardClicked}
-              // collectionClick={collectionClick}
+              onCollectionClicked={onCollectionClicked}
               selectedId ={selectedId}
               selectedData= {selectedData}
           selectedType = {selectedType}

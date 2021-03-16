@@ -5,9 +5,9 @@ import AppHeadings from "../AppHeadings";
 import NewCollection from "../NewCollection"
 import NoteDescription from "../NoteDescription"
 import ImageView from "../../components/ImageView"
-import {getAllImageAlbums, getAllNotes, getAllToDosCollections, getAllLinkCollections} from '../../network'
 import Listt from "../Listt";
 import ListView from "../ListView";
+import LinkView from "../LinkView";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +36,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LandingPage({
+  details, 
+  selectedType, 
+  type,
+  data,
+  onCollectionClicked,
+  onClickNotes,
+  onClickImages,
+  onClickLinks,
+  onClickToDos,
   onImageSubmit,
   onImageDelete,
   onImageClick,
@@ -43,81 +52,64 @@ export default function LandingPage({
     onChange ,
     onEdit ,
     checked,
+    onSubmit
 }) {
 
   let body 
   const classes = useStyles();
-  const [type,setType] = useState("")
-  const [data, setData] = useState([])
-  const [selectedId, setSelectedId] = useState(0)
-  const [selectedType, setSelectedType] = useState("")
-  const [selectedData, setSelectedData] = useState([])
+  // const [type,setType] = useState("")
+  // const [data, setData] = useState([])
+  // const [selectedId, setSelectedId] = useState(0)
+  // const [selectedType, setSelectedType] = useState("")
+  // const [selectedData, setSelectedData] = useState([])
   
-  const clickCollection = (receivedType,receivedData,receivedId) => {
-    console.log(receivedData)
-    setSelectedId(receivedId)
-    setSelectedType(receivedType)
-    setSelectedData(receivedData)
-  }
-console.log(selectedType)
-console.log(selectedId)
-console.log(selectedData)
-  if(selectedType === "Notes"){
+  // const clickCollection = (receivedType,receivedData,receivedId) => {
+  //   console.log(receivedData)
+  //   setSelectedId(receivedId)
+  //   setSelectedType(receivedType)
+  //   setSelectedData(receivedData)
+  // }
+// console.log(selectedType)
+// console.log(selectedId)
+// console.log(selectedData)
+  if(selectedType === "notes"){
     body =
     <NoteDescription 
-    name={selectedData.name}
-    description={selectedData.description}>
+    name={details.name}
+    description={details.description}>
     </NoteDescription>
   }
-  else if(selectedType === "Images"){
+  else if(selectedType === "images"){
    body= <ImageView 
     onSubmit = {onImageSubmit}
      onDelete = {onImageDelete}
-    images = {selectedData} 
+    images = {details} 
     onClick = {onImageClick}
-    selectedId = {selectedId}/>
+    // selectedId = {selectedId}
+    />
   }
-  else if(selectedType === "ToDos"){
-    console.log(selectedData)
+  else if(selectedType === "links"){
+    body=   <LinkView onSubmit
+     links = {details}
+     onDelete = {onDelete}
+     onSubmit = {onSubmit}
+     />
+   }
+
+   else if(selectedType === "todos"){
     body=   <ListView onSubmit
-     lists = {selectedData}
+     lists = {details}
      onDelete = {onDelete}
      onChange = {onChange}
      onEdit = {onEdit}
-     checked ={checked} />
+     checked ={checked} 
+     />
    }
+
   else {
     body = ""
   }
 
-
-
-
-
-
-  const onClickNotes = async() =>{
-    const res = JSON.parse(await getAllNotes())
-    setType("Notes")
-    setData(res)
-  }
-
-  const onClickImages = async() =>{
-    const res = JSON.parse(await getAllImageAlbums())
-    setType("Images")
-    setData(res)
-  }
-
-  const onClickLinks = async() =>{
-    const res = JSON.parse(await getAllLinkCollections())
-    setType("Links")
-    setData(res)
-  }
-
-  const onClickToDos = async() =>{
-    const res = JSON.parse(await getAllToDosCollections() )
-    setType("ToDos")
-    setData(res)
-  }
 
 return (
     <Grid container className={classes.root}> 
@@ -133,10 +125,10 @@ return (
         <div className={classes.main}>
           <NewCollection 
           type= {type}
-          selectedData= {selectedData}
-          selectedType = {selectedType}
-          selectedId = {selectedId}
-          clickCollection = {clickCollection}
+          // selectedData= {selectedData}
+          // selectedType = {selectedType}
+          // selectedId = {selectedId}
+          onCollectionClicked = {onCollectionClicked}
           data= {data} >
         </NewCollection>
           {/* </div> */}
