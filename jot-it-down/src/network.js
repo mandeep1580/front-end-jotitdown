@@ -3,6 +3,8 @@ import axios from "axios";
 const API_INVOKE_URL = 'https://q5s1k6sgf9.execute-api.us-east-1.amazonaws.com/prod'
 
 
+// Notes Functions 
+
 export async function getAllNotes() {
     try { 
      const response = await axios.get(`${API_INVOKE_URL}/notes`)
@@ -12,89 +14,35 @@ export async function getAllNotes() {
    }
 }
 
-export async function getAllImageAlbums() {
-  try { 
-   const response = await axios.get(`${API_INVOKE_URL}/albums`)
-   return response.data.body
- } catch (error) {
-   console.log(error)
- }
-}
-
-export async function getAllLinkCollections() {
-  try { 
-   const response = await axios.get(`${API_INVOKE_URL}/links`)
-   return response.data.body
- } catch (error) {
-   console.log(error)
- }
-}
-
-export async function getAllToDosCollections() {
-  try { 
-   const response = await axios.get(`${API_INVOKE_URL}/todos`)
-   return response.data.body
- } catch (error) {
-   console.log(error)
- }
-}
-
-
 export async function getOneNote(noteId) {
-    try {
-      const result = await axios.get(`${API_INVOKE_URL}/notes/${noteId}`)
-      return result.data[0]
-    } catch (error) {
-      console.log(error)
-    }
-}
-  
-
-export async function getAllImages(albumId) {
   try {
-    const result = await axios.get(`${API_INVOKE_URL}/albums/${albumId}`)
+    const result = await axios.get(`${API_INVOKE_URL}/notes/${noteId}`)
+    return result.data[0]
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function insertNote(name, description) {
+  const note = {
+      name: name,
+      description: description
+  }
+  try {
+    const result = await axios.post(`${API_INVOKE_URL}/notes`,{note})
     return result.data
   } catch (error) {
     console.log(error)
   }
 }
 
-
-export async function insertNote(name, description) {
-    const note = {
-        name: name,
-        description: description
-    }
-    try {
-      const result = await axios.post(`${API_INVOKE_URL}/notes`,{note})
-      return result.data
-    } catch (error) {
-      console.log(error)
-    }
-}
-
 export async function updateNote(noteId, name, description) {
-    const note = {
-        name: name,
-        description: description
-    }
-    try {
-      const result = await axios.put(`${API_INVOKE_URL}/notes/${noteId}`,{note})
-      return result.data
-    } catch (error) {
-      console.log(error)
-    }
-}
-
-
-
-export async function updateAlbum(albumId, name) {
-  console.log()
-  const album = {
+  const note = {
       name: name,
+      description: description
   }
   try {
-    const result = await axios.put(`${API_INVOKE_URL}/albums/${albumId}`,{album})
+    const result = await axios.put(`${API_INVOKE_URL}/notes/${noteId}`,{note})
     return result.data
   } catch (error) {
     console.log(error)
@@ -102,12 +50,24 @@ export async function updateAlbum(albumId, name) {
 }
 
 export async function deleteNote(noteId) {
-    try {
-      const result = await axios.delete(`${API_INVOKE_URL}/notes/${noteId}`)
-      return result.data
-    } catch (error) {
-      console.log(error)
-    }
+  try {
+    const result = await axios.delete(`${API_INVOKE_URL}/notes/${noteId}`)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+//Image Album Functions
+
+
+export async function getAllImageAlbums() {
+  try { 
+   const response = await axios.get(`${API_INVOKE_URL}/albums`)
+   return response.data.body
+ } catch (error) {
+   console.log(error)
+ }
 }
 
 export async function insertAlbum(name) {
@@ -132,6 +92,32 @@ export async function deleteAlbum(albumId) {
   }
 }
 
+export async function updateAlbum(albumId, name) {
+  console.log()
+  const album = {
+      name: name,
+  }
+  try {
+    const result = await axios.put(`${API_INVOKE_URL}/albums/${albumId}`,{album})
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// Image Functions
+
+
+export async function getAllImages(albumId) {
+  try {
+    const result = await axios.get(`${API_INVOKE_URL}/albums/${albumId}`)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 export async function insertImage(url,albumId) {
   const image = {
       imageUrl: url,
@@ -146,7 +132,6 @@ export async function insertImage(url,albumId) {
   }
 }
 
-
 export async function deleteImage(imageId,albumId) {
   try {
     const result = await axios.delete(`${API_INVOKE_URL}/albums/${albumId}?imageId=${imageId}`)
@@ -155,4 +140,55 @@ export async function deleteImage(imageId,albumId) {
   } catch (error) {
     console.log(error)
   }
+}
+
+// ToDo's Functions
+
+
+export async function getAllToDosCollections() {
+  try { 
+   const response = await axios.get(`${API_INVOKE_URL}/todos`)
+  //  console.log(response.data.body)
+   return response.data.body
+ } catch (error) {
+   console.log(error)
+ }
+}
+
+
+export async function insertToDoCollection(todoName) {
+  console.log(todoName)
+  const toDoCollection = {
+    name: todoName
+}
+  console.log(toDoCollection.name)
+  try {
+    const result = await axios.post(`${API_INVOKE_URL}/todos`,{toDoCollection})
+    console.log(result.data)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
+export async function getAllToDos(todoCollectionId) {
+  try {
+    const result = await axios.get(`${API_INVOKE_URL}/albums/${todoCollectionId}`)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
+export async function getAllLinkCollections() {
+  try { 
+   const response = await axios.get(`${API_INVOKE_URL}/links`)
+   return response.data.body
+ } catch (error) {
+   console.log(error)
+ }
 }

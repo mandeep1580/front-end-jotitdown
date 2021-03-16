@@ -11,7 +11,7 @@ import Modal from "@material-ui/core/Modal";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 import Collection from "../Collection";
-import {insertNote,insertAlbum} from '../../network'
+import {insertNote, insertAlbum, insertToDoCollection} from '../../network'
 
 
 function getModalStyle() {
@@ -130,13 +130,14 @@ export default function NewCollection({
   }
 
   const addCollection = async () => {
+    // console.log(type, name)
     if (type === "Images"){
       await insertAlbum(name)
     }
-    //  else if (type === "Links"){
-    //   await insertNote(name, description)
-      
-    // } else if (type === "Lists"){
+     else if (type === "ToDos"){
+      await insertToDoCollection(name)
+     }
+    //  else if (type === "Lists"){
     //   await insertNote(name, description)
       
     // }

@@ -16,7 +16,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {deleteNote,deleteAlbum,
    getOneNote, 
-   updateNote,getAllImages, updateAlbum} from '../../network'
+   updateNote,getAllImages, updateAlbum, getAllToDos} from '../../network'
 
 function getModalStyle() {
   const top = 50;
@@ -171,6 +171,7 @@ export default function Collection({
 
   const onCollectionClicked = async() =>{
     const id = data.id
+
     if (type === "Notes"){
       const result = await getOneNote(id)
       selectedType = type
@@ -186,6 +187,16 @@ export default function Collection({
       selectedId = id
       clickCollection(selectedType, selectedData,selectedId)
     }
+
+    else if(type === "ToDos"){
+      const result = await getAllToDos(id)
+      selectedType = type
+      selectedData = result
+      selectedId = id
+      clickCollection(selectedType, selectedData,selectedId)
+    }
+
+
   }
 
   const onDelete = async () => {
