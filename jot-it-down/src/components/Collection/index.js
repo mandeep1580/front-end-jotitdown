@@ -190,9 +190,11 @@ export default function Collection({
 
     else if(type === "ToDos"){
       const result = await getAllToDos(id)
+      console.log(result)
       selectedType = type
       selectedData = result
       selectedId = id
+      console.log(selectedData,selectedId,selectedType)
       clickCollection(selectedType, selectedData,selectedId)
     }
 

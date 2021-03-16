@@ -54,6 +54,7 @@ export default function LandingPage({
   const [selectedData, setSelectedData] = useState([])
   
   const clickCollection = (receivedType,receivedData,receivedId) => {
+    console.log(receivedData)
     setSelectedId(receivedId)
     setSelectedType(receivedType)
     setSelectedData(receivedData)

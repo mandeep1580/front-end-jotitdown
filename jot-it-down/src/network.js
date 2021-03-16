@@ -175,7 +175,7 @@ export async function insertToDoCollection(todoName) {
 
 export async function getAllToDos(todoCollectionId) {
   try {
-    const result = await axios.get(`${API_INVOKE_URL}/albums/${todoCollectionId}`)
+    const result = await axios.get(`${API_INVOKE_URL}/todos/${todoCollectionId}`)
     return result.data
   } catch (error) {
     console.log(error)

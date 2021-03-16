@@ -46,7 +46,7 @@ export default function Listt({list, onDelete, onChange, onEdit, checked}) {
   <>
   <Card className={classes.root}>
     <Checkbox
-    checked={checked}
+    checked={list.completed}
     onChange={handleChange}
     inputProps={{ 'aria-label': 'primary checkbox' }}
     />
