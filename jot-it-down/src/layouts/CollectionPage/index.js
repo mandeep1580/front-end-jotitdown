@@ -1,34 +1,101 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import {getAllNotes} from '../../network'
-import NewCollection from '../../components/NewCollection'
+import { useParams } from "react-router-dom"
+import LandingPage from '../../components/LandingPage'
+import {getAllNotes, getAllImageAlbums, getAllLinkCollections, getAllToDosCollections} from '../../network'
+import { useHistory } from "react-router-dom"
 
 export default function CollectionPage() {
- 
-  const [collection, setCollection] = useState([])
-
+  const history = useHistory()
+  const {collection} = useParams()
+  const [type,setType] = useState("")
+  const [dataa, setData] = useState([])
+   
+  
   useEffect(()=> {
+
+    if (collection === "notes") {
     (async () => {
       const res = JSON.parse(await getAllNotes())
-        setCollection(res)
+    setType("notes")
+    setData(res)
+    console.log(type)
     })()
-  },[])
-  
-   
+  }
 
-  const postButtonClicked = async data => {
-    console.log("post clicked", data)
+ else if (collection === "images") {
+    (async () => {
+      const res = JSON.parse(await getAllImageAlbums())
+      setType("images")
+      setData(res)
+      console.log(type)
+    })()
   }
-  const editClicked = async data => {
-    console.log("edit clicked", data)
+
+  else if (collection === "links") {
+    (async () => {
+      const res = JSON.parse(await getAllLinkCollections())
+    setType("links")
+    setData(res)
+    console.log(type)
+    })()
+  }
+
+  else if (collection === "todos") {
+    (async () => {
+      const res = JSON.parse(await getAllToDosCollections() )
+    setType("todos")
+    setData(res)
+    console.log(type)
+    })()
+  }
+
+    
+  },[])
+
+
+  const onClickNotes = () => {
+    window.location.href="/notes";
   }
   
+  const onClickImages = () => {
+    window.location.href="/images";
+  }
+  
+  const onClickLinks = () =>{
+    window.location.href="/links";
+  }
+  
+  const onClickToDos = () =>{
+    window.location.href="/todos";
+  }
+
+  const onCollectionClicked = async(data) =>{
+    if (data.type == "notes"){
+      window.location.href=`/notes/${data.collectionId}`;
+    }
+
+    else if (data.type == "images"){
+      window.location.href=`/images/${data.collectionId}`
+    }
+    else if (data.type == "links"){
+      window.location.href=`/links/${data.collectionId}`
+    }
+    else if (data.type == "todos"){
+      window.location.href=`/todos/${data.collectionId}`
+    }
+  }
+
     return (
-         <NewCollection 
-            data={collection} 
-            type={"Notes"} 
-            postButtonClicked = {postButtonClicked}
-            editClicked = {editClicked}
-        />
+      <LandingPage 
+      type= {type}
+      data= {dataa}
+      onClickNotes = {onClickNotes}
+onClickImages ={onClickImages}
+onClickLinks = {onClickLinks}
+onClickToDos = {onClickToDos} 
+onCollectionClicked = {onCollectionClicked}
+     
+              />
     )
   }
