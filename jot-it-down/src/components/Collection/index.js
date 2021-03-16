@@ -16,7 +16,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {deleteNote,deleteAlbum,
    getOneNote, 
-   updateNote,getAllImages, updateAlbum, getAllToDos} from '../../network'
+   updateNote,getAllImages, updateAlbum, getAllToDos,deleteToDoCollection,updateToDoCollection} from '../../network'
 
 function getModalStyle() {
   const top = 50;
@@ -207,6 +207,9 @@ export default function Collection({
       await deleteNote(id)
     }else if(type === "Images"){
       await deleteAlbum(id)
+    }else if(type==="ToDos"){
+      console.log(id)
+      await deleteToDoCollection(id)
     }
 
     
@@ -217,8 +220,11 @@ export default function Collection({
     if (type === "Notes"){
     await updateNote(id,name, description)
     } else if (type === "Images"){
-      await updateAlbum(id,name)
-      }
+    await updateAlbum(id,name)
+    }else if (type === "ToDos"){
+    await updateToDoCollection(id,name)
+    }
+
     handleClose()
   }
 

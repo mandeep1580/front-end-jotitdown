@@ -171,6 +171,30 @@ export async function insertToDoCollection(todoName) {
   }
 }
 
+export async function deleteToDoCollection(toDoCollectionId) {
+  console.log(toDoCollectionId)
+  try {
+    const result = await axios.delete(`${API_INVOKE_URL}/todos/${toDoCollectionId}`)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function updateToDoCollection(toDoCollectionId, name) {
+  console.log()
+  const toDoCollection = {
+      name: name,
+  }
+  try {
+    const result = await axios.put(`${API_INVOKE_URL}/todos/${toDoCollectionId}`,{toDoCollection})
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 
 
 export async function getAllToDos(todoCollectionId) {
@@ -181,6 +205,18 @@ export async function getAllToDos(todoCollectionId) {
     console.log(error)
   }
 }
+
+export async function deleteToDoItem(toDoId,todoCollectionId) {
+  try {
+    const result = await axios.delete(`${API_INVOKE_URL}/albums/${todoCollectionId}?toDoId=${toDoId}`)
+    console.log(result)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 
 
 
