@@ -274,6 +274,15 @@ export async function deleteLink(linkId, linkCollectionId) {
   }
 }
 
+export async function deleteLinkCollection(linkCollectionId) {
+  try {
+    const result = await axios.delete(`${API_INVOKE_URL}/links/${linkCollectionId}`)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 
 

@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,getAllImageAlbums,
   getAllToDos, deleteImage, getAllLinks, getAllLinkCollections, getAllToDosCollections, getOneNote, 
   getAllImages, updateNote,insertNote, insertAlbum, insertToDoCollection, deleteNote, updateAlbum, 
-  updateToDoCollection,deleteAlbum, deleteToDoCollection, deleteLink} from '../../network'
+  updateToDoCollection,deleteAlbum, deleteToDoCollection, deleteLink, deleteLinkCollection} from '../../network'
   
   export default function DetailsPage() {
     const history = useHistory();
@@ -142,6 +142,10 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
       else if(data.type==="todos"){
         await deleteToDoCollection(data.collectionId)
         history.push('/todos')
+      }
+      else if(data.type==="links"){
+        await deleteLinkCollection(data.collectionId)
+        history.push('/links')
       }
     }
     
