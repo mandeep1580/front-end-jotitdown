@@ -29,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp({onSubmit, loginClick, formState, onChange, signUp}) {
   const classes = useStyles();
 
-  console.log(formState)
+  // const [ username,setUsername] = useState("")
+  //   const [ password,setPassword] = useState("")
+  //   const [ email,setEmail] = useState("")
+
 
   return (
     <Container component="main" maxWidth="xs">

@@ -1,20 +1,91 @@
 import React, {useState, useEffect} from 'react'
-import LandingPage from '../../components/LandingPage'
 import { Auth } from 'aws-amplify';
-import { Link, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import SignUp from '../../components/SignUp'
 import HomePage from '../HomePage'
 import Login from '../../components/Login'
 
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Grid from "@material-ui/core/Grid";
+import logo from "./logo.png";
+
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+  
+    },
+  
+    form: {
+      width: '100%',
+      marginTop: theme.spacing(1),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+    },
+    root: {
+        flexGrow: 1,
+      },
+      sidebar: {
+        background: "#b23850",
+        backgroundSize: "cover",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      },
+      main: {
+        background: "#C4DBF6",
+        backgroundSize: "cover",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      },
+      applogo: {
+        width: "200px",
+      },
+  }));
+  
 
 export default function AuthPage() {
+    const classes = useStyles();
     const [formType, setFormType] = useState('signUp')
     const [ username,setUsername] = useState("")
     const [ password,setPassword] = useState("")
     const [ email,setEmail] = useState("")
     const [ code, setCode] = useState("")
-    
-      const signUp = async () => {
+    const [user, setUser] =useState(null)
+    const history = useHistory()
+
+    useEffect(()=> {
+        checkUser();
+    },[])
+
+    const checkUser = async () =>{
+        try{
+            const userinfo= await Auth.currentAuthenticatedUser()
+            console.log(userinfo)
+            setUser(userinfo)
+            const sendUser = await Auth.currentUserInfo();
+            console.log(sendUser.username)
+            setFormType("signedIn")
+        }catch(err){
+
+        }
+    }
+     
+      const signUp = async (e) => {
+          e.preventDefault();
         try {
             // cognito register api
             console.log(username,email)
@@ -26,13 +97,14 @@ export default function AuthPage() {
                 }
             })
             setFormType("confirmSignUp")  
-            console.log(await Auth.currentUserInfo());
           } catch (error){
               console.log("Error occured")
           }
     }
 
-    async function confirmSignUp(){
+    async function confirmSignUp(e){
+        e.preventDefault();
+
         try {
             await Auth.confirmSignUp(username, code);
             setFormType("signIn")  
@@ -40,52 +112,122 @@ export default function AuthPage() {
           } catch (error) {
               console.log('error confirming sign up', error);
           }
-    //    setFormState(() => ({...formState, formType:"signIn" }))  
     }
-    async function signIn(){
+    async function signIn(e){
+        e.preventDefault();
+
         try {
             const user = await Auth.signIn(username, password);
             setFormType("signedIn")  
-
         } catch (error) {
             console.log('error signing in', error);
         }
-    //    setFormState(() => ({...formState, formType:"signedIn" })) 
     }
 
 return (
     <div>
-        {
+         {
             formType === "signUp" && (
-                <div>
-                    <input name="username" onChange={e => setUsername(e.target.value)} placeholder="Username"/>
-                    <input name="password"  type="password" onChange={e => setPassword(e.target.value)} placeholder="Password"/>
-                    <input name="email" onChange={e => setEmail(e.target.value)} placeholder="Email"/>
-                    <button onClick={signUp}>SignUp</button>
+    <Grid container>
+      <Grid item xs={3}>
+        <div className={classes.sidebar}>
+          <img src={logo} className={classes.applogo} alt="logo" />
+        </div>
+      </Grid>
+      <Grid item xs={9}>
+      <div className={classes.main}>
+       
+                <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className={classes.paper}>
+                    <Typography component="h1" variant="h5">
+                    Sign Up
+                    </Typography>
+                    <form className={classes.form} noValidate>
+                    <TextField variant="outlined" margin="normal" required fullWidth label="User Name" name="username" autoComplete="username" autoFocus onChange={e => setUsername(e.target.value)}/>
+                    <TextField variant="outlined" margin="normal" required fullWidth label="Email Id" name="email" autoComplete="email"  onChange={e => setEmail(e.target.value)} />
+                    <TextField variant="outlined" margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" onChange={e => setPassword(e.target.value)} />
+                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} style={{backgroundColor: "#B23850", color: "white"}} onClick={signUp}> Sign Up </Button>
+                    <Link  type= "login" variant="body2" onClick={()=>{setFormType("signIn")}}> Have an account? Log In </Link>
+                    </form>
                 </div>
-            )
-        }
-        {
-            formType === "confirmSignUp" && (
-                <div>
-                    <input name="code" onChange={e => setCode(e.target.value)} placeholder="Enter Confirmation Code"/>
-                    <button onClick={confirmSignUp}>Confirm SignUp</button>
-                </div>
-            )
-        }
-        {
-            formType === "signIn" && (
-                <div>
-                <input name="username" onChange={e => setUsername(e.target.value)} placeholder="Username"/>
-                <input name="password"  type="password" onChange={e => setPassword(e.target.value)} placeholder="Password"/>
-                <button onClick={signIn}>SignIn</button>
-                </div>
-            )
-            
-        }
-        {
-            formType === "signedIn" && <HomePage />
-        }
+                </Container>
+        </div>
+      </Grid>
+    </Grid>
+    )
+    }
+    {
+       formType === "confirmSignUp" && (
+        <Grid container>
+        <Grid item xs={3}>
+          <div className={classes.sidebar}>
+            <img src={logo} className={classes.applogo} alt="logo" />
+          </div>
+        </Grid>
+        <Grid item xs={9}>
+        <div className={classes.main}>
+         
+        <Container component="main" maxWidth="xs">
+<CssBaseline />
+<div className={classes.paper}>
+<Typography component="h1" variant="h5">
+  Confirm Sign Up
+</Typography>
+<form className={classes.form} noValidate>
+<TextField variant="outlined" margin="normal" required fullWidth label="Enter Confirmation Code" name="code" autoComplete="username" autoFocus onChange={e => setCode(e.target.value)}/>
+<Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} style={{backgroundColor: "#B23850", color: "white"}} onClick={confirmSignUp}> Confirm </Button>
+<Link  type= "login" variant="body2" onClick={()=>{setFormType("signIn")}}> Have an account? Log In </Link>
+</form>
+</div>
+</Container>
+          </div>
+        </Grid>
+      </Grid>
+       ) 
+    }
+
+{
+formType === "signIn" && (
+    <Grid container>
+        <Grid item xs={3}>
+          <div className={classes.sidebar}>
+            <img src={logo} className={classes.applogo} alt="logo" />
+          </div>
+        </Grid>
+        <Grid item xs={9}>
+        <div className={classes.main}>
+        <Container component="main" maxWidth="xs">
+<CssBaseline />
+<div className={classes.paper}>
+<Typography component="h1" variant="h5">
+  Sign Up
+</Typography>
+<form className={classes.form} noValidate>
+<TextField variant="outlined" margin="normal" required fullWidth label="User Name" name="username" autoComplete="username" autoFocus onChange={e => setUsername(e.target.value)}/>
+<TextField variant="outlined" margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" onChange={e => setPassword(e.target.value)} />
+<Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} style={{backgroundColor: "#B23850", color: "white"}} onClick={signIn}> Sign In </Button>
+<Link  type= "login" variant="body2" onClick={()=>{setFormType("signIn")}}> Have an account? Log In </Link>
+</form>
+</div>
+</Container>
+          </div>
+        </Grid>
+      </Grid>
+)
+}
+{
+    formType === "signedIn" && (
+        <div>
+        <button onClick={() => Auth.signOut()}>SignOut</button>
+        {/* {history.push('/home')} */}
+            <HomePage />
+        </div>
+    )
+}
+
     </div>
 )
 }
+
+
