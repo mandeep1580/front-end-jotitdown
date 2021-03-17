@@ -5,19 +5,19 @@ import AddIcon from '@material-ui/icons/Add';
 import Linkk from '../Linkk'
 
 const useStyles = makeStyles(() => ({
+  root:{
+width: "100%"
+  },
   form: {
     display: "flex",
-    margin: 20
+    width: "100%",
+    height: "auto",
+    margin: "2%"
   },
   textField: {
-    flexGrow: 2,
+    width: "100%",
     backgroundColor:"#E7E3D4",
     color:"#B23850", 
-  },
-  buttonWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
   },
   icon:{
     color:"#B23850"
@@ -39,7 +39,7 @@ export default function LinkView({onAddLink, links, onLinkDelete}) {
   }
   
   return (
-  <>
+  <div className={classes.root}>
   <form onSubmit={submit} className={classes.form}>
     <TextField className={classes.textField} 
     value={link} 
@@ -50,7 +50,7 @@ export default function LinkView({onAddLink, links, onLinkDelete}) {
     variant="outlined"
     color = "secondary"
     ></TextField>
-    <div className={classes.buttonWrapper}><IconButton 
+    <div><IconButton 
     type="submit" 
     ><AddIcon className={classes.icon} /></IconButton></div>
     </form>
@@ -63,6 +63,6 @@ export default function LinkView({onAddLink, links, onLinkDelete}) {
       onLinkDelete={onLinkDelete}></Linkk>
       ))}
       </CardContent>:""}
-      </>
+      </ div>
       )
     }
