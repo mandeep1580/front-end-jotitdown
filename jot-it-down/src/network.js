@@ -194,8 +194,6 @@ export async function updateToDoCollection(toDoCollectionId, name) {
 }
 
 
-
-
 export async function getAllToDos({todoCollectionId}) {
   try {
     const result = await axios.get(`${API_INVOKE_URL}/todos/${todoCollectionId}`)
@@ -216,24 +214,6 @@ export async function deleteToDoItem(toDoId,todoCollectionId) {
 }
 
 
-
-export async function getAllLinkCollections() {
-  try { 
-   const response = await axios.get(`${API_INVOKE_URL}/links`)
-   return response.data.body
- } catch (error) {
-   console.log(error)
- }
-}
-
-export async function getAllLinks({linkCollectionId}) {
-  try { 
-   const response = await axios.get(`${API_INVOKE_URL}/links/${linkCollectionId}`)
-   return response.data
- } catch (error) {
-   console.log(error)
- }
-}
 
 export async function updateToDoItem(toDoItem, completed, toDoId, toDoCollectionId) {
   console.log()
@@ -262,3 +242,39 @@ export async function insertToDoItem(toDoItem, toDoCollectionId) {
     console.log(error)
   }
 }
+
+
+// Links Functions
+export async function getAllLinkCollections() {
+  try { 
+   const response = await axios.get(`${API_INVOKE_URL}/links`)
+   return response.data.body
+ } catch (error) {
+   console.log(error)
+ }
+}
+
+
+export async function getAllLinks({linkCollectionId}) {
+  try { 
+   const response = await axios.get(`${API_INVOKE_URL}/links/${linkCollectionId}`)
+   return response.data
+ } catch (error) {
+   console.log(error)
+ }
+}
+
+export async function deleteLink(linkId, linkCollectionId) {
+  try {
+    const result = await axios.delete(`${API_INVOKE_URL}/links/${linkCollectionId}?linkId=${linkId}`)
+    console.log(result)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
+
+

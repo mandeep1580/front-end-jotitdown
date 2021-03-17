@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,getAllImageAlbums,
   getAllToDos, deleteImage, getAllLinks, getAllLinkCollections, getAllToDosCollections, getOneNote, 
   getAllImages, updateNote,insertNote, insertAlbum, insertToDoCollection, deleteNote, updateAlbum, 
-  updateToDoCollection,deleteAlbum, deleteToDoCollection} from '../../network'
+  updateToDoCollection,deleteAlbum, deleteToDoCollection, deleteLink} from '../../network'
   
   export default function DetailsPage() {
     const history = useHistory();
@@ -125,6 +125,10 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     const onAddToDo = async(data) => {
       await insertToDoItem(data.todoItem, collectionid)
     }
+
+    const onLinkDelete = async(data) => {
+      await deleteLink(data.linkId, collectionid)
+    }
     
     const onCollectionDelete = async (data) =>{
       if (data.type === "notes"){
@@ -191,10 +195,12 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     onChecked = {onChecked}
     onListEdit = {onListEdit}
     onAddToDo = {onAddToDo}
+    onLinkDelete = {onLinkDelete}
     onCollectionDelete = {onCollectionDelete}
     onEditCollection = {onEditCollection}
     addCollection = { addCollection}
     addNote = {addNote}
+    
     />
     )
   }

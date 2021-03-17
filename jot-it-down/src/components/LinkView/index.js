@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function LinkView({onSubmit, links, onDelete}) {
+export default function LinkView({onSubmit, links, onLinkDelete}) {
   const classes = useStyles()
   const [link, setLink] = useState("")
   const currentTime = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(Date.now())
@@ -57,7 +57,10 @@ export default function LinkView({onSubmit, links, onDelete}) {
     {!!links?
       <CardContent className={classes.linkss}>   
       {links.map(link => (
-      <Linkk key={link.linkId} link={link} onDelete={onDelete}></Linkk>
+      <Linkk 
+      key={link.linkId} 
+      link={link} 
+      onLinkDelete={onLinkDelete}></Linkk>
       ))}
       </CardContent>:""}
       </>
