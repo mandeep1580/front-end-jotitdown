@@ -5,19 +5,19 @@ import AddIcon from '@material-ui/icons/Add';
 import Linkk from '../Linkk'
 
 const useStyles = makeStyles(() => ({
+  root:{
+width: "100%"
+  },
   form: {
     display: "flex",
-    margin: 20
+    width: "100%",
+    height: "auto",
+    margin: "2%"
   },
   textField: {
-    flexGrow: 2,
+    width: "100%",
     backgroundColor:"#E7E3D4",
     color:"#B23850", 
-  },
-  buttonWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
   },
   icon:{
     color:"#B23850"
@@ -28,18 +28,18 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function LinkView({onSubmit, links, onDelete}) {
+export default function LinkView({onAddLink, links, onLinkDelete}) {
   const classes = useStyles()
   const [link, setLink] = useState("")
-  const currentTime = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(Date.now())
+  
   const submit = event => {
     event.preventDefault()
-    onSubmit({link: link, timeStamp: currentTime })
+    onAddLink({linkUrl: link})
     setLink("")
   }
   
   return (
-  <>
+  <div className={classes.root}>
   <form onSubmit={submit} className={classes.form}>
     <TextField className={classes.textField} 
     value={link} 
@@ -50,16 +50,19 @@ export default function LinkView({onSubmit, links, onDelete}) {
     variant="outlined"
     color = "secondary"
     ></TextField>
-    <div className={classes.buttonWrapper}><IconButton 
+    <div><IconButton 
     type="submit" 
     ><AddIcon className={classes.icon} /></IconButton></div>
     </form>
     {!!links?
       <CardContent className={classes.linkss}>   
       {links.map(link => (
-      <Linkk key={link.linkId} link={link} onDelete={onDelete}></Linkk>
+      <Linkk 
+      key={link.linkId} 
+      link={link} 
+      onLinkDelete={onLinkDelete}></Linkk>
       ))}
       </CardContent>:""}
-      </>
+      </ div>
       )
     }

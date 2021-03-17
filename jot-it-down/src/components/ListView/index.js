@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, IconButton, Card, CardContent } from '@material-ui/core'
+import { TextField, IconButton, CardContent } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import Listt from '../Listt'
 
 const useStyles = makeStyles((theme) => ({
+  root:{
+    width: "100%"
+      },
   form: {
     display: "flex",
-    margin:30
+    margin:"2%"
   },
   textField: {
     flexGrow: 2,
@@ -33,7 +36,7 @@ export default function ListView({onAddToDo, lists, onListDelete, onChecked, onL
     setItem("")
   }
   return (
-  <>
+    <div className={classes.root}>
   <form onSubmit={submit} className={classes.form}>
     <TextField className={classes.textField} 
     value={item} 
@@ -59,6 +62,6 @@ export default function ListView({onAddToDo, lists, onListDelete, onChecked, onL
       onListEdit = {onListEdit}></Listt>
       ))}
       </CardContent>:""}
-      </>
+      </ div>
       )
     }

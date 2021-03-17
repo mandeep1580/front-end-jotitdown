@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Linkk({link, onDelete}) {
+export default function Linkk({link, onLinkDelete}) {
   const classes = useStyles();return (<>
   <Typography className={classes.title} color="textSecondary" align="right">
     {link.timeStamp}
@@ -42,7 +42,7 @@ export default function Linkk({link, onDelete}) {
       </CardContent>
       <CardActions className={classes.cover}>
         <IconButton aria-label="delete">
-          <DeleteIcon className={classes.color} onClick={() => onDelete({linkId: link.linkId})}/>
+          <DeleteIcon className={classes.color} onClick={() => onLinkDelete({linkId: link.linkId})}/>
           </IconButton>
           </CardActions>
           </Card>
