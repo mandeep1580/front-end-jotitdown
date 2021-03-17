@@ -28,13 +28,13 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function LinkView({onSubmit, links, onLinkDelete}) {
+export default function LinkView({onAddLink, links, onLinkDelete}) {
   const classes = useStyles()
   const [link, setLink] = useState("")
-  const currentTime = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(Date.now())
+  
   const submit = event => {
     event.preventDefault()
-    onSubmit({link: link, timeStamp: currentTime })
+    onAddLink({linkUrl: link})
     setLink("")
   }
   

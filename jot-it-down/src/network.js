@@ -308,6 +308,20 @@ export async function insertLinkCollection(linkCollectionName) {
   }
 }
 
+export async function insertLink(linkUrl, linkCollectionId) {
+  const link = {
+    linkUrl: linkUrl,
+  }
+
+  try {
+    const result = await axios.post(`${API_INVOKE_URL}/links/${linkCollectionId}`,{link})
+    console.log(result.data)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 
 

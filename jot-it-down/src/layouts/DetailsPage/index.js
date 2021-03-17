@@ -7,7 +7,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
   getAllToDos, deleteImage, getAllLinks, getAllLinkCollections, getAllToDosCollections, getOneNote, 
   getAllImages, updateNote,insertNote, insertAlbum, insertToDoCollection, deleteNote, updateAlbum, 
   updateToDoCollection,deleteAlbum, deleteToDoCollection, deleteLink, deleteLinkCollection, updateLinkCollection,
-  insertLinkCollection} from '../../network'
+  insertLinkCollection, insertLink} from '../../network'
   
   export default function DetailsPage() {
     const history = useHistory();
@@ -130,6 +130,10 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     const onLinkDelete = async(data) => {
       await deleteLink(data.linkId, collectionid)
     }
+
+    const onAddLink = async(data) => {
+      await insertLink(data.linkUrl, collectionid)
+    }
     
     const onCollectionDelete = async (data) =>{
       if (data.type === "notes"){
@@ -209,6 +213,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     onListEdit = {onListEdit}
     onAddToDo = {onAddToDo}
     onLinkDelete = {onLinkDelete}
+    onAddLink = {onAddLink}
     onCollectionDelete = {onCollectionDelete}
     onEditCollection = {onEditCollection}
     addCollection = { addCollection}

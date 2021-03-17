@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LandingPage({
+  onAddLink,
   onLinkDelete,
   onAddToDo,
   onListEdit,
@@ -57,7 +58,6 @@ export default function LandingPage({
   onImageDelete,
   onImageClick,
     checked,
-    onSubmit
 }) {
 
   let body 
@@ -96,7 +96,7 @@ export default function LandingPage({
     body=   <LinkView
      links = {details}
      onLinkDelete = {onLinkDelete}
-     onSubmit = {onSubmit}
+     onAddLink = {onAddLink}
      />
    }
 
