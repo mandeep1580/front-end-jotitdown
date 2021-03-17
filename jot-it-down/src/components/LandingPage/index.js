@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import AppHeadings from "../AppHeadings";
 import NewCollection from "../NewCollection"
 import NoteDescription from "../NoteDescription"
 import ImageView from "../../components/ImageView"
-import Listt from "../Listt";
 import ListView from "../ListView";
 import LinkView from "../LinkView";
 
@@ -94,7 +93,7 @@ export default function LandingPage({
     />
   }
   else if(selectedType === "links"){
-    body=   <LinkView onSubmit
+    body=   <LinkView
      links = {details}
      onLinkDelete = {onLinkDelete}
      onSubmit = {onSubmit}

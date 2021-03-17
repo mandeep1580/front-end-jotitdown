@@ -283,6 +283,18 @@ export async function deleteLinkCollection(linkCollectionId) {
   }
 }
 
+export async function updateLinkCollection(linkCollectionId, linkCollectionName) {
+  const linkCollection = {
+      name: linkCollectionName
+  }
+  try {
+    const result = await axios.put(`${API_INVOKE_URL}/links/${linkCollectionId}`,{linkCollection})
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 
 

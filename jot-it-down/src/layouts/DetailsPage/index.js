@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,getAllImageAlbums,
   getAllToDos, deleteImage, getAllLinks, getAllLinkCollections, getAllToDosCollections, getOneNote, 
   getAllImages, updateNote,insertNote, insertAlbum, insertToDoCollection, deleteNote, updateAlbum, 
-  updateToDoCollection,deleteAlbum, deleteToDoCollection, deleteLink, deleteLinkCollection} from '../../network'
+  updateToDoCollection,deleteAlbum, deleteToDoCollection, deleteLink, deleteLinkCollection, updateLinkCollection} from '../../network'
   
   export default function DetailsPage() {
     const history = useHistory();
@@ -33,7 +33,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     }
     
     useEffect(()=> {
-      if(collection == "notes"){
+      if(collection === "notes"){
         (async () => {
           const result = (await getOneNote({noteId:collectionid}))
           console.log(result)
@@ -86,7 +86,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     },[])
     
     const onCollectionClicked = async(data) =>{
-      if (data.type == "notes"){
+      if (data.type === "notes"){
         window.location.href=`/notes/${data.collectionId}`;
         history.push('/notes')
       }
@@ -161,6 +161,10 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
       else if (data.type === "todos"){
         await updateToDoCollection(data.collectionId,data.name)
         history.push('/todos')
+      }
+      else if (data.type === "links"){
+        await updateLinkCollection(data.collectionId,data.name)
+        history.push('/links')
       }
     }
     
