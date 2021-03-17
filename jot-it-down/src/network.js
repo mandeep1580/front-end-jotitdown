@@ -295,6 +295,19 @@ export async function updateLinkCollection(linkCollectionId, linkCollectionName)
   }
 }
 
+export async function insertLinkCollection(linkCollectionName) {
+  const linkCollection = {
+    name: linkCollectionName
+}
+  try {
+    const result = await axios.post(`${API_INVOKE_URL}/links`,{linkCollection})
+    console.log(result.data)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 
 

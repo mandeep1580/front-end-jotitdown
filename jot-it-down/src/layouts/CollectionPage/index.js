@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import LandingPage from '../../components/LandingPage'
 import {getAllNotes, insertNote, insertAlbum, insertToDoCollection, deleteNote, updateNote, updateAlbum, 
   updateToDoCollection,deleteAlbum, deleteToDoCollection, getAllImageAlbums, getAllLinkCollections, 
-  getAllToDosCollections, deleteLinkCollection, updateLinkCollection} from '../../network'
+  getAllToDosCollections, deleteLinkCollection, updateLinkCollection, insertLinkCollection} from '../../network'
 
 export default function CollectionPage() {
   const {collection} = useParams()
@@ -124,6 +124,9 @@ export default function CollectionPage() {
     }
      else if (collection === "todos"){
       await insertToDoCollection(data.name)
+     }
+     else if (collection === "links"){
+      await insertLinkCollection(data.name)
      }
   }
 
