@@ -26,8 +26,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp({onSubmit, loginClick}) {
+export default function SignUp({onSubmit, loginClick, formState, onChange, signUp}) {
   const classes = useStyles();
+
+  console.log(formState)
 
   return (
     <Container component="main" maxWidth="xs">
@@ -42,22 +44,22 @@ export default function SignUp({onSubmit, loginClick}) {
             margin="normal"
             required
             fullWidth
-            id="email"
             label="Email Id"
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={onChange}
           />
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="username"
             label="User Name"
             name="username"
             autoComplete="username"
             autoFocus
+            onChange={onChange}
           />
           <TextField
             variant="outlined"
@@ -69,6 +71,7 @@ export default function SignUp({onSubmit, loginClick}) {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={onChange}
           />
           
           <Button
@@ -78,7 +81,7 @@ export default function SignUp({onSubmit, loginClick}) {
             color="primary"
             className={classes.submit}
             style={{backgroundColor: "#B23850", color: "white"}}
-            onClick={()=> onSubmit()}>
+            onClick={signUp}>
              Sign Up
           </Button>
               <Link 
