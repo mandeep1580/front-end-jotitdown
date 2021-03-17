@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function ListView({onSubmit, lists, onDelete, onChange, onEdit, checked}) {
+export default function ListView({onSubmit, lists, onListDelete, onChange, onEdit, checked}) {
   const classes = useStyles()
   const [item, setItem] = useState("")
   const submit = event => {
@@ -54,7 +54,7 @@ export default function ListView({onSubmit, lists, onDelete, onChange, onEdit, c
       <Listt 
       key={list.toDoId} 
       list={list} 
-      onDelete={onDelete}
+      onListDelete={onListDelete}
       onChange ={onChange} 
       onEdit = {onEdit}
       checked= {checked}></Listt>

@@ -36,7 +36,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Listt({list, onDelete, onChange, onEdit, checked}) {
+export default function Listt({list, onListDelete, onChange, onListEdit, checked}) {
   const classes = useStyles();
   const handleChange = () =>{
     onChange({toDoId: list.toDoId})
@@ -57,8 +57,8 @@ export default function Listt({list, onDelete, onChange, onEdit, checked}) {
         </CardContent>
         <CardActions className={classes.cover}>
           <IconButton aria-label="delete">
-            <EditIcon className={classes.color} onClick={() => onEdit({toDoId: list.toDoId})}/>
-            <DeleteIcon className={classes.color} onClick={() => onDelete({toDoId: list.toDoId})}/>
+            <EditIcon className={classes.color} onClick={() => onListEdit({toDoId: list.toDoId})}/>
+            <DeleteIcon className={classes.color} onClick={() => onListDelete({toDoId: list.toDoId})}/>
             </IconButton>
             </CardActions>
             </Card>

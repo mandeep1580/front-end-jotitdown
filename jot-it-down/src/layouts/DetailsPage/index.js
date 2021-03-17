@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import LandingPage from '../../components/LandingPage'
 import { useParams } from "react-router-dom"
 import { useHistory } from 'react-router-dom';
-import {getAllNotes, insertImage, getAllImageAlbums,getAllToDos, deleteImage, getAllLinks, getAllLinkCollections, getAllToDosCollections, getOneNote, getAllImages} from '../../network'
+import {getAllNotes, insertImage, deleteToDoItem, getAllImageAlbums,getAllToDos, deleteImage, getAllLinks, getAllLinkCollections, getAllToDosCollections, getOneNote, getAllImages} from '../../network'
 
 export default function DetailsPage() {
   const history = useHistory();
@@ -113,6 +113,10 @@ export default function DetailsPage() {
         await insertImage(data.imageUrl, collectionid)
       }
 
+      const onListDelete = async(data) => {
+        await deleteToDoItem(data.toDoId, collectionid)
+      }
+
     return (
 <LandingPage 
 data= {data}
@@ -126,6 +130,7 @@ details = {details}
         selectedType ={selectedType}
         onImageDelete= {onImageDelete}
         onImageInsert = { onImageInsert}
+        onListDelete = {onListDelete}
         />
     )
   }
