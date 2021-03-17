@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Card, IconButton, CardActions, CardContent, Typography, Checkbox} from '@material-ui/core';
+import {Card, IconButton, CardActions, CardContent, Typography, Checkbox,Button, FormControl, Input} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import Modal from "@material-ui/core/Modal";
 
-const useStyles = makeStyles({
+
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'row',
@@ -33,14 +46,122 @@ const useStyles = makeStyles({
   },
   color:{
     color:"#B23850"
-  }
-});
+  },
+  paper: {
+    position: "absolute",
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  modelroot: {
+    maxWidth: 600,
+    padding: 10,
+    margin: "auto",
+  },
+  header: {
+    textAlign: "left",
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontWeight: "bold",
+    marginBottom: "20px",
+    marginLeft: "12px",
+  },
+  modalInput: {
+    border: "1px solid #ddd",
+    height: "40px",
+    paddingLeft: "10px",
+    color: "#999",
+    fontSize: "14px",
+    marginBottom: "15px",
+    outline: "none",
+    "&::after": {
+      transition: "none",
+      border: "none",
+    },
+    "&::before": {
+      transition: "none",
+      border: "none",
+    },
+  },
+  postImage: {
+    display: "flex",
+    flexDirection: "column",
+    margin: 10,
+    "&:hover": {
+      "& $modalInput": {
+        boder: 0,
+      },
+    },
+  },
+  button: {
+    marginTop: "15px",
+    color: "#eee",
+    background: "#B23850",
+    textTransform: "capitalize",
+    fontWeight: "bold",
+    "&:hover": {
+      color: "#fff",
+      background: "#B23850",
+    },
+  },
+}));
 
-export default function Listt({list, onDelete, onChange, onEdit, checked}) {
+export default function Listt({list, onListDelete, onChecked, onListEdit}) {
   const classes = useStyles();
+  const [modalStyle] = React.useState(getModalStyle);
+  const [open, setOpen] = React.useState(false);
+  const [name, setName] = useState("");
+  let body;
   const handleChange = () =>{
-    onChange({toDoId: list.toDoId})
+    console.log( !(list.completed))
+    onChecked({toDoId: list.toDoId, toDoItem: list.toDoItem, completed: !(list.completed), })
   }
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  body = (
+    <div style={modalStyle} className={classes.paper}>
+      <div
+        className={classes.modelroot}
+      >
+        <Typography className={classes.header}>Edit ToDo Item</Typography>
+
+        <FormControl
+          component="form"
+          maxWidth="sm"
+          className={classes.postImage}
+          onSubmit={handleSubmit}
+        >
+          <Input
+            id="collection-name"
+            className={classes.modalInput}
+            defaultValue=""
+            value={name}
+            placeholder="Enter ToDo Item"
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Button
+            color="primary"
+            className={classes.button}
+            onClick={()=>{onListEdit({toDoId: list.toDoId, toDoItem: name, completed: list.completed }); handleClose();}}
+          >
+            Edit ToDo Item
+          </Button>
+        </FormControl>
+      </div>
+    </div>
+  )
   
   return (
   <>
@@ -57,11 +178,19 @@ export default function Listt({list, onDelete, onChange, onEdit, checked}) {
         </CardContent>
         <CardActions className={classes.cover}>
           <IconButton aria-label="delete">
-            <EditIcon className={classes.color} onClick={() => onEdit({toDoId: list.toDoId})}/>
-            <DeleteIcon className={classes.color} onClick={() => onDelete({toDoId: list.toDoId})}/>
+            {/* <EditIcon className={classes.color} onClick={() => onListEdit({toDoId: list.toDoId})}/> */}
+            <EditIcon className={classes.color} onClick={handleOpen}/>
+            <DeleteIcon className={classes.color} onClick={() => onListDelete({toDoId: list.toDoId})}/>
             </IconButton>
             </CardActions>
             </Card>
+            <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="collection-name"
+      >
+        {body}
+      </Modal>
             </>
             );
           }

@@ -1,57 +1,38 @@
 import React from 'react'
-import {  useState } from 'react'
 import LandingPage from '../../components/LandingPage'
-// import Header from '../../components/Header'
+import { useHistory } from "react-router-dom"
 
 export default function HomePage() {
- 
-  const [collections, setCollections] = useState([])
-  const [details, setDetails] = useState([])
-  const [selectedType, setSelectedType] = useState()
+  const history = useHistory()
 
-const onImageSubmit = () => {
-  return "Image Added"
-}
- 
 
-const onImageDelete = () => {
-  return "Image Deleted"
+const onClickNotes = () => {
+  history.push(`/notes`)
 }
 
-const onImageClick = () =>{
-  return "Image Clicked"
-}
-const onEdit = () => {
-  return "Image Added"
-}
- 
-
-const onChange = () => {
-  return "Image Deleted"
+const onClickImages = () => {
+  history.push(`/images`)
 }
 
-const onDelete = () =>{
-  return "Image Clicked"
+const onClickLinks = () =>{
+  history.push(`/links`)
+}
+
+const onClickToDos = () =>{
+  history.push(`/todos`)
 }
 
 
 
     return (
         <div>
-
-        {/* <Header></Header> */}
         
         <LandingPage 
-        collections = {collections}
-        details = {details}
-        selectedType ={selectedType}
-        onImageSubmit = {onImageSubmit}
-        onImageDelete = {onImageDelete}
-        onImageClick = {onImageClick}
-        onDelete={onDelete}
-    onChange ={onChange} 
-    onEdit = {onEdit}
-    checked= {true}
+
+onClickNotes = {onClickNotes}
+onClickImages ={onClickImages}
+onClickLinks = {onClickLinks}
+onClickToDos = {onClickToDos}
         />
         </div>
     )

@@ -6,7 +6,6 @@ import {
   CardContent,
   Input
 } from "@material-ui/core";
-import {insertImage} from '../../network'
 
 const useStyles = makeStyles(() => ({
   form: {
@@ -15,11 +14,6 @@ const useStyles = makeStyles(() => ({
     justifyContent: "flex-end",
     position: "relative"
   },
-  // buttonWrapper: {
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   justifyContent: "center"
-  // },
   icon:{
     color:"#B23850",
     position: "absolute",
@@ -44,7 +38,7 @@ const useStyles = makeStyles(() => ({
  
 }))
 
-export default function ImageView({onSubmit, onDelete, images, onClick, selectedId}) {
+export default function ImageView({ onImageDelete, images, onClick,  onImageInsert}) {
   const classes = useStyles()
   const [imageUrl, setImageUrl] = useState("")
   // const submit = event => {
@@ -54,18 +48,13 @@ export default function ImageView({onSubmit, onDelete, images, onClick, selected
   // }
 
 
-  const imageInsert = async () => {
-    // event.preventDefault();
-    await insertImage(imageUrl,selectedId)
-  }
-
   return (
   
   <div  className={classes.collectionwrap}>
    <div className={classes.collectionaddIcon}>
         <AddCircleIcon
           className={classes.add}
-          onClick ={imageInsert}
+          onClick ={() => onImageInsert({imageUrl: imageUrl })}
         ></AddCircleIcon> 
         {/* <Button onClick ={imageInsert }>Add image </Button> */}
       </div>
@@ -85,9 +74,8 @@ export default function ImageView({onSubmit, onDelete, images, onClick, selected
         <Image 
         key={image.imageId} 
         image={image} 
-        onDelete={onDelete}
-        onClick = {onClick}
-        selectedId ={selectedId}>
+        onImageDelete={onImageDelete}
+        onClick = {onClick}>
         </Image>
         ))}
         </CardContent>
