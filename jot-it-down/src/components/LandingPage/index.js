@@ -36,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LandingPage({
+  onListEdit,
+  onChecked,
   onListDelete,
   onImageInsert,
   details, 
@@ -51,12 +53,9 @@ export default function LandingPage({
   onClickImages,
   onClickLinks,
   onClickToDos,
-  onImageSubmit,
   onImageDelete,
   onImageClick,
   onDelete,
-    onChange ,
-    onEdit ,
     checked,
     onSubmit
 }) {
@@ -105,8 +104,8 @@ export default function LandingPage({
     body=   <ListView onSubmit
      lists = {details}
      onListDelete = {onListDelete}
-     onChange = {onChange}
-     onEdit = {onEdit}
+     onChecked = {onChecked}
+     onListEdit = {onListEdit}
      checked ={checked} 
      />
    }

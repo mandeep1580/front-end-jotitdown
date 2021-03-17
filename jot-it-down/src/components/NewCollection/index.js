@@ -11,7 +11,6 @@ import Modal from "@material-ui/core/Modal";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 import Collection from "../Collection";
-import {insertNote, insertAlbum, insertToDoCollection} from '../../network'
 
 
 function getModalStyle() {

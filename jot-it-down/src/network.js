@@ -234,3 +234,17 @@ export async function getAllLinks({linkCollectionId}) {
    console.log(error)
  }
 }
+
+export async function updateToDoItem(toDoItem, completed, toDoId, toDoCollectionId) {
+  console.log()
+  const toDo = {
+    toDoItem: toDoItem,
+    completed: completed
+  }
+  try {
+    const result = await axios.patch(`${API_INVOKE_URL}/todos/${toDoCollectionId}?toDoId=${toDoId}`, {toDo})
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}

@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function ListView({onSubmit, lists, onListDelete, onChange, onEdit, checked}) {
+export default function ListView({onSubmit, lists, onListDelete, onChecked, onListEdit}) {
   const classes = useStyles()
   const [item, setItem] = useState("")
   const submit = event => {
@@ -55,9 +55,8 @@ export default function ListView({onSubmit, lists, onListDelete, onChange, onEdi
       key={list.toDoId} 
       list={list} 
       onListDelete={onListDelete}
-      onChange ={onChange} 
-      onEdit = {onEdit}
-      checked= {checked}></Listt>
+      onChecked = {onChecked}
+      onListEdit = {onListEdit}></Listt>
       ))}
       </CardContent>:""}
       </>
