@@ -24,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function ListView({onSubmit, lists, onListDelete, onChecked, onListEdit}) {
+export default function ListView({onAddToDo, lists, onListDelete, onChecked, onListEdit}) {
   const classes = useStyles()
   const [item, setItem] = useState("")
   const submit = event => {
     event.preventDefault()
-    onSubmit({todoItem: item })
+    onAddToDo({todoItem: item })
     setItem("")
   }
   return (

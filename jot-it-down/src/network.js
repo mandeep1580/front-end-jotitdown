@@ -248,3 +248,17 @@ export async function updateToDoItem(toDoItem, completed, toDoId, toDoCollection
     console.log(error)
   }
 }
+
+export async function insertToDoItem(toDoItem, toDoCollectionId) {
+  const toDo = {
+    toDoItem: toDoItem,
+  }
+
+  try {
+    const result = await axios.post(`${API_INVOKE_URL}/todos/${toDoCollectionId}`,{toDo})
+    console.log(result.data)
+    return result.data
+  } catch (error) {
+    console.log(error)
+  }
+}

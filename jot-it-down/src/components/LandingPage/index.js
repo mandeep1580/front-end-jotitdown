@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LandingPage({
+  onAddToDo,
   onListEdit,
   onChecked,
   onListDelete,
@@ -101,7 +102,8 @@ export default function LandingPage({
    }
 
    else if(selectedType === "todos"){
-    body=   <ListView onSubmit
+    body=   <ListView 
+    onAddToDo = {onAddToDo}
      lists = {details}
      onListDelete = {onListDelete}
      onChecked = {onChecked}
