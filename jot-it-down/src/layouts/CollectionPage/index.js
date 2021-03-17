@@ -2,11 +2,11 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom"
 import LandingPage from '../../components/LandingPage'
-import {getAllNotes, insertNote, insertAlbum, insertToDoCollection, deleteNote, updateNote, updateAlbum, updateToDoCollection,deleteAlbum, deleteToDoCollection, getAllImageAlbums, getAllLinkCollections, getAllToDosCollections} from '../../network'
-import { useHistory } from "react-router-dom"
+import {getAllNotes, insertNote, insertAlbum, insertToDoCollection, deleteNote, updateNote, updateAlbum, 
+  updateToDoCollection,deleteAlbum, deleteToDoCollection, getAllImageAlbums, getAllLinkCollections, 
+  getAllToDosCollections, deleteLinkCollection, updateLinkCollection, insertLinkCollection} from '../../network'
 
 export default function CollectionPage() {
-  const history = useHistory()
   const {collection} = useParams()
   const [type,setType] = useState("")
   const [dataa, setData] = useState([])
@@ -71,17 +71,17 @@ export default function CollectionPage() {
   }
 
   const onCollectionClicked = async(data) =>{
-    if (data.type == "notes"){
+    if (data.type === "notes"){
       window.location.href=`/notes/${data.collectionId}`;
     }
 
-    else if (data.type == "images"){
+    else if (data.type === "images"){
       window.location.href=`/images/${data.collectionId}`
     }
-    else if (data.type == "links"){
+    else if (data.type === "links"){
       window.location.href=`/links/${data.collectionId}`
     }
-    else if (data.type == "todos"){
+    else if (data.type === "todos"){
       window.location.href=`/todos/${data.collectionId}`
     }
   }
@@ -93,8 +93,9 @@ export default function CollectionPage() {
       await deleteAlbum(data.collectionId)
     }else if(data.type==="todos"){
       await deleteToDoCollection(data.collectionId)
+    }else if(data.type==="links"){
+      await deleteLinkCollection(data.collectionId)
     }
-
   }
 
 
@@ -106,6 +107,9 @@ export default function CollectionPage() {
       }else if (data.type === "todos"){
       await updateToDoCollection(data.collectionId,data.name)
       }
+      else if (data.type === "links"){
+        await updateLinkCollection(data.collectionId,data.name)
+        }
   }
 
 
@@ -120,6 +124,9 @@ export default function CollectionPage() {
     }
      else if (collection === "todos"){
       await insertToDoCollection(data.name)
+     }
+     else if (collection === "links"){
+      await insertLinkCollection(data.name)
      }
   }
 
