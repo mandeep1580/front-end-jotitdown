@@ -15,6 +15,8 @@ import Container from '@material-ui/core/Container';
 import Grid from "@material-ui/core/Grid";
 import logo from "./logo.png";
 
+// import useLocalStorage from "react-use-localstorage";
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -58,48 +60,55 @@ const useStyles = makeStyles((theme) => ({
   
 
 export default function AuthPage() {
+    const history = useHistory()
     const classes = useStyles();
+    // const [ token,setToken ] = useLocalStorage("")
     const [formType, setFormType] = useState('signUp')
     const [ username,setUsername] = useState("")
     const [ password,setPassword] = useState("")
     const [ email,setEmail] = useState("")
     const [ code, setCode] = useState("")
     const [user, setUser] =useState(null)
-    const history = useHistory()
     const [sendUser, setSendUser] = useState(null)
+
 
     useEffect(()=> {
         checkUser();
-        setAuthListener();
+        // setAuthListener();
     },[])
+       
+    // const setAuthListener = ()=>{
+    //     Hub.listen('auth', (data) => {
+    //         switch (data.payload.event) {
+    //         case 'signOut':
+    //               console.log('user signed out');
+    //               setFormType('signIn')
+    //               break;
+    //         default:
+    //             break;
+    //         }
+    //       });
 
-    const setAuthListener = ()=>{
-        Hub.listen('auth', (data) => {
-            switch (data.payload.event) {
-            case 'signOut':
-                  console.log('user signed out');
-                  setFormType('signIn')
-                  break;
-            default:
-                break;
-            }
-          });
-
-    }
+    // }
         const checkUser = async () =>{
         try{
             const userinfo= await Auth.currentAuthenticatedUser()
             console.log(userinfo)
-            setUser(userinfo)
+            // setUser(userinfo)
             const sendUser = await Auth.currentUserInfo();
-            console.log(sendUser.username)
+            setUser(sendUser.username)
+            // setToken(sendUser.username)
+            // console.log(token)
             setSendUser(sendUser.username)
             setFormType("signedIn")
         }catch(err){
-
+            
         }
+        // CognitoIdentityServiceProvider.1is9n6evvrnv94l9ijcho43mnv.LastAuthUser
+        
     }
-     
+    // localStorage.setItem('username',user)
+
       const signUp = async (e) => {
           e.preventDefault();
         try {
@@ -139,6 +148,12 @@ export default function AuthPage() {
             console.log('error signing in', error);
         }
     }
+    async function signOut(){
+        Auth.signOut();
+    }
+
+    // const myuser = localStorage.getItem('username')
+    // console.log(myuser)
 
 return (
     <div>
@@ -233,12 +248,18 @@ formType === "signIn" && (
 }
 {
     formType === "signedIn" && (
-        // history.push('/home')
-        <div>
-        <button onClick={() => Auth.signOut()}>SignOut</button>
-        {/* {history.push('/home')} */}
-            <HomePage username={sendUser}/>
-        </div>
+        history.push({
+            pathname: '/home',
+            user: sendUser,
+            // token: token,
+            // setToken: {setToken},
+            signOut: {signOut}
+        })
+        // <div>
+        // <button onClick={() => Auth.signOut()}>SignOut</button>
+        // {/* {history.push('/home')} */}
+        //     <HomePage username={sendUser}/>
+        // </div>
     )
 }
 

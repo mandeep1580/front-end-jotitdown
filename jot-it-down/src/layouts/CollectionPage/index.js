@@ -12,11 +12,14 @@ export default function CollectionPage() {
   const {collection} = useParams()
   const [type,setType] = useState("")
   const [dataa, setData] = useState([])
+
+  const currentUser = localStorage.getItem('CognitoIdentityServiceProvider.1is9n6evvrnv94l9ijcho43mnv.LastAuthUser')
+console.log(currentUser)
   
   useEffect(()=> {
     if (collection === "notes") {
       (async () => {
-        const res = JSON.parse(await getAllNotes())
+        const res = (await getAllNotes(currentUser))
         setType("notes")
         setData(res)
         console.log(type)
@@ -108,7 +111,7 @@ export default function CollectionPage() {
   }
 
   const addNote = async (data) => {
-    await insertNote(data.name, data.description)
+    await insertNote(data.name, data.description, currentUser)
   }
 
   const addCollection = async(data) => {

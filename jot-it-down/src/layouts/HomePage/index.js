@@ -1,8 +1,11 @@
 import React from 'react'
-import LandingPage from '../../components/LandingPage'
 import { useHistory } from "react-router-dom"
+import LandingPage from '../../components/LandingPage'
 
-export default function HomePage() {
+export default function HomePage(props) {
+  // const {token, setToken,signOut} = (props.location && props.location.state) || {};
+
+  // console.log(token)
   const history = useHistory()
 
 
@@ -23,17 +26,18 @@ const onClickToDos = () =>{
 }
 
 
-
     return (
-        <div>
+     
         
         <LandingPage 
-
-onClickNotes = {onClickNotes}
-onClickImages ={onClickImages}
-onClickLinks = {onClickLinks}
-onClickToDos = {onClickToDos}
+        // token ={token} 
+        // setToken ={setToken}
+        // signOut ={signOut}
+        onClickNotes = {onClickNotes}
+        onClickImages ={onClickImages}
+        onClickLinks = {onClickLinks}
+        onClickToDos = {onClickToDos}
         />
-        </div>
+        
     )
   }

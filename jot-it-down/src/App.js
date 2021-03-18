@@ -10,6 +10,7 @@ import DetailsPage from './layouts/DetailsPage'
 import AuthPage from './layouts/AuthPage'
 
 
+
 export default function App() {
   return (
 
@@ -26,6 +27,7 @@ export default function App() {
   </Route>
   <Route path="/home">
   <HomePage />
+  
   </Route>
 </Switch>
 </Router>
