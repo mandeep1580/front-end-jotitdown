@@ -117,7 +117,7 @@ export default function CollectionPage() {
   const addCollection = async(data) => {
     console.log(data)
     if (collection === "images"){
-      await insertAlbum(data.name)
+      await insertAlbum(data.name,currentUser)
     }
     else if (collection === "todos"){
       await insertToDoCollection(data.name)

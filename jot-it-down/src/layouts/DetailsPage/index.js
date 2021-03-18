@@ -52,7 +52,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
           console.log(result)
           setDetails(result)
           setSelectedType("images")
-          const res = JSON.parse(await getAllImageAlbums())
+          const res = (await getAllImageAlbums())
           setType("images")
           setData(res)
           console.log(type)

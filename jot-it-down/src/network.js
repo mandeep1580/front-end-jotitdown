@@ -64,9 +64,9 @@ export async function deleteNote(noteId) {
 
 export async function getAllImageAlbums(username) {
   try { 
-   const response = await axios.get(`${API_INVOKE_URL}/albums`)
-   console.log(response.data.body)
-   return response.data.body
+   const response = await axios.get(`${API_INVOKE_URL}/albums?user=${username}`)
+   console.log(response.data)
+   return response.data
  } catch (error) {
    console.log(error)
  }
