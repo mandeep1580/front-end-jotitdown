@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Auth } from 'aws-amplify';
+import { Auth,Hub } from 'aws-amplify';
 import { useHistory } from "react-router-dom"
 import SignUp from '../../components/SignUp'
 import HomePage from '../HomePage'
@@ -66,18 +66,34 @@ export default function AuthPage() {
     const [ code, setCode] = useState("")
     const [user, setUser] =useState(null)
     const history = useHistory()
+    const [sendUser, setSendUser] = useState(null)
 
     useEffect(()=> {
         checkUser();
+        setAuthListener();
     },[])
 
-    const checkUser = async () =>{
+    const setAuthListener = ()=>{
+        Hub.listen('auth', (data) => {
+            switch (data.payload.event) {
+            case 'signOut':
+                  console.log('user signed out');
+                  setFormType('signIn')
+                  break;
+            default:
+                break;
+            }
+          });
+
+    }
+        const checkUser = async () =>{
         try{
             const userinfo= await Auth.currentAuthenticatedUser()
             console.log(userinfo)
             setUser(userinfo)
             const sendUser = await Auth.currentUserInfo();
             console.log(sendUser.username)
+            setSendUser(sendUser.username)
             setFormType("signedIn")
         }catch(err){
 
@@ -177,7 +193,6 @@ return (
 <form className={classes.form} noValidate>
 <TextField variant="outlined" margin="normal" required fullWidth label="Enter Confirmation Code" name="code" autoComplete="username" autoFocus onChange={e => setCode(e.target.value)}/>
 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} style={{backgroundColor: "#B23850", color: "white"}} onClick={confirmSignUp}> Confirm </Button>
-<Link  type= "login" variant="body2" onClick={()=>{setFormType("signIn")}}> Have an account? Log In </Link>
 </form>
 </div>
 </Container>
@@ -201,13 +216,13 @@ formType === "signIn" && (
 <CssBaseline />
 <div className={classes.paper}>
 <Typography component="h1" variant="h5">
-  Sign Up
+  Sign In
 </Typography>
 <form className={classes.form} noValidate>
 <TextField variant="outlined" margin="normal" required fullWidth label="User Name" name="username" autoComplete="username" autoFocus onChange={e => setUsername(e.target.value)}/>
 <TextField variant="outlined" margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" onChange={e => setPassword(e.target.value)} />
 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} style={{backgroundColor: "#B23850", color: "white"}} onClick={signIn}> Sign In </Button>
-<Link  type= "login" variant="body2" onClick={()=>{setFormType("signIn")}}> Have an account? Log In </Link>
+<Link  type= "login" variant="body2" onClick={()=>{setFormType("signUp")}}> New user? Register </Link>
 </form>
 </div>
 </Container>
@@ -218,10 +233,11 @@ formType === "signIn" && (
 }
 {
     formType === "signedIn" && (
+        // history.push('/home')
         <div>
         <button onClick={() => Auth.signOut()}>SignOut</button>
         {/* {history.push('/home')} */}
-            <HomePage />
+            <HomePage username={sendUser}/>
         </div>
     )
 }
