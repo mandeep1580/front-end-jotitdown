@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import AppHeadings from "../AppHeadings";
@@ -57,26 +57,10 @@ export default function LandingPage({
   onClickToDos,
   onImageDelete,
   onImageClick,
-    checked,
 }) {
 
   let body 
   const classes = useStyles();
-  // const [type,setType] = useState("")
-  // const [data, setData] = useState([])
-  // const [selectedId, setSelectedId] = useState(0)
-  // const [selectedType, setSelectedType] = useState("")
-  // const [selectedData, setSelectedData] = useState([])
-  
-  // const clickCollection = (receivedType,receivedData,receivedId) => {
-  //   console.log(receivedData)
-  //   setSelectedId(receivedId)
-  //   setSelectedType(receivedType)
-  //   setSelectedData(receivedData)
-  // }
-// console.log(selectedType)
-// console.log(selectedId)
-// console.log(selectedData)
   if(selectedType === "notes"){
     body =
     <NoteDescription 
@@ -107,14 +91,12 @@ export default function LandingPage({
      onListDelete = {onListDelete}
      onChecked = {onChecked}
      onListEdit = {onListEdit}
-     checked ={checked} 
      />
    }
 
   else {
     body = ""
   }
-
 
 return (
     <Grid container className={classes.root}> 

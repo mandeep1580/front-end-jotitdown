@@ -18,19 +18,19 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     const [data, setData] = useState([])
     
     const onClickNotes = () => {
-      window.location.href="/notes";
+      history.push("/notes")
     }
     
     const onClickImages = () => {
-      window.location.href="/images";
+      history.push("/images")
     }
     
     const onClickLinks = () =>{
-      window.location.href="/links";
+      history.push("/links")
     }
     
     const onClickToDos = () =>{
-      window.location.href="/todos";
+      history.push("/todos")
     }
     
     useEffect(()=> {
@@ -84,22 +84,21 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
           console.log(type)
         })()
       }
-    },[])
+    },[collection, collectionid])
     
     const onCollectionClicked = async(data) =>{
       if (data.type === "notes"){
-        window.location.href=`/notes/${data.collectionId}`;
-        history.push('/notes')
+        history.push(`/notes/${data.collectionId}`)
       }
       
       else if (data.type === "images"){
-        window.location.href=`/images/${data.collectionId}`
+        history.push(`/images/${data.collectionId}`)
       }
       else if (data.type === "links"){
-        window.location.href=`/links/${data.collectionId}`
+        history.push(`/links/${data.collectionId}`)
       }
       else if (data.type === "todos"){
-        window.location.href=`/todos/${data.collectionId}`
+        history.push(`/todos/${data.collectionId}`)
       }
     }
     
@@ -218,7 +217,6 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     onEditCollection = {onEditCollection}
     addCollection = { addCollection}
     addNote = {addNote}
-    
     />
     )
   }
