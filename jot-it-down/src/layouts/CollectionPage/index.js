@@ -14,7 +14,7 @@ export default function CollectionPage() {
   const [dataa, setData] = useState([])
 
   const currentUser = localStorage.getItem('CognitoIdentityServiceProvider.1is9n6evvrnv94l9ijcho43mnv.LastAuthUser')
-console.log(currentUser)
+// console.log(currentUser)
   
   useEffect(()=> {
     if (collection === "notes") {
@@ -28,7 +28,7 @@ console.log(currentUser)
     
     else if (collection === "images") {
       (async () => {
-        const res = JSON.parse(await getAllImageAlbums())
+        const res = (await getAllImageAlbums(currentUser))
         setType("images")
         setData(res)
         console.log(type)
