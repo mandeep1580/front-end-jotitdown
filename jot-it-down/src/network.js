@@ -120,7 +120,6 @@ export async function getAllImages({albumId}) {
   }
 }
 
-
 export async function insertImage(url,albumId) {
   const image = {
       imageUrl: url,
@@ -148,21 +147,22 @@ export async function deleteImage(imageId,albumId) {
 // ToDo's Functions
 
 
-export async function getAllToDosCollections() {
+export async function getAllToDosCollections(username) {
   try { 
-   const response = await axios.get(`${API_INVOKE_URL}/todos`)
+   const response = await axios.get(`${API_INVOKE_URL}/todos?user=${username}`)
   //  console.log(response.data.body)
-   return response.data.body
+   return response.data
  } catch (error) {
    console.log(error)
  }
 }
 
 
-export async function insertToDoCollection(todoName) {
+export async function insertToDoCollection(todoName,username) {
   console.log(todoName)
   const ToDoCollection = {
-    name: todoName
+    name: todoName,
+    username: username
 }
   console.log(ToDoCollection.name)
   try {
@@ -252,7 +252,7 @@ export async function insertToDoItem(toDoItem, toDoCollectionId) {
 export async function getAllLinkCollections() {
   try { 
    const response = await axios.get(`${API_INVOKE_URL}/links`)
-   return response.data.body
+   return response.data
  } catch (error) {
    console.log(error)
  }

@@ -37,7 +37,7 @@ export default function CollectionPage() {
     
     else if (collection === "links") {
       (async () => {
-        const res = JSON.parse(await getAllLinkCollections())
+        const res = (await getAllLinkCollections(currentUser))
         setType("links")
         setData(res)
         console.log(type)
@@ -46,7 +46,7 @@ export default function CollectionPage() {
     
     else if (collection === "todos") {
       (async () => {
-        const res = JSON.parse(await getAllToDosCollections() )
+        const res = (await getAllToDosCollections(currentUser) )
         setType("todos")
         setData(res)
         console.log(type)
@@ -120,10 +120,10 @@ export default function CollectionPage() {
       await insertAlbum(data.name,currentUser)
     }
     else if (collection === "todos"){
-      await insertToDoCollection(data.name)
+      await insertToDoCollection(data.name, currentUser)
     }
     else if (collection === "links"){
-      await insertLinkCollection(data.name)
+      await insertLinkCollection(data.name, currentUser)
     }
   }
   
