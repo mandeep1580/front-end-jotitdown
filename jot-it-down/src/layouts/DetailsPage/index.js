@@ -16,6 +16,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     const [selectedType, setSelectedType] = useState([])
     const [type,setType] = useState("")
     const [data, setData] = useState([])
+  const currentUser = localStorage.getItem('CognitoIdentityServiceProvider.1is9n6evvrnv94l9ijcho43mnv.LastAuthUser')
     
     const onClickNotes = () => {
       history.push("/notes")
@@ -40,7 +41,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
           console.log(result)
           setDetails(result)
           setSelectedType("notes")
-          const res = JSON.parse(await getAllNotes())
+          const res = (await getAllNotes(currentUser))
           setType("notes")
           setData(res)
           console.log(type)
@@ -52,7 +53,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
           console.log(result)
           setDetails(result)
           setSelectedType("images")
-          const res = JSON.parse(await getAllImageAlbums())
+          const res = (await getAllImageAlbums(currentUser))
           setType("images")
           setData(res)
           console.log(type)
@@ -65,7 +66,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
           console.log(result)
           setDetails(result)
           setSelectedType("links")
-          const res = JSON.parse(await getAllLinkCollections())
+          const res = (await getAllLinkCollections(currentUser))
           setType("links")
           setData(res)
           console.log(type)
@@ -78,7 +79,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
           console.log(result)
           setDetails(result)
           setSelectedType("todos")
-          const res = JSON.parse(await getAllToDosCollections() )
+          const res = (await getAllToDosCollections(currentUser) )
           setType("todos")
           setData(res)
           console.log(type)
@@ -173,23 +174,23 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     }
     
     const addNote = async (data) => {
-      await insertNote(data.name, data.description)
+      await insertNote(data.name, data.description,currentUser)
       history.push('/notes')
     }
     
     const addCollection = async(data) => {
       console.log(data)
       if (collection === "images"){
-        await insertAlbum(data.name)
+        await insertAlbum(data.name,currentUser)
         history.push('/images')
       }
       
       else if (collection === "todos"){
-        await insertToDoCollection(data.name)
+        await insertToDoCollection(data.name,currentUser)
         history.push('/todos')
       }
       else if (collection === "links"){
-        await insertLinkCollection(data.name)
+        await insertLinkCollection(data.name,currentUser)
         history.push('/links')
       }
     }

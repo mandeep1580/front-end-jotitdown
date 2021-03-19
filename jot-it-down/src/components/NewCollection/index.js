@@ -107,6 +107,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NewCollection({
+  user,
   // key,
  type,
   data,
@@ -172,7 +173,7 @@ export default function NewCollection({
                 <Button
                   color="primary"
                   className={classes.button}
-                  onClick={()=>{addNote({name: name, description: description }); handleClose();}}
+                  onClick={()=>{addNote({name: name, description: description, username: user }); handleClose();}}
                 >
                   Add new note
                 </Button>

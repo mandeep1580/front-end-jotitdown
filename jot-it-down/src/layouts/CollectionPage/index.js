@@ -12,11 +12,14 @@ export default function CollectionPage() {
   const {collection} = useParams()
   const [type,setType] = useState("")
   const [dataa, setData] = useState([])
+
+  const currentUser = localStorage.getItem('CognitoIdentityServiceProvider.1is9n6evvrnv94l9ijcho43mnv.LastAuthUser')
+// console.log(currentUser)
   
   useEffect(()=> {
     if (collection === "notes") {
       (async () => {
-        const res = JSON.parse(await getAllNotes())
+        const res = (await getAllNotes(currentUser))
         setType("notes")
         setData(res)
         console.log(type)
@@ -25,7 +28,7 @@ export default function CollectionPage() {
     
     else if (collection === "images") {
       (async () => {
-        const res = JSON.parse(await getAllImageAlbums())
+        const res = (await getAllImageAlbums(currentUser))
         setType("images")
         setData(res)
         console.log(type)
@@ -34,7 +37,7 @@ export default function CollectionPage() {
     
     else if (collection === "links") {
       (async () => {
-        const res = JSON.parse(await getAllLinkCollections())
+        const res = (await getAllLinkCollections(currentUser))
         setType("links")
         setData(res)
         console.log(type)
@@ -43,7 +46,7 @@ export default function CollectionPage() {
     
     else if (collection === "todos") {
       (async () => {
-        const res = JSON.parse(await getAllToDosCollections() )
+        const res = (await getAllToDosCollections(currentUser) )
         setType("todos")
         setData(res)
         console.log(type)
@@ -108,19 +111,19 @@ export default function CollectionPage() {
   }
 
   const addNote = async (data) => {
-    await insertNote(data.name, data.description)
+    await insertNote(data.name, data.description, currentUser)
   }
 
   const addCollection = async(data) => {
     console.log(data)
     if (collection === "images"){
-      await insertAlbum(data.name)
+      await insertAlbum(data.name,currentUser)
     }
     else if (collection === "todos"){
-      await insertToDoCollection(data.name)
+      await insertToDoCollection(data.name, currentUser)
     }
     else if (collection === "links"){
-      await insertLinkCollection(data.name)
+      await insertLinkCollection(data.name, currentUser)
     }
   }
   
