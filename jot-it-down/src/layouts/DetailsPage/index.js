@@ -66,7 +66,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
           console.log(result)
           setDetails(result)
           setSelectedType("links")
-          const res = (await getAllLinkCollections())
+          const res = (await getAllLinkCollections(currentUser))
           setType("links")
           setData(res)
           console.log(type)

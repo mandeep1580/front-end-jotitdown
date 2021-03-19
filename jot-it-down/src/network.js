@@ -249,9 +249,9 @@ export async function insertToDoItem(toDoItem, toDoCollectionId) {
 
 
 // Links Functions
-export async function getAllLinkCollections() {
+export async function getAllLinkCollections(username) {
   try { 
-   const response = await axios.get(`${API_INVOKE_URL}/links`)
+   const response = await axios.get(`${API_INVOKE_URL}/links?user=${username}`)
    return response.data
  } catch (error) {
    console.log(error)
@@ -299,9 +299,10 @@ export async function updateLinkCollection(linkCollectionId, linkCollectionName)
   }
 }
 
-export async function insertLinkCollection(linkCollectionName) {
+export async function insertLinkCollection(linkCollectionName,username) {
   const linkCollection = {
-    name: linkCollectionName
+    name: linkCollectionName,
+    username: username
 }
   try {
     const result = await axios.post(`${API_INVOKE_URL}/links`,{linkCollection})
