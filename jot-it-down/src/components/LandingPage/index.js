@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import AppHeadings from "../AppHeadings";
@@ -7,11 +7,6 @@ import NoteDescription from "../NoteDescription"
 import ImageView from "../../components/ImageView"
 import ListView from "../ListView";
 import LinkView from "../LinkView";
-import { useHistory, useLocation } from "react-router-dom";
-import Header from '../../components/Header'
-import {Auth}  from 'aws-amplify';
-
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     display: "flex",
     flexDirection: "column",
-    marginTop: "63px"
 
     },
   main: {
@@ -34,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     borderLeft: "2px solid grey",
     padding: "5px 10px",
-    marginTop: "63px"
 
   },
   
@@ -42,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LandingPage({
+  user,
   onAddLink,
   onLinkDelete,
   onAddToDo,
@@ -64,45 +58,8 @@ export default function LandingPage({
   onClickToDos,
   onImageDelete,
   onImageClick,
-  token, setToken,signOut
 }, ) {
 
-  
-const history = useHistory()
-const location = useLocation();
-
-// console.log(location.pathname)
-// console.log(location.user)
-
-const [user, setUser] = useState()
-  
-useEffect(()=> {
-  checkUser();
-},[])
- 
-  const checkUser = async () =>{
-  try{
-      const userinfo= await Auth.currentAuthenticatedUser()
-      // console.log(userinfo)
-      const sendUser = await Auth.currentUserInfo();
-      const u = sendUser.username
-      setUser(u)
-      // debugger
-      // // setToken(sendUser.username)
-      // // console.log(token)
-      // setSendUser(sendUser.username)
-      // setFormType("signedIn")
-  }catch(err){
-
-  }
-}
-// console.log(user)
-// const myuser = localStorage.getItem('CognitoIdentityServiceProvider.1is9n6evvrnv94l9ijcho43mnv.LastAuthUser')
-// console.log(myuser)
-// token = (location && location.token) || {};
-//   setToken = (location && location.setToken) || {};
-//   signOut = (location && location.signOut) || {};
-//   console.log(token);
 
   let body 
   const classes = useStyles();
@@ -143,18 +100,14 @@ useEffect(()=> {
     body = ""
   }
 
-const titleClicked =() =>{
-  history.push(`/home`)
-}
+
 
 return (
 <div>
-  <Header titleClicked={titleClicked} logOutClicked={signOut}/>
 
     <Grid container className={classes.root}> 
       <Grid item xs={2}>
         <div className={classes.sidebar}>
-          {/* <h1>{token}</h1> */}
         <AppHeadings name="Notes" onClick={onClickNotes} ></AppHeadings>
             <AppHeadings name= "Images" onClick={onClickImages}></AppHeadings>
             <AppHeadings name= "Links" onClick={onClickLinks}></AppHeadings>
@@ -173,7 +126,6 @@ return (
           addCollection = { addCollection}
           data= {data} >
         </NewCollection>
-          {/* </div> */}
         </div>
       </Grid>
       <Grid item xs={7}>

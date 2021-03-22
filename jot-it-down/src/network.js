@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_INVOKE_URL = 'https://q5s1k6sgf9.execute-api.us-east-1.amazonaws.com/prod'
+const API_INVOKE_URL = ''
 
 // Notes Functions 
 
@@ -64,7 +64,7 @@ export async function deleteNote(noteId) {
 
 export async function getAllImageAlbums(username) {
   try { 
-   const response = await axios.get(`${API_INVOKE_URL}/albums?user=${username}`)
+   const response = await axios.get(`${API_INVOKE_URL}/images?user=${username}`)
    console.log(response.data)
    return response.data
  } catch (error) {
@@ -78,7 +78,7 @@ export async function insertAlbum(name,username) {
       username: username
   }
   try {
-    const result = await axios.post(`${API_INVOKE_URL}/albums`,{album})
+    const result = await axios.post(`${API_INVOKE_URL}/images`,{album})
     console.log(result.data)
     return result.data
   } catch (error) {
@@ -88,7 +88,7 @@ export async function insertAlbum(name,username) {
 
 export async function deleteAlbum(albumId) {
   try {
-    const result = await axios.delete(`${API_INVOKE_URL}/albums/${albumId}`)
+    const result = await axios.delete(`${API_INVOKE_URL}/images/${albumId}`)
     return result.data
   } catch (error) {
     console.log(error)
@@ -101,7 +101,7 @@ export async function updateAlbum(albumId, name) {
       name: name,
   }
   try {
-    const result = await axios.put(`${API_INVOKE_URL}/albums/${albumId}`,{album})
+    const result = await axios.put(`${API_INVOKE_URL}/images/${albumId}`,{album})
     return result.data
   } catch (error) {
     console.log(error)
@@ -113,7 +113,7 @@ export async function updateAlbum(albumId, name) {
 
 export async function getAllImages({albumId}) {
   try {
-    const result = await axios.get(`${API_INVOKE_URL}/albums/${albumId}`)
+    const result = await axios.get(`${API_INVOKE_URL}/images/${albumId}`)
     return result.data
   } catch (error) {
     console.log(error)
@@ -126,7 +126,7 @@ export async function insertImage(url,albumId) {
   }
 
   try {
-    const result = await axios.post(`${API_INVOKE_URL}/albums/${albumId}`,{image})
+    const result = await axios.post(`${API_INVOKE_URL}/images/${albumId}`,{image})
     console.log(result.data)
     return result.data
   } catch (error) {
@@ -136,7 +136,7 @@ export async function insertImage(url,albumId) {
 
 export async function deleteImage(imageId,albumId) {
   try {
-    const result = await axios.delete(`${API_INVOKE_URL}/albums/${albumId}?imageId=${imageId}`)
+    const result = await axios.delete(`${API_INVOKE_URL}/images/${albumId}?imageId=${imageId}`)
     console.log(result)
     return result.data
   } catch (error) {

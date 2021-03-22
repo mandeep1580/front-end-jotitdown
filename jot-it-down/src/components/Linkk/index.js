@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 export default function Linkk({link, onLinkDelete}) {
   const classes = useStyles();return (<>
   <Typography className={classes.title} color="textSecondary" align="right">
-    {link.timeStamp}
+    {link.createdTime}
     </Typography> 
     <Card className={classes.root}>
       <CardContent className={classes.link}>

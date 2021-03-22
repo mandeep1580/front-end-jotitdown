@@ -1,8 +1,9 @@
-import React from 'react'
-import { useEffect, useState } from 'react'
-import LandingPage from '../../components/LandingPage'
-import { useParams } from "react-router-dom"
+import React from 'react';
+import { useEffect, useState } from 'react';
+import LandingPage from '../../components/LandingPage';
+import { useParams } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
+import config from '../../config.json';
 import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,getAllImageAlbums,
   getAllToDos, deleteImage, getAllLinks, getAllLinkCollections, getAllToDosCollections, getOneNote, 
   getAllImages, updateNote,insertNote, insertAlbum, insertToDoCollection, deleteNote, updateAlbum, 
@@ -16,8 +17,28 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     const [selectedType, setSelectedType] = useState([])
     const [type,setType] = useState("")
     const [data, setData] = useState([])
-  const currentUser = localStorage.getItem('CognitoIdentityServiceProvider.1is9n6evvrnv94l9ijcho43mnv.LastAuthUser')
+    const currentUser = localStorage.getItem(`CognitoIdentityServiceProvider.${config.cognito.APP_CLIENT_ID}.LastAuthUser`)
     
+  const renderAllImages = async() => {
+    const result = (await getAllImages({albumId:collectionid}))
+          console.log(result)
+          setDetails(result)
+          setSelectedType("images")
+    }
+    const renderAllLinks = async() => {
+      const result = (await getAllLinks({linkCollectionId:collectionid}))
+          console.log(result)
+          setDetails(result)
+          setSelectedType("links")
+    }
+
+    const renderAllToDos = async() => {
+      const result = (await getAllToDos({todoCollectionId:collectionid}))
+      console.log(result)
+      setDetails(result)
+      setSelectedType("todos")
+    }
+
     const onClickNotes = () => {
       history.push("/notes")
     }
@@ -49,10 +70,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
       }
       else if(collection === "images"){
         (async () => {
-          const result = (await getAllImages({albumId:collectionid}))
-          console.log(result)
-          setDetails(result)
-          setSelectedType("images")
+          renderAllImages()
           const res = (await getAllImageAlbums(currentUser))
           setType("images")
           setData(res)
@@ -62,10 +80,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
       
       else if(collection === "links"){
         (async () => {
-          const result = (await getAllLinks({linkCollectionId:collectionid}))
-          console.log(result)
-          setDetails(result)
-          setSelectedType("links")
+          renderAllLinks()
           const res = (await getAllLinkCollections(currentUser))
           setType("links")
           setData(res)
@@ -75,10 +90,7 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
       
       else if(collection === "todos"){
         (async () => {
-          const result = (await getAllToDos({todoCollectionId:collectionid}))
-          console.log(result)
-          setDetails(result)
-          setSelectedType("todos")
+          renderAllToDos()
           const res = (await getAllToDosCollections(currentUser) )
           setType("todos")
           setData(res)
@@ -105,34 +117,42 @@ import {getAllNotes,updateToDoItem, insertToDoItem, insertImage, deleteToDoItem,
     
     const onImageDelete = async(data) => {
       await deleteImage(data.imageId, collectionid)
+      renderAllImages()
     }
     
     const onImageInsert = async(data) => {
       await insertImage(data.imageUrl, collectionid)
+      renderAllImages()
     }
     
     const onListDelete = async(data) => {
       await deleteToDoItem(data.toDoId, collectionid)
+      renderAllToDos()
     }
     
     const onChecked = async(data) => {
       await updateToDoItem(data.toDoItem, data.completed, data.toDoId, collectionid)
+      renderAllToDos()
     }
     
     const onListEdit = async(data) => {
       await updateToDoItem(data.toDoItem, data.completed, data.toDoId, collectionid)
+      renderAllToDos()
     }
     
     const onAddToDo = async(data) => {
       await insertToDoItem(data.todoItem, collectionid)
+      renderAllToDos()
     }
 
     const onLinkDelete = async(data) => {
       await deleteLink(data.linkId, collectionid)
+      renderAllLinks()
     }
 
     const onAddLink = async(data) => {
       await insertLink(data.linkUrl, collectionid)
+      renderAllLinks()
     }
     
     const onCollectionDelete = async (data) =>{

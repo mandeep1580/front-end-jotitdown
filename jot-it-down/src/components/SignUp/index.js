@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -26,13 +26,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp({onSubmit, loginClick, formState, onChange, signUp}) {
+export default function SignUp({ signUp, onLoginClick}) {
   const classes = useStyles();
 
-  // const [ username,setUsername] = useState("")
-  //   const [ password,setPassword] = useState("")
-  //   const [ email,setEmail] = useState("")
-
+  const [ username,setUsername] = useState("")
+  const [ password,setPassword] = useState("")
+  const [ email,setEmail] = useState("")
 
   return (
     <Container component="main" maxWidth="xs">
@@ -42,57 +41,11 @@ export default function SignUp({onSubmit, loginClick, formState, onChange, signU
           Sign Up
         </Typography>
         <form className={classes.form} noValidate>
-        <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Email Id"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={onChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="User Name"
-            name="username"
-            autoComplete="username"
-            autoFocus
-            onChange={onChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={onChange}
-          />
-          
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            style={{backgroundColor: "#B23850", color: "white"}}
-            onClick={signUp}>
-             Sign Up
-          </Button>
-              <Link 
-              type= "login"
-              variant="body2"
-              onClick={()=> loginClick()}>
-                Have an account? Log In
-              </Link>
+           <TextField variant="outlined" margin="normal" required fullWidth label="User Name" name="username" autoComplete="username" autoFocus onChange={e => setUsername(e.target.value)}/>
+                    <TextField variant="outlined" margin="normal" required fullWidth label="Email Id" name="email" autoComplete="email"  onChange={e => setEmail(e.target.value)} />
+                    <TextField variant="outlined" margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" onChange={e => setPassword(e.target.value)} />
+                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} style={{backgroundColor: "#B23850", color: "white"}} onClick={(e)=>{e.preventDefault();signUp({username:username, password:password,email:email})}}> Sign Up </Button>
+                    <Link  type= "login" variant="body2" onClick= {onLoginClick}> Have an account? Log In </Link>
         </form>
       </div>
 
