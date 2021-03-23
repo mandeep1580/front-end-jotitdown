@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -25,59 +25,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LogIn({onSubmit, signUpClick}) {
+export default function LogIn({onRegisterClicked, signIn}) {
   const classes = useStyles();
+  const [ username,setUsername] = useState("")
+    const [ password,setPassword] = useState("")
 
   return (
+
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Log in
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="User Name"
-            name="username"
-            autoComplete="username"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            style={{backgroundColor: "#B23850", color: "white"}}
-            className={classes.submit}
-            onClick={(e)=> onSubmit()}>
-            Log In
-          </Button>
-
-            <Link  
-            type= "signup"
-            variant="body2" 
-            onClick={()=> signUpClick()}>
-              Don't have an account? Sign Up
-            </Link>
-        </form>
-      </div>
-
-    </Container>
-  );
+<CssBaseline />
+<div className={classes.paper}>
+<Typography component="h1" variant="h5">
+  Sign In
+</Typography>
+<form className={classes.form} noValidate>
+<TextField variant="outlined" margin="normal" required fullWidth label="User Name" name="username" autoComplete="username" autoFocus onChange={e => setUsername(e.target.value)}/>
+<TextField variant="outlined" margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" onChange={e => setPassword(e.target.value)} />
+<Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} style={{backgroundColor: "#B23850", color: "white"}} onClick={(e)=>{e.preventDefault(); signIn({username:username, password:password})}}> Sign In </Button>
+<Link  type= "login" variant="body2" onClick= {onRegisterClicked}> New user? Register </Link>
+</form>
+</div>
+</Container>
+);
 }
