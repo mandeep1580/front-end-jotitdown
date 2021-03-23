@@ -10,7 +10,8 @@ import LinkView from "../LinkView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1,  
+    overflow: "hidden",
     border: "2px solid grey",
   },
   sidebar: {
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     display: "flex",
     flexDirection: "column",
+    position: "fixed",
+    width: "16.66%",
+    marginTop: "64px"
 
     },
   main: {
@@ -28,8 +32,27 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     borderLeft: "2px solid grey",
     padding: "5px 10px",
+    marginTop: "64px",
+    position: "fixed",
+    width: "23%",
+    overflow: "auto"
+
 
   },
+  mainContent: {
+    background: "#ffff",
+    backgroundSize: "cover",
+    height: "100vh",
+    display: "flex",
+    borderLeft: "2px solid grey",
+    padding: "1% 1%",
+    marginTop: "64px",
+    position: "fixed",
+    width: "56%",
+    overflow: "auto"
+
+  },
+ 
   
   
 }));
@@ -129,7 +152,7 @@ return (
         </div>
       </Grid>
       <Grid item xs={7}>
-        <div className={classes.main}>
+        <div className={classes.mainContent}>
         {body}
         </div>
       </Grid>

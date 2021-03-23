@@ -10,7 +10,7 @@ import {
 const useStyles = makeStyles(() => ({
   form: {
     display: "flex",
-    margin:30,
+    margin: "5px",
     justifyContent: "flex-end",
     position: "relative"
   },
@@ -24,6 +24,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexWrap: " wrap",
     flexDirection: "row",
+    justifyContent: " space-between"
   },
   collectionaddIcon:{
     position: "absolute",
@@ -33,7 +34,10 @@ const useStyles = makeStyles(() => ({
   collectionwrap:{
     width: "100%",
     position: "relative",
-    paddingTop: "20px"
+    paddingTop: "0px"
+  },
+  add: {
+    color: "#b23850"
   },
  
 }))

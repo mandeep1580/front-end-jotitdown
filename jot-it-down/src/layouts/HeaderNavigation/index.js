@@ -14,13 +14,17 @@ export default function HeaderNavigation({user, checkUser}) {
     }
 
     const titleClicked = () => {
+    // window.location.href = '/home'
+
         history.push(`/home`)
     }
     
     return (
         <>
+        {/* {console.log(user)} */}
         {user?
     <Header
+    user ={user}
     logOutClicked= {logOutClicked}
     titleClicked = {titleClicked}
       ></Header>:""}

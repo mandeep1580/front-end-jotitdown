@@ -9,14 +9,19 @@ export default function Image({image, onImageDelete, onClick}) {
   const useStyles = makeStyles({
     root: {
       maxWidth: 145,
-      margin:20
+      minWidth: 145,
+      margin:5
     },
     text:{
       color:"#B23850",
-      fontSize:11,
+      fontSize: 8,
     },
     color:{
-      color:"#B23850"
+      color:"#B23850",
+      fontSize: 15,
+      // position: "absolute",
+      // top: 15,
+      // right:2
     },
     header:{
       display: show,

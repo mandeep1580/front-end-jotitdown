@@ -10,16 +10,28 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
     color: "#555",
     lineHeight: "20px",
-    border: "1px solid #ddd",
-    padding: "5px 25px",
-    background: "#E5E3D3",
+    border: "1px solid #eee",
+    padding: "5px 15px",
+    minWidth: "100%"
+    // background: "#E5E3D3",
   },
   header: {
-    textAlign: "left",
+    textAlign: "center",
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     fontWeight: "bold",
-    margin: "20px 0",
+    fontSize: "14px",
+    margin: "0 0",
+    paddingTop: "30px",
+    paddingBottom: "20px",
+    color: "#555"
   },
+  content:{
+    padding: "10px",
+    textAlign: "left",
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    margin: "0 0",
+    fontSize: "11px",
+  }
 }));
 
 export default function NoteDescription({ name, description }) {
@@ -28,7 +40,7 @@ export default function NoteDescription({ name, description }) {
   return (
     <Container component="form" maxWidth="sm" className={classes.desc}>
       <Typography className={classes.header}>{name}</Typography>
-      <p>{description}</p>
+      <Typography className={classes.content}>{description}</Typography>
     </Container>
   );
 }
