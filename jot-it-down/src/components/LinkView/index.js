@@ -3,10 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TextField, IconButton, CardContent } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import Linkk from '../Linkk'
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+
 
 const useStyles = makeStyles(() => ({
   root:{
-width: "100%"
+width: "95%"
   },
   form: {
     display: "flex",
@@ -16,7 +18,6 @@ width: "100%"
   },
   textField: {
     width: "100%",
-    backgroundColor:"#E7E3D4",
     color:"#B23850", 
   },
   icon:{
@@ -25,7 +26,10 @@ width: "100%"
   linkss: {
     width: "100%",
     overflowY: "scroll"
-  }
+  },
+  add: {
+    color: "#b23850"
+  },
 }))
 
 export default function LinkView({onAddLink, links, onLinkDelete}) {
@@ -52,7 +56,9 @@ export default function LinkView({onAddLink, links, onLinkDelete}) {
     ></TextField>
     <div><IconButton 
     type="submit" 
-    ><AddIcon className={classes.icon} /></IconButton></div>
+    ><AddCircleIcon
+          className={classes.add}
+        ></AddCircleIcon> </IconButton></div>
     </form>
     {!!links?
       <CardContent className={classes.linkss}>   

@@ -12,8 +12,17 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "20px",
     border: "1px solid #eee",
     padding: "5px 15px",
-    minWidth: "100%"
+    
+
+
     // background: "#E5E3D3",
+  },
+  descwrap: {
+    width: '500px',
+    minHeight: '500px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   header: {
     textAlign: "center",
@@ -38,9 +47,11 @@ export default function NoteDescription({ name, description }) {
   const classes = useStyles();
 
   return (
-    <Container component="form" maxWidth="sm" className={classes.desc}>
+    <Container component="form" maxWidth="sm" className={classes.descwrap}>
+      <div className={classes.desc}>
       <Typography className={classes.header}>{name}</Typography>
       <Typography className={classes.content}>{description}</Typography>
+      </div>
     </Container>
   );
 }

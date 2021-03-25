@@ -9,48 +9,33 @@ import ListView from "../ListView";
 import LinkView from "../LinkView";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,  
-    overflow: "hidden",
-    border: "2px solid grey",
+  root: { 
+    display: 'flex',
+    flexDirection: 'row'
   },
   sidebar: {
-    background: "#C4DBF6",
-    backgroundSize: "cover",
+    background: "#eee",
     height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    position: "fixed",
-    width: "16.66%",
-    marginTop: "64px"
+    border: 'none',
+    width: '100%',
+    paddingTop: '100px'
 
     },
   main: {
-    background: "#ffff",
-    backgroundSize: "cover",
+    background: "#fff",
     height: "100vh",
-    display: "flex",
-    borderLeft: "2px solid grey",
-    padding: "5px 10px",
-    marginTop: "64px",
-    position: "fixed",
-    width: "23%",
-    overflow: "auto"
-
+    borderLeft: "1px solid #bbb",
+    overflow: "auto",
+    width: '100%',
+    padding: '80px 15px 15px 15px'
 
   },
   mainContent: {
     background: "#ffff",
-    backgroundSize: "cover",
     height: "100vh",
-    display: "flex",
-    borderLeft: "2px solid grey",
-    padding: "1% 1%",
-    marginTop: "64px",
-    position: "fixed",
-    width: "56%",
-    overflow: "auto"
-
+    borderLeft: "1px solid #bbb",
+    overflow: "auto",
+    width: '100%',
   },
  
   

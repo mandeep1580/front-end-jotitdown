@@ -5,52 +5,45 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import logo from "./logo.png";
+import SettingsPowerIcon from '@material-ui/icons/SettingsPower';
+import PanToolIcon from '@material-ui/icons/PanTool';
 
 
 const useStyles = makeStyles({
   root: {
-    flexGrow: 1,
     width: "100%",
     position:"fixed",
     zIndex:"10",
-    margin:"0"
+    margin:"0",
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    height: '64px',
+    alignItems: 'center'
 
-  },
-  title: {
-    flexGrow: 1,
   },
   applogo: {
-    width: "60px",
-    paddingTop: "8px"
+    padding: '10px',
+    width: '100px'
   },
-  logOut:{
-    fontSize: "10px",
-    padding: "2px"
-  },
-  username:{
-    fontSize: "12px"
+  headertext: {
+    fontSize: '13px', 
+    fontWeight: 'bolder',
+    textTransform: 'uppercase'
   }
-
 });
 
 export default function Header({user, titleClicked, logOutClicked}) {
   const classes = useStyles();
 console.log(user)
   return (
-    <div className={classes.root}>
-      <AppBar position="static" style={{backgroundColor: "#B23850"}}>
-        <Toolbar >
-          <Typography variant="h6" className={classes.title} onClick={titleClicked}>
-           
-          <img src={logo} className={classes.applogo} alt="logo" />
-          </Typography>
-          <p className={classes.username}>
+    <AppBar className={classes.root} style={{backgroundColor: "#B23850"}}>
+      <img src={logo} onClick={titleClicked} className={classes.applogo} alt="logo" />
+        <span className={classes.headertext}>
             
-        {user}
-          </p>
-          <Button onClick={logOutClicked} color="inherit" className={classes.logOut}>Log Out</Button>
-        </Toolbar>
+        Good Morning! {user} 
+              </span>
+          <Button onClick={logOutClicked} color="inherit" className={classes.headertext}><SettingsPowerIcon /> &nbsp;Log out</Button>
       </AppBar>
-    </div>
   );
 }

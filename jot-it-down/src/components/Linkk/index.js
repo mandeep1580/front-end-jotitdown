@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
   link: {
     flex: '1 0 auto',
-    width: 151,
+    width: "140px",
   },
   cover: {
     width: 40,
