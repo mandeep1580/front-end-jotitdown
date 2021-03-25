@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
   collectionwrap:{
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     background: '#fff',
     width: '100%',

@@ -13,7 +13,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-
+    background: '#fff',
+    padding: '15px 25px',
+    borderRadius: '10px',
+    boxShadow: '0 0 10px rgba(0,0,0,0.06)'
   },
 
   form: {
@@ -21,8 +24,30 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1.2, 0, 1.6, 0),
   },
+  title: {
+    color: "#B23950"
+    // background: "#eee"
+  },
+  input: {
+    marginTop: '0',
+  },
+  input: {
+    "& input": {
+      background: "transparent",
+      padding: "15px!important",
+      maxHeight: '40px!important',
+      borderRadius: '0px!important',
+      fontSize: '14px',
+      margin: 0,
+    }
+  },
+  input: {
+    "& label": {
+      transform: 'translate(14px, 22px) scale(0.9)'
+    }
+  }
 }));
 
 export default function CodeConfermation({ confirmSignUp }) {
@@ -34,7 +59,7 @@ export default function CodeConfermation({ confirmSignUp }) {
     <Container component="main" maxWidth="xs">
 <CssBaseline />
 <div className={classes.paper}>
-<Typography component="h1" variant="h5">
+<Typography component="h1" variant="h5" className={classes.title}>
   Confirm Sign Up
 </Typography>
 <form className={classes.form} noValidate>

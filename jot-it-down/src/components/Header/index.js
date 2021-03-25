@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import logo from "./logo.png";
 import SettingsPowerIcon from '@material-ui/icons/SettingsPower';
 import PanToolIcon from '@material-ui/icons/PanTool';
+import getCurrentDateTime from '../../util/getCurrentDateTime';
 
 
 const useStyles = makeStyles({
@@ -33,6 +34,16 @@ const useStyles = makeStyles({
   }
 });
 
+
+  const hours = new Date().getHours();
+  let wishes;
+  if (hours < 12) { wishes="Good Morning!" }
+  else if (hours >= 12 && hours< 16) { wishes="Good Afternoon!" }
+  else if (hours >= 16 && hours< 20) { wishes="Good Evening!" }
+  else { wishes="Good Night!" }
+
+
+
 export default function Header({user, titleClicked, logOutClicked}) {
   const classes = useStyles();
 console.log(user)
@@ -41,7 +52,7 @@ console.log(user)
       <img src={logo} onClick={titleClicked} className={classes.applogo} alt="logo" />
         <span className={classes.headertext}>
             
-        Good Morning! {user} 
+        {wishes} {user} 
               </span>
           <Button onClick={logOutClicked} color="inherit" className={classes.headertext}><SettingsPowerIcon /> &nbsp;Log out</Button>
       </AppBar>

@@ -66,7 +66,7 @@ export default function SignUp({ signUp, onLoginClick}) {
           Sign Up
         </Typography>
         <form className={classes.form} noValidate>
-           <TextField className={classes.input} variant="outlined" margin="normal" required fullWidth label="username" name="username" autoComplete="username" autoFocus onChange={e => setUsername(e.target.value)}/>
+           <TextField className={classes.input} variant="outlined" margin="normal" required fullWidth label="Username" name="username" autoComplete="username" autoFocus onChange={e => setUsername(e.target.value)}/>
                     <TextField className={classes.input} variant="outlined" margin="normal" required fullWidth label="Email Id" name="email" autoComplete="email"  onChange={e => setEmail(e.target.value)} />
                     <TextField className={classes.input} variant="outlined" margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" onChange={e => setPassword(e.target.value)} />
                     <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} style={{backgroundColor: "#B23850", color: "white"}} onClick={(e)=>{e.preventDefault();signUp({username:username, password:password,email:email})}}> Sign Up </Button>

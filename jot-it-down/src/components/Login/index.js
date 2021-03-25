@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    background: '#fff',
+    padding: '15px 25px',
+    borderRadius: '10px',
+    boxShadow: '0 0 10px rgba(0,0,0,0.06)'
   },
 
   form: {
@@ -21,8 +25,30 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1.2, 0, 1.6, 0),
   },
+  title: {
+    color: "#B23950"
+    // background: "#eee"
+  },
+  input: {
+    marginTop: '0',
+  },
+  input: {
+    "& input": {
+      background: "transparent",
+      padding: "15px!important",
+      maxHeight: '40px!important',
+      borderRadius: '0px!important',
+      fontSize: '14px',
+      margin: 0,
+    }
+  },
+  input: {
+    "& label": {
+      transform: 'translate(14px, 22px) scale(0.9)'
+    }
+  }
 }));
 
 export default function LogIn({onRegisterClicked, signIn}) {
@@ -35,14 +61,14 @@ export default function LogIn({onRegisterClicked, signIn}) {
     <Container component="main" maxWidth="xs">
 <CssBaseline />
 <div className={classes.paper}>
-<Typography component="h1" variant="h5">
+<Typography component="h1" variant="h5" className={classes.title}>
   Sign In
 </Typography>
 <form className={classes.form} noValidate>
 <TextField variant="outlined" margin="normal" required fullWidth label="User Name" name="username" autoComplete="username" autoFocus onChange={e => setUsername(e.target.value)}/>
 <TextField variant="outlined" margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" onChange={e => setPassword(e.target.value)} />
 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} style={{backgroundColor: "#B23850", color: "white"}} onClick={(e)=>{e.preventDefault(); signIn({username:username, password:password})}}> Sign In </Button>
-<Link  type= "login" variant="body2" onClick= {onRegisterClicked}> New user? Register </Link>
+<Link  type= "login" variant="body2" onClick= {onRegisterClicked} style={{color: "#333", textAlign: 'center', width: '100%', display: 'block'}}> New user? Register </Link>
 </form>
 </div>
 </Container>
