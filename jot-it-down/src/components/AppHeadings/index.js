@@ -12,10 +12,22 @@ const useStyles = makeStyles({
     maxWidth: "100%",
     display: "flex",
     flexDirection: "row",
-    background: "#C4DBF6",
+    color: '#fff',
+    background: "transparent",
     margin: "1px 0",
     color: "#B23850",
     "&:hover": {
+      background: "#B23850",
+      color: "#EEE",
+      "& $cardTime": {
+        fontSize: "12px",
+        color: "#ccc",
+      },
+      "& $buttonIcon": {
+        color: "#ddd",
+      },
+    },
+    "&:active": {
       background: "#B23850",
       color: "#EEE",
       "& $cardTime": {
@@ -30,16 +42,27 @@ const useStyles = makeStyles({
   button: {
     padding: 0,
   },
-
+  cardText: {
+  },
+  cardIcon: {
+  },
   cardTitle: {
-    margin: 0,
-    fontSize: "16px",
+    fontSize: "15px",
     fontWeight: "bold",
+    alignItems: "center",
+    color: '#fff',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'ceter',
+    flexDirection: 'column',
+    "& svg": {
+      fontSize: "35px",
+    },
   },
 });
 
 export default function AppHeadings(
-  {name, onClick}
+  {icon , name, onClick}
 ) {
   const classes = useStyles();
   return (
@@ -52,7 +75,9 @@ export default function AppHeadings(
             component="h3"
             className={classes.cardTitle}
           >
-            {name}
+            <span className={classes.cardIcon}>{icon}</span>
+            <span className={classes.cardText}>{name}</span>
+             
 
           </Typography>
         </CardContent>

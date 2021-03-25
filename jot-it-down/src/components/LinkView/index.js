@@ -8,13 +8,21 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 const useStyles = makeStyles(() => ({
   root:{
-width: "95%"
+    display: 'flex',
+    flexDirection: 'column',
+    background: '#fff',
+    width: '100%',
+    padding: '30px 20px 100px',
+    boxShadow: '0 0 5px rgba(0,0,0,0.06)',
+    minHeight: 'calc(100vh - 130px)',
+    boxSizing: 'border-box'
   },
   form: {
-    display: "flex",
-    width: "100%",
-    height: "auto",
-    margin: "2%"
+    display: 'flex',
+    alignItems: 'center'
+  },
+  tasks: {
+
   },
   textField: {
     width: "100%",
@@ -24,8 +32,8 @@ width: "95%"
     color:"#B23850"
   },
   linkss: {
-    width: "100%",
-    overflowY: "scroll"
+    padding: 0,
+    marginTop: '20px'
   },
   add: {
     color: "#b23850"
@@ -60,6 +68,7 @@ export default function LinkView({onAddLink, links, onLinkDelete}) {
           className={classes.add}
         ></AddCircleIcon> </IconButton></div>
     </form>
+    <div className="tasks">
     {!!links?
       <CardContent className={classes.linkss}>   
       {links.map(link => (
@@ -69,6 +78,8 @@ export default function LinkView({onAddLink, links, onLinkDelete}) {
       onLinkDelete={onLinkDelete}></Linkk>
       ))}
       </CardContent>:""}
+      </div>
       </ div>
       )
     }
+    

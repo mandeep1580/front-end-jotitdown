@@ -5,34 +5,37 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
   root: {
+    color:"#333",
+    backgroundColor:"#eee",
     display: 'flex',
-    flexDirection: 'row',
-    minWidth: 475,
-    minHeight: 50,
-    color:"#B23850",
-    backgroundColor:"#E7E3D4"
+    justifyContent: 'space-between'
   },
   title: {
     fontSize: 14,
-    color:"#B23850",
-    alignItems: "right"
   },
   link: {
-    flex: '1 0 auto',
-    width: "140px",
+    fontSize: 14,
   },
   cover: {
     width: 40,
   },
   color:{
-    color:"#B23850"
+    fontSize: '18px'
+  },
+  cover: {
+    padding: 0
+  },
+  timeStamp: {
+    fontSize: '11px',
+    marginTop: '15px'
   }
 });
 
 export default function Linkk({link, onLinkDelete}) {
   const classes = useStyles();return (<>
   <Typography className={classes.title} color="textSecondary" align="right">
-    {link.createdTime}
+    <div className={classes.timeStamp}>{link.createdTime}</div>
+    
     </Typography> 
     <Card className={classes.root}>
       <CardContent className={classes.link}>

@@ -4,7 +4,8 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Image from '../Image'
 import {
   CardContent,
-  Input
+  Input,
+  Typography
 } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
@@ -21,23 +22,41 @@ const useStyles = makeStyles(() => ({
     right: "10px"
   },
   images:{
-    display: "flex",
-    flexWrap: " wrap",
-    flexDirection: "row",
-    justifyContent: " space-between"
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    boxSizing: 'border-box'
   },
   collectionaddIcon:{
     position: "absolute",
-    top: 0,
-    right: 0
+    top: 20,
+    right: 20
   },
   collectionwrap:{
-    width: "100%",
-    position: "relative",
-    paddingTop: "0px"
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    background: '#fff',
+    width: '100%',
+    padding: '10px 50px 100px',
+    boxSizing: 'border-box',
+    boxShadow: '0 0 5px rgba(0,0,0,0.06)',
+    minHeight: 'calc(100vh - 130px)',
+  position: 'relative'
   },
   add: {
     color: "#b23850"
+  },
+  header: {
+    textAlign: "center",
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontWeight: "bolder",
+    fontSize: "20px",
+    margin: "0 0",
+    paddingTop: "30px",
+    paddingBottom: "20px",
+    color: "#555"
   },
  
 }))
@@ -55,21 +74,22 @@ export default function ImageView({ onImageDelete, images, onClick,  onImageInse
   return (
   
   <div  className={classes.collectionwrap}>
+    <Typography className={classes.header}>Album Name</Typography>
+    
    <div className={classes.collectionaddIcon}>
         <AddCircleIcon
           className={classes.add}
           onClick ={() => onImageInsert({imageUrl: imageUrl })}
         ></AddCircleIcon> 
-        {/* <Button onClick ={imageInsert }>Add image </Button> */}
       </div>
-      <Input
+      {/* <Input
                   id="image"
                   // className={}
                   defaultValue=""
                   value={imageUrl}
                   placeholder="Enter Image Url"
                   onChange={(e) => setImageUrl(e.target.value)}
-                />
+                /> */}
     
       {!!images? 
         <CardContent className={classes.images}>
@@ -85,6 +105,7 @@ export default function ImageView({ onImageDelete, images, onClick,  onImageInse
         </CardContent>
         :""}
         </div>
+       
       
         )
       }

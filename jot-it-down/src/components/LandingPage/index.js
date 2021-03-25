@@ -7,6 +7,10 @@ import NoteDescription from "../NoteDescription"
 import ImageView from "../../components/ImageView"
 import ListView from "../ListView";
 import LinkView from "../LinkView";
+import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotes';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import LinkIcon from '@material-ui/icons/Link';
+import ViewListIcon from '@material-ui/icons/ViewList';
 
 const useStyles = makeStyles((theme) => ({
   root: { 
@@ -14,28 +18,27 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row'
   },
   sidebar: {
-    background: "#eee",
+    background: "#484848",
     height: "100vh",
     border: 'none',
     width: '100%',
-    paddingTop: '100px'
-
+    paddingTop: '100px',
     },
   main: {
     background: "#fff",
     height: "100vh",
     borderLeft: "1px solid #bbb",
     overflow: "auto",
-    width: '100%',
-    padding: '80px 15px 15px 15px'
+    padding: '80px 15px 50px 15px'
 
   },
   mainContent: {
-    background: "#ffff",
+    background: "#eee",
     height: "100vh",
     borderLeft: "1px solid #bbb",
     overflow: "auto",
-    width: '100%',
+    padding: '100px 20px 50px 20px',
+
   },
  
   
@@ -114,12 +117,12 @@ return (
 <div>
 
     <Grid container className={classes.root}> 
-      <Grid item xs={2}>
+      <Grid item xs={1}>
         <div className={classes.sidebar}>
-        <AppHeadings name="Notes" onClick={onClickNotes} ></AppHeadings>
-            <AppHeadings name= "Images" onClick={onClickImages}></AppHeadings>
-            <AppHeadings name= "Links" onClick={onClickLinks}></AppHeadings>
-            <AppHeadings name= "ToDos" onClick={onClickToDos}></AppHeadings>
+        <AppHeadings name="Notes" onClick={onClickNotes} icon={<SpeakerNotesIcon />}></AppHeadings>
+            <AppHeadings name= "Images" onClick={onClickImages} icon={<PhotoLibraryIcon />}></AppHeadings>
+            <AppHeadings name= "Links" onClick={onClickLinks} icon={<LinkIcon />}></AppHeadings>
+            <AppHeadings name= "ToDos" onClick={onClickToDos} icon={<ViewListIcon />}></AppHeadings>
         </div>
       </Grid>
       <Grid item xs={3}>
@@ -136,7 +139,7 @@ return (
         </NewCollection>
         </div>
       </Grid>
-      <Grid item xs={7}>
+      <Grid item xs={8}>
         <div className={classes.mainContent}>
         {body}
         </div>

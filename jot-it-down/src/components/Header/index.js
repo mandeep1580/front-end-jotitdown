@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
   applogo: {
     padding: '10px',
-    width: '100px'
+    width: '80px'
   },
   headertext: {
     fontSize: '13px', 
