@@ -33,29 +33,30 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
-    background: "#E6E3D3",
-    color: "#B23850",
+    background: "#eee",
+    border: '1px solid #dedede',
+    color: "#333",
     margin: "10px 0",
-    boxShadow: "5px 5px 2px rgba(0,0,0,0.25)",
+    boxShadow: "2px 2px 2px rgba(0,0,0,0.05)",
     "&:hover": {
-      background: "#B23850",
-      color: "#EEE",
+      background: "#ededed",
+      color: "#444",
       "& $cardTime": {
-        fontSize: "12px",
-        color: "#ccc",
+        fontSize: "11px",
+        color: "#444",
       },
       "& $buttonIcon": {
-        color: "#ddd",
+        color: "#444",
       },
     },
   },
  
   buttonIcon: {
-    fontSize: "20px",
+    fontSize: "17px",
     padding: "2px",
-    color: "#B23850",
+    color: "#444",
     "&:hover": {
-      color: "#f00",
+      color: "#777",
     },
   },
   cardTitle: {
@@ -63,9 +64,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "16px",
     fontWeight: "bold",
   },
+  cardAction: {
+background: '#ddd'
+  },
   cardTime: {
-    fontSize: "12px",
-    color: "#B23850",
+    fontSize: "11px",
+    color: "#888",
   },
   add: {
     position: "absolute",

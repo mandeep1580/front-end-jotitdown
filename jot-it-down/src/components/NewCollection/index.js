@@ -123,7 +123,7 @@ export default function NewCollection({
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
- 
+ console.log(!!type)
   let body;
   const handleOpen = () => {
     setOpen(true);
@@ -222,10 +222,14 @@ export default function NewCollection({
   return (
     <div className={classes.collectionwrap}>
       <div className={classes.collectionaddIcon}>
-        <AddCircleIcon
+        {
+          (!!type) ? 
+          <AddCircleIcon
           className={classes.add}
           onClick={handleOpen}
-        ></AddCircleIcon> 
+        ></AddCircleIcon>  :
+        ""
+        }
       </div>
       {!data
         ? ""

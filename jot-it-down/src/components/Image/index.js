@@ -8,20 +8,29 @@ export default function Image({image, onImageDelete, onClick}) {
   const [opacity, setOpacity] = useState("1")
   const useStyles = makeStyles({
     root: {
-      maxWidth: 145,
-      margin:20
+      flexBasis: '20%',
+      boxShadow: 'none',
+      border: '1px solid #ddd',
+      padding: '5px',
+      boxSizing: 'border-box',
+      margin: '10px 0'
     },
     text:{
-      color:"#B23850",
-      fontSize:11,
+      color:"#111",
+      fontSize: 10,
+      padding: '10px'
     },
     color:{
-      color:"#B23850"
+      color:"#B23850",
+      fontSize: 15,
+      // position: "absolute",
+      // top: 15,
+      // right:2
     },
     header:{
       display: show,
-      paddingTop:0,
-      paddingLeft:110,
+      top: '-5px',
+      right: '-5px',
       position:"absolute",
       zIndex:'10'    
     },

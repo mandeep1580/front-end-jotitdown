@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   main: {
-    background: "#C4DBF6",
+    background: "#eee",
     backgroundSize: "cover",
     height: "100vh",
     display: "flex",

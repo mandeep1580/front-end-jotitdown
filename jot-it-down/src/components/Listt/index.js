@@ -19,33 +19,37 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    color:"#333",
+    backgroundColor:"#eee",
     display: 'flex',
-    flexDirection: 'row',
-    minWidth: 450,
-    minHeight: 50,
-    color:"#B23850",
-    borderBottom: "1px", 
-    margin: 20
+    justifyContent: 'space-between',
+    padding: '0',
+    boxSizing: 'border-box',
+    marginBottom: '15px'
   },
   title: {
     fontSize: 14,
-    color:"#B23850",
-    alignItems: "right"
   },
-  list: {
-    fontSize: 20,
-    color:"#B23850",
-    alignItems: "right"
-  },
-  container: {
-    flex: '1 0 auto',
-    width: 151,
+  link: {
+    fontSize: 14,
+    textAlign: 'left'
   },
   cover: {
-    width: 60,
+    width: 40,
   },
   color:{
-    color:"#B23850"
+    fontSize: '18px'
+  },
+  cover: {
+    padding: 0
+  },
+  list: {
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '5px'
   },
   paper: {
     position: "absolute",
@@ -104,6 +108,10 @@ const useStyles = makeStyles((theme) => ({
       color: "#fff",
       background: "#B23850",
     },
+    checkbox:{
+      padding: 0,
+      width: '20px',
+    }
   },
 }));
 
@@ -166,13 +174,15 @@ export default function Listt({list, onListDelete, onChecked, onListEdit}) {
   return (
   <>
   <Card className={classes.root}>
+    
+    <CardContent className={classes.container}>
     <Checkbox
     checked={list.completed}
+    className={classes.checkbox}
     onChange={handleChange}
     inputProps={{ 'aria-label': 'primary checkbox' }}
     />
-    <CardContent className={classes.container}>
-      <Typography className={classes.list} color="textSecondary">
+      <Typography className={classes.link} color="textSecondary">
         {list.toDoItem}
         </Typography> 
         </CardContent>

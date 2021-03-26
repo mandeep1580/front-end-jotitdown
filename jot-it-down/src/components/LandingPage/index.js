@@ -7,29 +7,40 @@ import NoteDescription from "../NoteDescription"
 import ImageView from "../../components/ImageView"
 import ListView from "../ListView";
 import LinkView from "../LinkView";
+import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotes';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import LinkIcon from '@material-ui/icons/Link';
+import ViewListIcon from '@material-ui/icons/ViewList';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    border: "2px solid grey",
+  root: { 
+    display: 'flex',
+    flexDirection: 'row'
   },
   sidebar: {
-    background: "#C4DBF6",
-    backgroundSize: "cover",
+    background: "#484848",
     height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-
+    border: 'none',
+    width: '100%',
+    paddingTop: '100px',
     },
   main: {
-    background: "#ffff",
-    backgroundSize: "cover",
+    background: "#fff",
     height: "100vh",
-    display: "flex",
-    borderLeft: "2px solid grey",
-    padding: "5px 10px",
+    borderLeft: "1px solid #bbb",
+    overflow: "auto",
+    padding: '80px 15px 50px 15px'
 
   },
+  mainContent: {
+    background: "#eee",
+    height: "100vh",
+    borderLeft: "1px solid #bbb",
+    overflow: "auto",
+    padding: '100px 20px 50px 20px',
+
+  },
+ 
   
   
 }));
@@ -106,12 +117,12 @@ return (
 <div>
 
     <Grid container className={classes.root}> 
-      <Grid item xs={2}>
+      <Grid item xs={1}>
         <div className={classes.sidebar}>
-        <AppHeadings name="Notes" onClick={onClickNotes} ></AppHeadings>
-            <AppHeadings name= "Images" onClick={onClickImages}></AppHeadings>
-            <AppHeadings name= "Links" onClick={onClickLinks}></AppHeadings>
-            <AppHeadings name= "ToDos" onClick={onClickToDos}></AppHeadings>
+        <AppHeadings name="Notes" onClick={onClickNotes} icon={<SpeakerNotesIcon />}></AppHeadings>
+            <AppHeadings name= "Images" onClick={onClickImages} icon={<PhotoLibraryIcon />}></AppHeadings>
+            <AppHeadings name= "Links" onClick={onClickLinks} icon={<LinkIcon />}></AppHeadings>
+            <AppHeadings name= "ToDos" onClick={onClickToDos} icon={<ViewListIcon />}></AppHeadings>
         </div>
       </Grid>
       <Grid item xs={3}>
@@ -128,8 +139,8 @@ return (
         </NewCollection>
         </div>
       </Grid>
-      <Grid item xs={7}>
-        <div className={classes.main}>
+      <Grid item xs={8}>
+        <div className={classes.mainContent}>
         {body}
         </div>
       </Grid>

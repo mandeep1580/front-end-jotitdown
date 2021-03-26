@@ -1,30 +1,38 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, IconButton, CardContent } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Listt from '../Listt'
 
 const useStyles = makeStyles((theme) => ({
   root:{
-    width: "100%"
+    display: 'flex',
+    flexDirection: 'column',
+    background: '#fff',
+    width: '100%',
+    padding: '30px 20px 100px',
+    boxShadow: '0 0 5px rgba(0,0,0,0.06)',
+    minHeight: 'calc(100vh - 130px)',
+    boxSizing: 'border-box'
       },
   form: {
-    display: "flex",
-    margin:"2%"
+    display: 'flex',
+    alignItems: 'center'
   },
   textField: {
-    flexGrow: 2,
-    backgroundColor:"#E7E3D4",
+    width: "100%",
     color:"#B23850", 
-  },
-  buttonWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
   },
   icon:{
     color:"#B23850"
-  }
+  },
+  add: {
+    color: "#b23850"
+  },
+  links: {
+    padding: 0,
+    marginTop: '20px'
+  },
 }))
 
 export default function ListView({onAddToDo, lists, onListDelete, onChecked, onListEdit}) {
@@ -49,8 +57,14 @@ export default function ListView({onAddToDo, lists, onListDelete, onChecked, onL
     ></TextField>
     <div className={classes.buttonWrapper}><IconButton 
     type="submit" 
-    ><AddIcon className={classes.icon} /></IconButton></div>
+    >
+      <AddCircleIcon
+          className={classes.add}
+        ></AddCircleIcon>
+      
+      </IconButton></div>
     </form>
+    <div className="tasks">
     {!!lists?
       <CardContent className={classes.links}>   
       {lists.map(list => (
@@ -62,6 +76,7 @@ export default function ListView({onAddToDo, lists, onListDelete, onChecked, onL
       onListEdit = {onListEdit}></Listt>
       ))}
       </CardContent>:""}
+      </div>
       </ div>
       )
     }
